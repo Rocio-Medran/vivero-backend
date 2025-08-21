@@ -1,4 +1,3 @@
-// src/config/env.ts
 import 'dotenv/config';
 
 const required = ['PORT','DB_HOST','DB_PORT','DB_NAME','DB_USER','DB_PASSWORD'] as const;

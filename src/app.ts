@@ -1,4 +1,3 @@
-// src/app.ts
 import 'reflect-metadata';                 // SIEMPRE primero
 import express from 'express';
 import cors from 'cors';

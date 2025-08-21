@@ -1,7 +1,7 @@
-// src/server.ts
 import { createApp } from './app';
 import { AppDataSource } from './data-source';
 import { env } from './config/env';
+import healthRoutes from "./routes/health.routes";
 import productRoutes from "./routes/productRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
 
@@ -12,10 +12,11 @@ import categoryRoutes from "./routes/categoryRoutes";
 
     const app = createApp();
 
+    app.use("/api", healthRoutes);
     app.use("/api/products", productRoutes);
     app.use("/api/categories", categoryRoutes);
 
-    app.listen(env.port, () => {
+    app.listen(env.port, '0.0.0.0', () => {
       console.log(`🚀 Server running on http://localhost:${env.port}`);
     });
   } catch (err) {

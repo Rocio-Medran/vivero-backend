@@ -46,7 +46,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
 
-    "experimentalDecorators": true,      // << necesario p/ TypeORM
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": true 
   },
   "include": ["src"]

@@ -1,4 +1,3 @@
-// src/data-source.ts
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { env } from './config/env';
@@ -13,7 +12,7 @@ export const AppDataSource = new DataSource({
   username: env.db.user,
   password: env.db.password,
   database: env.db.name,
-  entities: [User, Product, Category],          // agregá acá tus otras entidades
-  synchronize: true,         // SOLO en dev. En prod: false + migraciones
+  entities: [User, Product, Category],
+  synchronize: true,
   logging: false
 });
