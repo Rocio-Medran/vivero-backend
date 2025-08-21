@@ -2,6 +2,8 @@
 import { createApp } from './app';
 import { AppDataSource } from './data-source';
 import { env } from './config/env';
+import productRoutes from "./routes/productRoutes";
+import categoryRoutes from "./routes/categoryRoutes";
 
 (async () => {
   try {
@@ -9,6 +11,10 @@ import { env } from './config/env';
     console.log('📦 DB connected');
 
     const app = createApp();
+
+    app.use("/api/products", productRoutes);
+    app.use("/api/categories", categoryRoutes);
+
     app.listen(env.port, () => {
       console.log(`🚀 Server running on http://localhost:${env.port}`);
     });
