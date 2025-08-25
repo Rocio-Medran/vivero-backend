@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { AppDataSource } from '../data-source';
+import { AppDataSource } from '../../config/data-source';
 
 const router = Router();
 

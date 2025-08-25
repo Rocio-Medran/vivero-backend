@@ -7,22 +7,15 @@ export class Product {
   id!: number;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column("text", { nullable: true })
-  description: string;
+  description?: string;
 
   @Column("decimal", { precision: 10, scale: 2, default: 0 })
-  price: number;
+  price?: number;
 
   @ManyToOne(() => Category, (category) => category.products, { eager: true })
-  category: Category;
+  category!: Category;
   
-
-  constructor(name: string, description: string, price: number, category: Category) {
-    this.name = name;
-    this.description = description;
-    this.price = price;
-    this.category = category;
-  }
 }

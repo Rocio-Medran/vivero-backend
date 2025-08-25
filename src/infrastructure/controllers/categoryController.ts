@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../data-source";
-import { Category } from "../entities/Category";
+import { AppDataSource } from "../../config/data-source";
+import { Category } from "../../entities/Category";
 
 const categoryRepo = AppDataSource.getRepository(Category);
 

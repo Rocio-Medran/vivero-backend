@@ -29,14 +29,14 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
       PORT: ${PORT}
-    command: ["npm", "start"] 
+    command: ["npm", "start"]
 
   backend-dev:
     build: .
     container_name: vivero_backend_dev
     restart: always
     ports:
-      - "4001:4000" 
+      - "4001:4000"
     depends_on:
       - db
     environment:
@@ -47,9 +47,9 @@ services:
       DB_NAME: ${DB_NAME}
       PORT: 4000
     volumes:
-      - .:/app 
+      - .:/app
       - /app/node_modules
-    command: ["npm", "run", "dev"] 
+    command: ["npm", "run", "dev"]
 
 volumes:
   db_data:

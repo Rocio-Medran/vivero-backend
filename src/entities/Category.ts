@@ -7,13 +7,9 @@ export class Category {
   id!: number;
 
   @Column({ unique: true })
-  name: string;
+  name!: string;
 
   @OneToMany(() => Product, (product) => product.category)
-  products: Product[];
+  products?: Product[];
 
-  constructor(name: string, products: Product[]) {
-    this.name = name;
-    this.products = products;
-  }
 }

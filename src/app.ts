@@ -1,7 +1,7 @@
 import 'reflect-metadata';                 // SIEMPRE primero
 import express from 'express';
 import cors from 'cors';
-import healthRoutes from './routes/health.routes';
+import healthRoutes from './infrastructure/routes/health.routes';
 
 export const createApp = () => {
   const app = express();

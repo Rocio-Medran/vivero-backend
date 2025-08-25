@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-const required = ['PORT','DB_HOST','DB_PORT','DB_NAME','DB_USER','DB_PASSWORD'] as const;
+const required = ['PORT', 'DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD'] as const;
 for (const key of required) {
   if (!process.env[key]) {
     throw new Error(`Missing env var: ${key}`);
