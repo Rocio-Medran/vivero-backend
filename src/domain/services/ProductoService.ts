@@ -1,4 +1,5 @@
 import { CreateProductoDTO, UpProductoDTO } from "../../app/dtos/producto.dto";
+import { toProductoDTO, toProductoDTOs } from "../../app/mappings/producto.mapping";
 import { Producto } from "../entities/Producto";
 import { IProductoRepository } from "../repositories/interfaces/IProductoRepository";
 import { IProductoService } from "./interfaces/IProductoService";
@@ -6,17 +7,20 @@ import { IProductoService } from "./interfaces/IProductoService";
 export class ProductoService implements IProductoService {
     constructor(private readonly repo: IProductoRepository) {}
 
-    getAllProductos() {
-        return this.repo.getAll();
+    async getAllProductos() {
+        const productos = await this.repo.getAll();
+        return toProductoDTOs(productos);
     }
 
-    getProductoById(id: number) {
-        return this.repo.getById(id);
+    async getProductoById(id: number) {
+        const producto = await this.repo.getById(id);
+        return producto ? toProductoDTO(producto) : null;
     }
 
     async createProductoAsync(dto: CreateProductoDTO) {
         const producto = Object.assign(new Producto(), dto);
-        return this.repo.add(producto);
+        await this.repo.add(producto);
+        return toProductoDTO(producto);
     }
 
     async updateProductoAsync(id: number, dto: UpProductoDTO) {

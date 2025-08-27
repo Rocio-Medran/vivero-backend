@@ -3,7 +3,7 @@ import { IProductoService } from "../../domain/services/interfaces/IProductoServ
 import { Request, Response } from "express";
 import { CreateProductoDTO, UpProductoDTO } from "../../app/dtos/producto.dto";
 
-export class ProductoController {
+export class ProductosController {
     constructor(private readonly service: IProductoService) {}
 
     getAll = async (_req: Request, res:Response) => {

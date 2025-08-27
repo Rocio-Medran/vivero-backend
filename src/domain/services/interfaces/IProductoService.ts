@@ -1,10 +1,9 @@
-import { CreateProductoDTO, UpProductoDTO } from "../../../app/dtos/producto.dto";
-import { Producto } from "../../entities/Producto";
+import { CreateProductoDTO, ProductoDTO, UpProductoDTO } from "../../../app/dtos/producto.dto";
 
 export interface IProductoService {
-    getAllProductos(): Promise< Producto[] >;
-    getProductoById(id: number): Promise< Producto | null >;
-    createProductoAsync(dto: CreateProductoDTO): Promise< Producto >;
+    getAllProductos(): Promise< ProductoDTO[] >;
+    getProductoById(id: number): Promise< ProductoDTO | null >;
+    createProductoAsync(dto: CreateProductoDTO): Promise< ProductoDTO >;
     updateProductoAsync(id: number, dto: UpProductoDTO): Promise< boolean >;
     removeProductoAsync(id: number): Promise< boolean >;
 }
