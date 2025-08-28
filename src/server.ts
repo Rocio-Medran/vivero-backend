@@ -2,8 +2,8 @@ import { createApp } from './app';
 import { AppDataSource } from './config/data-source';
 import { env } from './config/env';
 import healthRoutes from "./infrastructure/routes/health.routes";
-import productRoutes from "./infrastructure/routes/productRoutes";
-import categoryRoutes from "./infrastructure/routes/categoryRoutes";
+import productRoutes from "./infrastructure/routes/health.routes";
+import categoryRoutes from "./infrastructure/routes/health.routes";
 
 (async () => {
   try {
