@@ -1,5 +1,4 @@
 import { CategoriaDTO, CreateCategoriaDTO } from '../../../app/dtos/categoria.dto';
-import { Categoria } from "../../entities/Categoria";
 
 export interface IcategoriaService {
     getAllCategorias(): Promise< CategoriaDTO[] >;

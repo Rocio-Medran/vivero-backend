@@ -1,5 +1,5 @@
 import { Categoria } from './../entities/Categoria';
-import { CategoriaDTO, CreateCategoriaDTO } from "../../app/dtos/categoria.dto";
+import { CreateCategoriaDTO } from "../../app/dtos/categoria.dto";
 import { toCategoriaDTO, toCategoriaDTOs } from "../../app/mappings/categoria.mapping";
 import { IRepository } from "../repositories/interfaces/IRepository";
 import { IcategoriaService } from "./interfaces/ICategoriaService";
