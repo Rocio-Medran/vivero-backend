@@ -2,6 +2,7 @@ import 'reflect-metadata';                 // SIEMPRE primero
 import express from 'express';
 import cors from 'cors';
 import healthRoutes from './infrastructure/routes/health.routes';
+import routes from './infrastructure/routes/index';
 
 export const createApp = () => {
   const app = express();
@@ -9,6 +10,7 @@ export const createApp = () => {
   app.use(express.json());
 
   app.use('/api', healthRoutes);
+  app.use('/api', routes);
 
   // manejador simple de errores (placeholder)
   app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

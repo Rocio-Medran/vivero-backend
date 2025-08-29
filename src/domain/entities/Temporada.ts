@@ -9,6 +9,12 @@ export class Temporada {
     @Column({ length: 250 })
     nombre!: string;
 
+    @Column()
+    fecha_desde!: Date;
+
+    @Column()
+    fecha_hasta!: Date;
+
     @OneToMany(() => Producto, p => p.temporada)
     productos?: Producto[];
 }
