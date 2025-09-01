@@ -1,5 +1,4 @@
 import { Column,Entity,ManyToOne,PrimaryGeneratedColumn,JoinColumn } from "typeorm";
-import { CategoriaService } from "../services/CategoriaService";
 import { CategoriaServicio } from "./CategoriaServicio";
 
 

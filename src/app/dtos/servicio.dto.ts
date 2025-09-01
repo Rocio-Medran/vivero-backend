@@ -3,33 +3,32 @@ import { IsInt, IsNotEmpty, IsPositive, MaxLength } from "class-validator";
 
 export class ServicioDTO {
   @Expose()
-  @IsInt() @IsPositive()
   id!: number;
 
   @Expose()
-  @IsNotEmpty() @MaxLength(250)
   nombre!: string;
 
   @Expose()
-  @IsNotEmpty()
   descripcion!: string;
 
   @Expose()
-  @IsNotEmpty()
   imagen_url!: string;
+
+  @Expose()
+  categoria_id!: number;
 }
 
 export class ServicioConDetallesDTO {
-  @Expose() @IsNotEmpty() @MaxLength(250)
+  @Expose()
   nombre!: string;
 
-  @Expose() @IsNotEmpty()
+  @Expose()
   descripcion!: string;
 
-  @Expose() @IsNotEmpty()
+  @Expose()
   imagen_url!: string;
 
-  @Expose() @IsNotEmpty()
+  @Expose()
   nombre_categoria!: string;
 }
 

@@ -3,7 +3,15 @@ import { Servicio } from "../../domain/entities/Servicio";
 import { ServicioDTO, ServicioConDetallesDTO } from "../dtos/servicio.dto";
 
 export const toServicioDTO = (entity: Servicio): ServicioDTO =>
-  plainToInstance(ServicioDTO, entity, { excludeExtraneousValues: true });
+  plainToInstance(ServicioDTO, {
+    id: entity.id,
+    nombre: entity.nombre,
+    descripcion: entity.description,
+    imagen_url: entity.imagen_url,
+    categoria_id: entity.categoria?.id
+  },
+    { excludeExtraneousValues: true }
+  );
 
 export const toServicioDTOs = (entities: Servicio[]): ServicioDTO[] =>
   entities.map(e => toServicioDTO(e));

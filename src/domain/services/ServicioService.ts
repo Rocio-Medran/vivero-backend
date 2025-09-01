@@ -8,12 +8,12 @@ export class ServicioService implements IServicioService {
   constructor(private readonly repo: IServicioRepository) {}
 
   async getAllServicios() {
-    const servicios = await this.repo.getAll();
+    const servicios = await this.repo.getAll(['categoria']);
     return toServicioDTOs(servicios);
   }
 
   async getServicioById(id: number) {
-    const servicio = await this.repo.getById(id);
+    const servicio = await this.repo.getById(id, ['categoria']);
     return servicio ? toServicioDTO(servicio) : null;
   }
 
@@ -30,7 +30,7 @@ export class ServicioService implements IServicioService {
   }
 
   async updateServicioAsync(id: number, dto: UpServicioDTO) {
-    const servicio = await this.repo.getById(id);
+    const servicio = await this.repo.getById(id, ['categoria']);
     if (!servicio) return false;
 
     if (dto.nombre !== undefined) servicio.nombre = dto.nombre;
