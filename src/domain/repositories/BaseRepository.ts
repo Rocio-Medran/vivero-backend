@@ -1,4 +1,4 @@
-import { ObjectLiteral, Repository } from "typeorm";
+import { FindOptionsWhere, ObjectLiteral, Repository } from "typeorm";
 import { AppDataSource } from "../../config/data-source";
 import { IRepository } from "./interfaces/IRepository";
 
@@ -6,7 +6,7 @@ import { IRepository } from "./interfaces/IRepository";
 export class BaseRepository<T extends ObjectLiteral> implements IRepository<T> {
     protected orm: Repository<T>;
 
-    constructor(entity: {new(): T}) {
+    constructor(entity: { new(): T }) {
         this.orm = AppDataSource.getRepository(entity);
     }
 
@@ -15,11 +15,11 @@ export class BaseRepository<T extends ObjectLiteral> implements IRepository<T> {
     }
 
     getById(id: number, relations: string[] = []) {
-        return this.orm.findOne({where: {id} as any, relations});
+        return this.orm.findOne({ where: { id } as any, relations });
     }
 
-    find(where: any, relations: string[] = []) {
-        return this.orm.find({where, relations});
+    find(where: FindOptionsWhere<T>, relations: string[] = []) {
+        return this.orm.find({ where, relations });
     }
 
     add(entity: T) {
@@ -33,5 +33,10 @@ export class BaseRepository<T extends ObjectLiteral> implements IRepository<T> {
     async delete(entity: T) {
         await this.orm.remove(entity);
     }
+
+    findOneBy(where: FindOptionsWhere<T>, relations: string[] = []) {
+        return this.orm.findOne({ where, relations });
+    }
+
 
 }

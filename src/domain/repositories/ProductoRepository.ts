@@ -11,7 +11,7 @@ export class ProductoRepository extends BaseRepository< Producto> implements IPr
     }
     
     getProductosConDetalles() {
-        return this.getAll(['categoria', 'temporada']);
+        return this.getAll(['categoria','temporada']);
     }
 
 }
