@@ -4,6 +4,9 @@ import { env } from './env';
 import { Producto } from '../domain/entities/Producto';
 import { Categoria } from '../domain/entities/Categoria';
 import { Temporada } from '../domain/entities/Temporada';
+import { Servicio } from '../domain/entities/Servicio';
+import { CategoriaServicio } from '../domain/entities/CategoriaServicio';
+
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -12,7 +15,7 @@ export const AppDataSource = new DataSource({
   username: env.db.user,
   password: env.db.password,
   database: env.db.name,
-  entities: [Producto, Categoria, Temporada],
+  entities: [Producto, Categoria, Temporada,Servicio,CategoriaServicio],
   synchronize: true,
   logging: false
 });
