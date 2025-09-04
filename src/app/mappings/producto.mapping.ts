@@ -3,8 +3,8 @@ import { Producto } from "../../domain/entities/Producto";
 import { ProductoConDetallesDTO, ProductoDTO } from '../dtos/producto.dto';
 
 
-export const toProductoDTO = (entity: Producto): ProductoDTO => {
-    return plainToInstance(ProductoDTO, {
+export const toProductoDTO = (entity: Producto): ProductoDTO =>
+    plainToInstance(ProductoDTO, {
         id: entity.id,
         nombre: entity.nombre,
         descripcion: entity.descripcion,
@@ -12,8 +12,8 @@ export const toProductoDTO = (entity: Producto): ProductoDTO => {
         categoria_id: entity.categoria?.id,
         temporada_id: entity.temporada?.id
     },
-        { excludeExtraneousValues: true });
-}
+        { excludeExtraneousValues: true }
+    );
 
 export const toProductoDTOs = (entities: Producto[]): ProductoDTO[] =>
     entities.map(e => toProductoDTO(e));
