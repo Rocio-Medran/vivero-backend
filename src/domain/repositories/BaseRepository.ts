@@ -38,5 +38,10 @@ export class BaseRepository<T extends ObjectLiteral> implements IRepository<T> {
         return this.orm.findOne({ where, relations });
     }
 
-
+    async findByNombre(nombre: string): Promise<T | null> {
+        return this.orm
+            .createQueryBuilder("entity")
+            .where(`LOWER(entity.nombre) = LOWER(:nombre)`, { nombre })
+            .getOne();
+    }
 }

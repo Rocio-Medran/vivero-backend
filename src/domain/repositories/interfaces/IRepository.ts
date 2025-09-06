@@ -8,4 +8,5 @@ export interface IRepository<T> {
     update(entity: T): Promise<T>;
     delete(entity: T): Promise<void>;
     findOneBy(where: FindOptionsWhere<T>, relations?: string[]): Promise<T | null>;
+    findByNombre(nombre: string): Promise< T | null >; 
 }
