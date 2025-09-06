@@ -18,6 +18,9 @@ export class CategoriaService implements IcategoriaService {
     }
 
     async createCategoria(dto: CreateCategoriaDTO) {
+        const nombreExiste = await this.repo.findByNombre(dto.nombre);
+        if (nombreExiste) throw new Error("Ya existe una categoria con este nombre");
+
         const categoria = Object.assign(new Categoria(), dto);
         await this.repo.add(categoria);
         return toCategoriaDTO(categoria);
@@ -26,6 +29,9 @@ export class CategoriaService implements IcategoriaService {
     async updateCategoria(id: number, dto: CreateCategoriaDTO) {
         const categoria = await this.repo.getById(id);
         if(!categoria) return false;
+
+        const nombreExiste = await this.repo.findByNombre(dto.nombre);
+        if (nombreExiste && nombreExiste.id !== id) throw new Error("Ya existe una categoria con este nombre");
 
         Object.assign(categoria, dto);
         await this.repo.update(categoria);
