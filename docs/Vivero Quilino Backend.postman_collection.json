@@ -293,6 +293,43 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET Categoria con productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/1/productos",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"1",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Categorias con productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/productos",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"productos"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

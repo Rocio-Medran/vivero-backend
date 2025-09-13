@@ -1,4 +1,4 @@
-import { CategoriaDTO, CreateCategoriaDTO } from '../../../app/dtos/categoria.dto';
+import { CategoriaConProductosDTO, CategoriaDTO, CreateCategoriaDTO } from '../../../app/dtos/categoria.dto';
 
 export interface IcategoriaService {
     getAllCategorias(): Promise< CategoriaDTO[] >;
@@ -6,4 +6,6 @@ export interface IcategoriaService {
     createCategoria(dto: CreateCategoriaDTO): Promise< CategoriaDTO >;
     updateCategoria(id: number, dto: CreateCategoriaDTO): Promise< boolean >;
     removeCategoria(id: number): Promise< boolean >;
+    getCategoriaConProductosById(id: number): Promise< CategoriaConProductosDTO | null>;
+    getCategoriasConProductos(): Promise< CategoriaConProductosDTO[] >;
 }

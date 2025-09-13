@@ -1,5 +1,6 @@
-import { Expose } from "class-transformer";
+import { Expose, Type } from "class-transformer";
 import { IsInt, IsNotEmpty, IsPositive, MaxLength } from "class-validator";
+import { ProductoConDetallesDTO } from "./producto.dto";
 
 export class CategoriaDTO {
     @Expose()
@@ -15,4 +16,18 @@ export class CreateCategoriaDTO {
     @Expose()
     @IsNotEmpty() @MaxLength(250)
     nombre!: string;
+}
+
+export class CategoriaConProductosDTO {
+    @Expose()
+    @IsInt() @IsPositive()
+    id!: number;
+
+    @Expose()
+    @IsNotEmpty() @MaxLength(250)
+    nombre!: string;
+
+    @Expose()
+    @Type(() => ProductoConDetallesDTO)
+    productos!: ProductoConDetallesDTO[];
 }

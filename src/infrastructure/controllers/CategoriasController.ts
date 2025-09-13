@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import { CreateCategoriaDTO } from "../../app/dtos/categoria.dto";
 
 export class CategoriasController {
-    constructor(private readonly service: IcategoriaService) {}
+    constructor(private readonly service: IcategoriaService) { }
 
     getAll = async (_req: Request, res: Response) => {
         const categorias = await this.service.getAllCategorias();
@@ -13,7 +13,7 @@ export class CategoriasController {
 
     getById = async (req: Request, res: Response) => {
         const categoria = await this.service.getCategoriaById(Number(req.params.id))
-        if(!categoria) return res.sendStatus(StatusCodes.NOT_FOUND);
+        if (!categoria) return res.sendStatus(StatusCodes.NOT_FOUND);
         res.json(categoria);
     }
 
@@ -25,13 +25,25 @@ export class CategoriasController {
 
     update = async (req: Request, res: Response) => {
         const ok = await this.service.updateCategoria(Number(req.params.id), req.body as CreateCategoriaDTO);
-        if(!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
+        if (!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
         res.sendStatus(StatusCodes.NO_CONTENT);
     }
 
     remove = async (req: Request, res: Response) => {
         const ok = await this.service.removeCategoria(Number(req.params.id));
-        if(!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
+        if (!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
         res.sendStatus(StatusCodes.NO_CONTENT);
     }
+
+    getAllConProductos = async (_req: Request, res: Response) => {
+        const categorias = await this.service.getCategoriasConProductos();
+        res.json(categorias);
+    };
+
+    getConProductosById = async (req: Request, res: Response) => {
+        const categoria = await this.service.getCategoriaConProductosById(Number(req.params.id));
+        if (!categoria) return res.sendStatus(StatusCodes.NOT_FOUND);
+        res.json(categoria);
+    }
+
 }
