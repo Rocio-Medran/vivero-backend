@@ -1,13 +1,12 @@
 import { Router } from "express";
-import { BaseRepository } from "../../domain/repositories/BaseRepository";
-import { CategoriaServicio } from "../../domain/entities/CategoriaServicio";
-import { CategoriaService } from "../../domain/services/CategoriaService";
-import { CategoriasController } from "../controllers/CategoriasController";
+import { CategoriaServicioService } from "../../domain/services/CategoriaServicioService";
+import { CategoriaServicioRepository } from "../../domain/repositories/CategoriaServicioRepository";
+import { CategoriaServiciosController } from "../controllers/CategoriaServiciosController";
 
 const router = Router();
-const repo = new BaseRepository(CategoriaServicio);
-const service = new CategoriaService(repo);
-const ctrl = new CategoriasController(service);
+const repo = new CategoriaServicioRepository();
+const service = new CategoriaServicioService(repo);
+const ctrl = new CategoriaServiciosController(service);
 
 router.get('/', ctrl.getAll);
 router.get('/:id', ctrl.getById);
