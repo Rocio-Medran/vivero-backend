@@ -1,4 +1,3 @@
-import { CategoriaConProductosDTO } from "../../app/dtos/categoria.dto";
 import { Categoria } from "../entities/Categoria";
 import { BaseRepository } from "./BaseRepository";
 import { ICategoriaRepository } from "./interfaces/ICategoriaRepository";

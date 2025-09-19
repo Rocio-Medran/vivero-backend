@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { IcategoriaService } from "../../domain/services/interfaces/ICategoriaService";
 import { StatusCodes } from "http-status-codes";
 import { CreateCategoriaDTO } from "../../app/dtos/categoria.dto";
+import { ICategoriaServicioService } from '../../domain/services/interfaces/ICategoriaServicioService';
 
-export class CategoriasController {
-    constructor(private readonly service: IcategoriaService) {}
+export class CategoriaServiciosController {
+    constructor(private readonly service: ICategoriaServicioService) {}
 
     getAll = async (_req: Request, res: Response) => {
         const categorias = await this.service.getAllCategorias();
