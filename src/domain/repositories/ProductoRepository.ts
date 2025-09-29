@@ -6,10 +6,10 @@ export class ProductoRepository extends BaseRepository<Producto> implements IPro
     constructor() { super(Producto) }
 
     getProductoConDetallesById(id: number) {
-        return this.getById(id, ['categoria', 'temporada']);
+        return this.getById(id, ['categoria', 'temporada', 'imagenes']);
     }
 
     getProductosConDetalles() {
-        return this.getAll(['categoria', 'temporada']);
+        return this.getAll(['categoria', 'temporada', 'imagenes']);
     }
 }

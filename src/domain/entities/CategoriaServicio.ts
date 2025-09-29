@@ -9,6 +9,12 @@ export class CategoriaServicio {
   @Column({ length: 250 })
   nombre!: string;
 
+  @Column({ default: 0 })
+  id_padre?: number;
+
+  @Column({ length: 50, default: 'principal' })
+  tipo!: string;
+
   @OneToMany(() => Servicio, s => s.categoria)
   servicios?: Servicio[];
 }

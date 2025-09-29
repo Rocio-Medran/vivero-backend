@@ -15,12 +15,12 @@ export class ProductoService implements IProductoService {
     constructor(private readonly repo: IProductoRepository) { }
 
     async getAllProductos() {
-        const productos = await this.repo.getAll(['categoria', 'temporada']);
+        const productos = await this.repo.getAll(['categoria', 'temporada', 'imagenes']);
         return toProductoDTOs(productos);
     }
 
     async getProductoById(id: number) {
-        const producto = await this.repo.getById(id, ['categoria', 'temporada']);
+        const producto = await this.repo.getById(id, ['categoria', 'temporada', 'imagenes']);
         return producto ? toProductoDTO(producto) : null;
     }
 

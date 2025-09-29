@@ -1,3 +1,4 @@
+import { id } from "zod/v4/locales";
 import { Categoria } from "../../domain/entities/Categoria";
 import { CategoriaConProductosDTO, CategoriaConProductosSchema, CategoriaDTO, CategoriaSchema } from "../schemas/categoria.schema";
 import { toProductoConDetallesDTO } from "./producto.mapping";
@@ -7,6 +8,8 @@ export const toCategoriaDTO = (entity: Categoria): CategoriaDTO =>
     CategoriaSchema.parse({
         id: entity.id,
         nombre: entity.nombre,
+        id_padre: entity.id_padre,
+        tipo: entity.tipo
     });
 
 export const toCategoriaDTOs = (entities: Categoria[]): CategoriaDTO[] =>
@@ -16,6 +19,8 @@ export const toCategoriaConProductosDTO = (entity: Categoria): CategoriaConProdu
     CategoriaConProductosSchema.parse({
         id: entity.id,
         nombre: entity.nombre,
+        id_padre: entity.id_padre,
+        tipo: entity.tipo,
         productos: entity.productos ? entity.productos.map(toProductoConDetallesDTO) : []
     });
 
