@@ -14,6 +14,9 @@ export class Producto {
     @Column('text')
     descripcion!: string;
 
+    @Column('text')
+    informacion_extra!: string;
+
     @Column({ default: true })
     esta_activo!: boolean;
 
