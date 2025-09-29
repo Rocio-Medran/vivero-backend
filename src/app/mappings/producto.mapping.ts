@@ -1,4 +1,3 @@
-import { id } from "zod/v4/locales";
 import { Producto } from "../../domain/entities/Producto";
 import { ProductoConDetallesDTO, ProductoConDetallesSchema, ProductoDTO, ProductoSchema } from "../schemas/producto.schema";
 
@@ -8,6 +7,7 @@ export const toProductoDTO = (entity: Producto): ProductoDTO =>
         id: entity.id,
         nombre: entity.nombre,
         descripcion: entity.descripcion,
+        informacion_extra: entity.informacion_extra,
         esta_activo: entity.esta_activo,
         categoria_id: entity.categoria?.id,
         temporada_id: entity.temporada?.id
@@ -21,6 +21,7 @@ export const toProductoConDetallesDTO = (entity: Producto): ProductoConDetallesD
         id: entity.id,
         nombre: entity.nombre,
         descripcion: entity.descripcion,
+        informacion_extra: entity.informacion_extra,
         esta_activo: entity.esta_activo,
         nombre_categoria: entity.categoria?.nombre,
         nombre_categoria_padre: entity.categoria?.nombre,

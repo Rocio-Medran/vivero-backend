@@ -20,7 +20,7 @@ export class ProductoService implements IProductoService {
     }
 
     async getProductoById(id: number) {
-        const producto = await this.repo.getById(id, ['categoria', 'temporada', 'imagenes']);
+        const producto = await this.repo.getById(id, ['categoria', 'temporada']);
         return producto ? toProductoDTO(producto) : null;
     }
 
