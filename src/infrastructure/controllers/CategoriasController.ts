@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { IcategoriaService } from "../../domain/services/interfaces/ICategoriaService";
 import { StatusCodes } from "http-status-codes";
-import { CreateCategoriaDTO } from "../../app/dtos/categoria.dto";
+import { CreateCategoriaDTO } from "../../app/schemas/categoria.schema";
+
 
 export class CategoriasController {
     constructor(private readonly service: IcategoriaService) { }

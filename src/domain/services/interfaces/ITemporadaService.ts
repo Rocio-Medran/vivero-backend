@@ -1,9 +1,10 @@
-import { TemporadaDTO, CreateTemporadaDTO, UpTemporadaDTO } from '../../../app/dtos/temporada.dto';
+import { TemporadaDTO, CreateTemporadaDTO, UpdateTemporadaDTO } from "../../../app/schemas/temporada.schema";
+
 
 export interface ITemporadaService {
     getAllTemporadas(): Promise< TemporadaDTO[] >;
     getTemporadaById(id: number): Promise< TemporadaDTO | null >;
     createTemporada(dto: CreateTemporadaDTO): Promise< TemporadaDTO >;
-    updateTemporada(id: number, dto: UpTemporadaDTO): Promise< boolean >;
+    updateTemporada(id: number, dto: UpdateTemporadaDTO): Promise< boolean >;
     removeTemporada(id: number): Promise< boolean >;
 }

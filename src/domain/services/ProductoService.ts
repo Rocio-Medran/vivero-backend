@@ -1,5 +1,6 @@
-import { CreateProductoDTO, UpProductoDTO } from "../../app/dtos/producto.dto";
+
 import { toProductoConDetallesDTO, toProductoConDetallesDTOs, toProductoDTO, toProductoDTOs } from "../../app/mappings/producto.mapping";
+import { CreateProductoDTO, UpdateProductoDTO } from "../../app/schemas/producto.schema";
 import { Categoria } from "../entities/Categoria";
 import { Producto } from '../entities/Producto';
 import { Temporada } from "../entities/Temporada";
@@ -38,7 +39,6 @@ export class ProductoService implements IProductoService {
         const producto = new Producto();
         producto.nombre = dto.nombre;
         producto.descripcion = dto.descripcion;
-        producto.imagen_url = dto.imagen_url;
         producto.categoria = categoria;
         producto.temporada = temporada;
 
@@ -65,7 +65,6 @@ export class ProductoService implements IProductoService {
 
         producto.nombre = dto.nombre;
         producto.descripcion = dto.descripcion;
-        producto.imagen_url = dto.imagen_url;
         producto.categoria = categoria;
         producto.temporada = temporada;
 
@@ -73,7 +72,7 @@ export class ProductoService implements IProductoService {
         return true;
     }
 
-    async updateProductoAsync(id: number, dto: UpProductoDTO) {
+    async updateProductoAsync(id: number, dto: UpdateProductoDTO) {
         const producto = await this.repo.getById(id, ['categoria', 'temporada']);
         if (!producto) throw new Error("Producto no existente");
 
@@ -96,7 +95,7 @@ export class ProductoService implements IProductoService {
         }
 
         if (dto.descripcion !== undefined) producto.descripcion = dto.descripcion;
-        if (dto.imagen_url !== undefined) producto.imagen_url = dto.imagen_url;
+        if (dto.esta_activo !== undefined) producto.esta_activo = dto.esta_activo;
 
         await this.repo.update(producto);
         return toProductoDTO(producto);

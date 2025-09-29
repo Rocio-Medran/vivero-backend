@@ -6,7 +6,6 @@ export async function seedCategorias(dataSource: DataSource) {
     const repo = dataSource.getRepository(Categoria);
     const categorias = [
         { nombre: "Frutas" },
-        { nombre: "Verduras" },
         { nombre: "Plantas" },
     ];
 

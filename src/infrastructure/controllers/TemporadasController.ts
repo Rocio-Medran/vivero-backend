@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { ITemporadaService } from "../../domain/services/interfaces/ITemporadaService";
 import { Request, Response } from "express";
-import { CreateTemporadaDTO, UpTemporadaDTO } from "../../app/dtos/temporada.dto";
+import { CreateTemporadaDTO, UpdateTemporadaDTO } from "../../app/schemas/temporada.schema";
 
 export class TemporadasController {
     constructor(private readonly service: ITemporadaService) {}
@@ -25,7 +25,7 @@ export class TemporadasController {
     }
 
     update = async (req: Request, res: Response) => {
-        const ok = await this.service.updateTemporada(Number(req.params.id), req.body as UpTemporadaDTO);
+        const ok = await this.service.updateTemporada(Number(req.params.id), req.body as UpdateTemporadaDTO);
         if(!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
 
         res.sendStatus(StatusCodes.NO_CONTENT);

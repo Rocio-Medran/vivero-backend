@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { IProductoService } from "../../domain/services/interfaces/IProductoService";
 import { Request, Response } from "express";
-import { CreateProductoDTO, UpProductoDTO } from "../../app/dtos/producto.dto";
+import { CreateProductoSchema, UpdateProductoSchema } from "../../app/schemas/producto.schema";
 
 export class ProductosController {
     constructor(private readonly service: IProductoService) {}
@@ -18,19 +18,21 @@ export class ProductosController {
     }
 
     create = async (req: Request, res: Response) => {
-        const dto = req.body as CreateProductoDTO;
+        const dto = CreateProductoSchema.parse(req.body);
         const producto = await this.service.createProductoAsync(dto);
         res.status(StatusCodes.CREATED).json(producto);
     }
 
     updateCompleto = async (req: Request, res: Response) => {
-        const ok = await this.service.updateProductoCompletoAsync(Number(req.params.id), req.body as CreateProductoDTO);
+        const dto = CreateProductoSchema.parse(req.body);
+        const ok = await this.service.updateProductoCompletoAsync(Number(req.params.id), dto);
         if(!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
         res.sendStatus(StatusCodes.NO_CONTENT);
     }
 
     update = async (req: Request, res: Response) => {
-        const ok = await this.service.updateProductoAsync(Number(req.params.id), req.body as UpProductoDTO);
+        const dto = UpdateProductoSchema.parse(req.body);
+        const ok = await this.service.updateProductoAsync(Number(req.params.id), dto);
         if (!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
         res.sendStatus(StatusCodes.NO_CONTENT).json(ok);
     }
