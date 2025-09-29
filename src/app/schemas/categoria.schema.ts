@@ -5,15 +5,21 @@ import { ProductoSchema } from "./producto.schema";
 export const CategoriaSchema = z.object({
     id: z.number().min(1),
     nombre: z.string().min(2).max(250),
+    id_padre: z.number().min(0).optional(),
+    tipo: z.string().min(2).max(50)
 });
 
 export const CreateCategoriaSchema = z.object({
-    nombre: z.string().min(2).max(250)
+    nombre: z.string().min(2).max(250),
+    id_padre: z.number().min(0).optional(),
+    tipo: z.string().min(2).max(50)
 });
 
 export const CategoriaConProductosSchema = z.object({
     id: z.number().min(1),
     nombre: z.string().min(2).max(250),
+    id_padre: z.number().min(0).optional(),
+    tipo: z.string().min(2).max(50),
     productos: z.array(ProductoSchema)
 });
 
