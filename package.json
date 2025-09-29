@@ -28,13 +28,16 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "http-status-codes": "^2.3.0",
+    "multer": "^2.0.2",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.26"
+    "typeorm": "^0.3.26",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.3.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.2"

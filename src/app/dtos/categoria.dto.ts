@@ -1,6 +1,7 @@
 import { Expose, Type } from "class-transformer";
 import { IsInt, IsNotEmpty, IsPositive, MaxLength } from "class-validator";
-import { ProductoConDetallesDTO } from "./producto.dto";
+import { ProductoConDetallesDTO } from "../schemas/producto.schema";
+
 
 export class CategoriaDTO {
     @Expose()
@@ -27,7 +28,7 @@ export class CategoriaConProductosDTO {
     @IsNotEmpty() @MaxLength(250)
     nombre!: string;
 
-    @Expose()
-    @Type(() => ProductoConDetallesDTO)
-    productos!: ProductoConDetallesDTO[];
+    // @Expose()
+    // @Type(() => ProductoConDetallesDTO)
+    // productos!: ProductoConDetallesDTO[];
 }

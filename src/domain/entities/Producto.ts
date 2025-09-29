@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Categoria } from "./Categoria";
 import { Temporada } from "./Temporada";
+import { ImagenProducto } from "./ImagenProducto";
 
 @Entity('Productos')
 export class Producto {
@@ -13,8 +14,8 @@ export class Producto {
     @Column('text')
     descripcion!: string;
 
-    @Column('text')
-    imagen_url!: string;
+    @Column({ default: true })
+    esta_activo!: boolean;
 
     @ManyToOne(() => Categoria, c => c.productos)
     @JoinColumn({ name: 'categoria_id' })
@@ -23,4 +24,7 @@ export class Producto {
     @ManyToOne(() => Temporada, t => t.productos)
     @JoinColumn({ name: 'temporada_id'})
     temporada!: Temporada;
+
+    @OneToMany(() => ImagenProducto, i => i.producto)
+    imagenes?: ImagenProducto[];
 }

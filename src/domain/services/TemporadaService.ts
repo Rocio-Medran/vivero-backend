@@ -1,5 +1,6 @@
-import { CreateTemporadaDTO, UpTemporadaDTO } from "../../app/dtos/temporada.dto";
+
 import { toTemporadaDTO, toTemporadaDTOs } from "../../app/mappings/temporada.mapping";
+import { CreateTemporadaDTO, UpdateTemporadaDTO } from "../../app/schemas/temporada.schema";
 import { Temporada } from "../entities/Temporada";
 import { IRepository } from "../repositories/interfaces/IRepository";
 import { ITemporadaService } from "./interfaces/ITemporadaService";
@@ -26,7 +27,7 @@ export class TemporadaService implements ITemporadaService {
         return toTemporadaDTO(temporada);
     }
 
-    async updateTemporada(id: number, dto: UpTemporadaDTO) {
+    async updateTemporada(id: number, dto: UpdateTemporadaDTO) {
         const temporada = await this.repo.getById(id);
         if (!temporada) return false;
 
