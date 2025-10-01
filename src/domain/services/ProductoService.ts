@@ -1,6 +1,6 @@
 
 import { toProductoConDetallesDTO, toProductoConDetallesDTOs, toProductoDTO, toProductoDTOs } from "../../app/mappings/producto.mapping";
-import { CreateProductoDTO, UpdateProductoDTO } from "../../app/schemas/producto.schema";
+import { CreateProductoDTO, ProductoDTO, UpdateProductoDTO } from "../../app/schemas/producto.schema";
 import { Categoria } from "../entities/Categoria";
 import { Producto } from '../entities/Producto';
 import { Temporada } from "../entities/Temporada";
@@ -24,7 +24,7 @@ export class ProductoService implements IProductoService {
         return producto ? toProductoDTO(producto) : null;
     }
 
-    async createProductoAsync(dto: CreateProductoDTO) {
+    async createProductoAsync(dto: CreateProductoDTO): Promise< ProductoDTO > {
         const nombreExiste = await this.repo.findByNombre(dto.nombre);
         if (nombreExiste) {
             throw new Error("Ya existe un producto con este nombre");
@@ -39,15 +39,16 @@ export class ProductoService implements IProductoService {
         const producto = new Producto();
         producto.nombre = dto.nombre;
         producto.descripcion = dto.descripcion;
+        producto.informacion_extra = dto.informacion_extra;
         producto.categoria = categoria;
         producto.temporada = temporada;
 
         const saved = await this.repo.add(producto);
 
-        const dtoDetalles = await this.repo.getById(saved.id, ["categoria", "temporada"]);
-        if (!dtoDetalles) throw new Error("Error al obtener producto");
+        const dtoProducto = await this.repo.getById(saved.id, ["categoria", "temporada"]);
+        if (!dtoProducto) throw new Error("Error al obtener producto");
 
-        return toProductoConDetallesDTO(dtoDetalles);
+        return toProductoDTO(dtoProducto);
     }
 
     async updateProductoCompletoAsync(id: number, dto: CreateProductoDTO) {
@@ -65,6 +66,7 @@ export class ProductoService implements IProductoService {
 
         producto.nombre = dto.nombre;
         producto.descripcion = dto.descripcion;
+        producto.informacion_extra = dto.informacion_extra;
         producto.categoria = categoria;
         producto.temporada = temporada;
 
@@ -95,6 +97,7 @@ export class ProductoService implements IProductoService {
         }
 
         if (dto.descripcion !== undefined) producto.descripcion = dto.descripcion;
+        if (dto.informacion_extra !== undefined) producto.informacion_extra = dto.informacion_extra;
         if (dto.esta_activo !== undefined) producto.esta_activo = dto.esta_activo;
 
         await this.repo.update(producto);

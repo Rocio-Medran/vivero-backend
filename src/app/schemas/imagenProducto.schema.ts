@@ -3,20 +3,20 @@ import z from "zod";
 
 export const ImagenProductoSchema = z.object({
     id: z.number().min(1),
-    url: z.string().url(),
+    url: z.string(),
     es_principal: z.boolean().default(false),
     orden: z.number().min(0)
 });
 
 export const CreateImagenProductoSchema = z.object({
-    url: z.string().url(),
+    url: z.string(),
     es_principal: z.boolean().default(false),
     orden: z.number().min(0),
     producto_id: z.number().min(1)
 });
 
 export const UpdateImagenProductoSchema = z.object({
-    url: z.string().url().optional(),
+    url: z.string().optional(),
     es_principal: z.boolean().default(false).optional(),
     orden: z.number().min(0).optional(),
     producto_id: z.number().min(1).optional()
