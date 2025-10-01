@@ -24,8 +24,8 @@ export const toProductoConDetallesDTO = (entity: Producto): ProductoConDetallesD
         informacion_extra: entity.informacion_extra,
         esta_activo: entity.esta_activo,
         nombre_categoria: entity.categoria?.nombre,
-        nombre_categoria_padre: entity.categoria?.nombre,
-        nombre_temporada: entity.temporada?.nombre,
+        nombre_categoria_padre: entity.categoria?.nombre ?? "",
+        nombre_temporada: entity.temporada?.nombre ?? "",
         imagenes: entity.imagenes ? entity.imagenes.map(i => ({
             id: i.id,
             url: i.url,

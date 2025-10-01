@@ -25,3 +25,5 @@ docker-compose.override.yml
 
 # Coverage
 coverage/
+
+uploads/
