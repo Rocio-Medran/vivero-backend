@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "91a2f40b-293e-40bf-a7cd-bee1d33f0dc0",
 		"name": "Vivero Quilino Backend",
+		"description": "# API Vivero Quilino\n\nAPI RESTful para la gestión de productos, imágenes, categorías, temporadas y servicios del **Vivero Municipal de Quilino**.\n\nPermite administrar el catálogo de productos, subir y gestionar imágenes, consultar temporadas, administrar servicios y mucho más. Es la base para el desarrollo y las pruebas del frontend de la aplicación.\n\n---\n\n### Configuración Principal\n\n- **Base URL:** `http://localhost:4001/api`\n    \n    - _Nota: Se recomienda configurar esta URL como una variable de entorno en Postman, por ejemplo_ `_{{baseURL}}_`_._\n        \n- **Autenticación:** `(proximamente)`\n    \n\n---\n\n### Endpoints Principales\n\nA continuación se detallan los recursos principales disponibles en la API:\n\n- **Productos:**\n    \n    - CRUD completo para la gestión de productos.\n        \n    - Asociación y gestión de imágenes individuales y múltiples.\n        \n- **Categorías:**\n    \n    - CRUD para categorías.\n        \n    - Consulta de categorías y los productos asociados.\n        \n- **Temporadas:**\n    \n    - CRUD para la gestión de temporadas.\n        \n- **Servicios:**\n    \n    - CRUD para los servicios ofrecidos por el vivero.\n        \n- **Imágenes:**\n    \n    - Endpoints dedicados para la subida y eliminación de imágenes.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "39403640"
 	},
@@ -9,6 +10,95 @@
 		{
 			"name": "Productos",
 			"item": [
+				{
+					"name": "Imagen Producto",
+					"item": [
+						{
+							"name": "GET Imagenes Producto",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/productos/1/imagenes",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"productos",
+										"1",
+										"imagenes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Imagen de producto",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Rocio/Downloads/premium_photo-1710965560034-778eedc929ff.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/productos/2/imagenes",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"productos",
+										"2",
+										"imagenes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Múltiples imágenes",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": [
+												"/C:/Users/Rocio/Downloads/images (1).jpeg",
+												"/C:/Users/Rocio/Downloads/arboles-e1569184563522.jpg",
+												"/C:/Users/Rocio/Downloads/tree-with-huge-tree-trunk-field-870x563.jpg",
+												"/C:/Users/Rocio/Downloads/images.jpeg",
+												"/C:/Users/Rocio/Downloads/Eiche_bei_Graditz.jpg"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/productos/1/imagenes/multiples",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"productos",
+										"1",
+										"imagenes",
+										"multiples"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "GET Productos",
 					"request": {
@@ -51,7 +141,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"Mandarina\",\r\n  \"descripcion\": \"Fruta fresca\",\r\n  \"imagen_url\": \"frutas.jpg\",\r\n  \"categoria_id\": 1,\r\n  \"temporada_id\": 5\r\n}",
+							"raw": "{\r\n  \"nombre\": \"Mandarina\",\r\n  \"descripcion\": \"Fruta fresca\",\r\n  \"informacion_extra\": \"debe tener minimo 7 caracteres\",\r\n  \"categoria_id\": 1,\r\n  \"temporada_id\": 3\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -708,6 +798,36 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": ""
 		}
 	]
 }
