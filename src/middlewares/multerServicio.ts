@@ -1,11 +1,10 @@
-// src/middlewares/multer.ts
 import multer from "multer";
 import path from "path";
-
+import { Request, Response, NextFunction } from 'express';
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
-    cb(null, path.resolve(__dirname, '../uploads/productos'));
+    cb(null, path.resolve(__dirname, '../uploads/servicios'));
   },
   filename: (_req, file, cb) => {
     const safeName = file.originalname
@@ -18,7 +17,7 @@ const storage = multer.diskStorage({
 });
 
 
-const upload = multer({
+const uploadServicio = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024, files: 5 }, // 5MB por archivo, máx 5 archivos
   fileFilter: (_req, file, cb) => {
@@ -28,10 +27,12 @@ const upload = multer({
 });
 
 // Middleware para manejar el error de límite de archivos
-import { Request, Response, NextFunction } from 'express';
-export function uploadProductoMiddleware(req: Request, res: Response, next: NextFunction) {
-  upload.array('files', 5)(req, res, function (err) {
-    if (err && (err.code === 'LIMIT_UNEXPECTED_FILE' || err.code === 'LIMIT_FILE_COUNT')) {
+export function uploadServicioMiddleware(req: Request, res: Response, next: NextFunction) {
+  uploadServicio.array('files', 5)(req, res, function (err) {
+    if (err && err.code === 'LIMIT_UNEXPECTED_FILE') {
+      return res.status(400).json({ message: 'No puedes subir más de 5 imágenes por vez.' });
+    }
+    if (err && err.code === 'LIMIT_FILE_COUNT') {
       return res.status(400).json({ message: 'No puedes subir más de 5 imágenes por vez.' });
     }
     if (err) {
@@ -41,6 +42,4 @@ export function uploadProductoMiddleware(req: Request, res: Response, next: Next
   });
 }
 
-export { upload };
-
-
+export { uploadServicio };

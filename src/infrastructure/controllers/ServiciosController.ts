@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
-import { CreateServicioDTO, UpServicioDTO } from "../../app/dtos/servicio.dto";
+import { CreateServicioDTO, UpServicioDTO } from "../../app/schemas/servicio.schema";
 import { IServicioService } from "../../domain/services/interfaces/IServicioService";
 
 export class ServiciosController {

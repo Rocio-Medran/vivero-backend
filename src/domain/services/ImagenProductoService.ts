@@ -21,8 +21,9 @@ export class ImagenProductoService implements IImagenProductoService {
         const producto = await this.productoRepo.findOneBy({ id: productoId });
         if (!producto) throw new Error("Producto no encontrado");
 
+        const relativeUrl = `/uploads/productos/${file.filename}`;
         const imagen = {
-            url: file.path,
+            url: relativeUrl,
             es_principal: false,
             orden: 0,
             producto: producto
@@ -46,7 +47,7 @@ export class ImagenProductoService implements IImagenProductoService {
             const esPrincipal = !principalSet && index === 0;
             if (esPrincipal) principalSet = true;
             return {
-                url: file.path,
+                url: `/uploads/productos/${file.filename}`,
                 es_principal: esPrincipal,
                 orden: count + index + 1,
                 producto: producto

@@ -1,4 +1,4 @@
-import { CategoriaConProductosDTO, CategoriaDTO, CreateCategoriaDTO } from '../../../app/dtos/categoria.dto';
+import { CategoriaConProductosDTO, CategoriaDTO, CreateCategoriaDTO } from '../../../app/schemas/categoria.schema';
 
 export interface IcategoriaService {
     getAllCategorias(): Promise< CategoriaDTO[] >;
