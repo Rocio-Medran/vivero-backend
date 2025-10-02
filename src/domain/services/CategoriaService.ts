@@ -1,5 +1,5 @@
 import { Categoria } from './../entities/Categoria';
-import { CategoriaConProductosDTO, CategoriaDTO, CreateCategoriaDTO } from "../../app/dtos/categoria.dto";
+import { CategoriaConProductosDTO, CategoriaDTO, CreateCategoriaDTO } from "../../app/schemas/categoria.schema";
 import { toCategoriaConProductosDTO, toCategoriaConProductosDTOs, toCategoriaDTO, toCategoriaDTOs } from "../../app/mappings/categoria.mapping";
 import { IcategoriaService } from "./interfaces/ICategoriaService";
 import { ICategoriaRepository } from '../repositories/interfaces/ICategoriaRepository';

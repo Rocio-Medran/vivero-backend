@@ -1,31 +1,36 @@
-import { plainToInstance } from "class-transformer";
 import { Servicio } from "../../domain/entities/Servicio";
-import { ServicioDTO, ServicioConDetallesDTO } from "../dtos/servicio.dto";
+import { ServicioConDetallesDTO, ServicioConDetallesSchema, ServicioDTO, ServicioSchema } from "../schemas/servicio.schema";
+
 
 export const toServicioDTO = (entity: Servicio): ServicioDTO =>
-  plainToInstance(ServicioDTO, {
+  ServicioSchema.parse({
     id: entity.id,
     nombre: entity.nombre,
     descripcion: entity.description,
-    imagen_url: entity.imagen_url,
+    informacion_extra: entity.informacion_extra,
+    esta_activo: entity.esta_activo,
     categoria_id: entity.categoria?.id
   },
-    { excludeExtraneousValues: true }
   );
 
 export const toServicioDTOs = (entities: Servicio[]): ServicioDTO[] =>
   entities.map(e => toServicioDTO(e));
 
 export const toServicioConDetallesDTO = (entity: Servicio): ServicioConDetallesDTO =>
-  plainToInstance(
-    ServicioConDetallesDTO,
+  ServicioConDetallesSchema.parse(
     {
       nombre: entity.nombre,
       descripcion: entity.description,
-      imagen_url: entity.imagen_url,
-      nombre_categoria: entity.categoria?.nombre
+      informacion_extra: entity.informacion_extra,
+      esta_activo: entity.esta_activo,
+      nombre_categoria: entity.categoria?.nombre,
+      imagenes: entity.imagenes ? entity.imagenes.map(i => ({
+            id: i.id,
+            url: i.url,
+            es_principal: i.es_principal,
+            orden: i.orden
+        })) : []
     },
-    { excludeExtraneousValues: true }
   );
 
 export const toServicioConDetallesDTOs = (entities: Servicio[]): ServicioConDetallesDTO[] =>

@@ -1,7 +1,8 @@
-import { Categoria } from "../../entities/Categoria";
+import { CategoriaServicio } from "../../entities/CategoriaServicio";
 import { IRepository } from "./IRepository";
 
 
-export interface ICategoriaServicioRepository extends IRepository<Categoria> {
-	
+export interface ICategoriaServicioRepository extends IRepository<CategoriaServicio> {
+	getCategoriaServicioConServiciosById(id: number): Promise<CategoriaServicio | null>;
+	getCategoriasServicioConServicios(): Promise<CategoriaServicio[]>;
 }

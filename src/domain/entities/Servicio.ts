@@ -1,5 +1,6 @@
-import { Column,Entity,ManyToOne,PrimaryGeneratedColumn,JoinColumn } from "typeorm";
+import { Column,Entity,ManyToOne,PrimaryGeneratedColumn,JoinColumn, OneToMany } from "typeorm";
 import { CategoriaServicio } from "./CategoriaServicio";
+import { ImagenServicio } from "./ImagenServicio";
 
 
 @Entity('Servicios')
@@ -14,15 +15,15 @@ export class Servicio{
     description!: string;
 
     @Column('text')
-    imagen_url! : string;
+    informacion_extra!: string;
+
+    @Column({ default: true })
+    esta_activo!: boolean;
 
     @ManyToOne(()=> CategoriaServicio, c =>c.servicios)
     @JoinColumn({name : 'categoria_id'})
     categoria!: CategoriaServicio;
 
-
-
-
-
-
+    @OneToMany(() => ImagenServicio, i => i.servicio, { cascade: true })
+    imagenes?: ImagenServicio[];
 }

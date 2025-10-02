@@ -1,4 +1,4 @@
-import { CreateServicioDTO, ServicioDTO, UpServicioDTO } from "../../../app/dtos/servicio.dto";
+import { CreateServicioDTO, ServicioDTO, UpServicioDTO } from "../../../app/schemas/servicio.schema";
 
 export interface IServicioService {
   getAllServicios(): Promise<ServicioDTO[]>;

@@ -1,4 +1,4 @@
-import { CreateServicioDTO, UpServicioDTO } from "../../app/dtos/servicio.dto";
+import { CreateServicioDTO, UpServicioDTO } from "../../app/schemas/servicio.schema";
 import { toServicioDTO, toServicioDTOs } from "../../app/mappings/servicio.mapping";
 import { Servicio } from "../entities/Servicio";
 import { IServicioRepository } from "../repositories/interfaces/IServicioRepository";
@@ -8,12 +8,12 @@ export class ServicioService implements IServicioService {
   constructor(private readonly repo: IServicioRepository) {}
 
   async getAllServicios() {
-    const servicios = await this.repo.getAll(['categoria']);
+    const servicios = await this.repo.getAll(['categoria', 'imagenes']);
     return toServicioDTOs(servicios);
   }
 
   async getServicioById(id: number) {
-    const servicio = await this.repo.getById(id, ['categoria']);
+    const servicio = await this.repo.getById(id, ['categoria', 'imagenes']);
     return servicio ? toServicioDTO(servicio) : null;
   }
 
@@ -21,8 +21,7 @@ export class ServicioService implements IServicioService {
     const servicio = new Servicio();
     servicio.nombre = dto.nombre;
     servicio.description = dto.descripcion;
-    servicio.imagen_url = dto.imagen_url;
-    
+    servicio.informacion_extra = dto.informacion_extra ?? '';
     servicio.categoria = { id: dto.categoria_id } as any;
 
     const saved = await this.repo.add(servicio);
@@ -35,7 +34,8 @@ export class ServicioService implements IServicioService {
 
     if (dto.nombre !== undefined) servicio.nombre = dto.nombre;
     if (dto.descripcion !== undefined) servicio.description = dto.descripcion;
-    if (dto.imagen_url !== undefined) servicio.imagen_url = dto.imagen_url;
+    if (dto.informacion_extra !== undefined) servicio.informacion_extra = dto.informacion_extra;
+    if (dto.esta_activo !== undefined) servicio.esta_activo = dto.esta_activo;
     if (dto.categoria_id !== undefined) (servicio as any).categoria = { id: dto.categoria_id };
 
     await this.repo.update(servicio);

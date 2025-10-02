@@ -9,10 +9,10 @@ export class ServicioRepository
   constructor() { super(Servicio); }
 
   getServicioConDetallesById(id: number) {
-    return this.getById(id, ['categoria']); 
+    return this.getById(id, ['categoria', 'imagenes']);
   }
 
   getServiciosConDetalles() {
-    return this.getAll(['categoria']);
+    return this.getAll(['categoria', 'imagenes']);
   }
 }

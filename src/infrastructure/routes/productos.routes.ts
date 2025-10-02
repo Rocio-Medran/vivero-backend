@@ -7,7 +7,7 @@ import { ImagenProductoService } from '../../domain/services/ImagenProductoServi
 import { BaseRepository } from '../../domain/repositories/BaseRepository';
 import { ImagenProducto } from '../../domain/entities/ImagenProducto';
 import { ImagenesProductoController } from '../controllers/ImagenesProductoController';
-import { upload } from '../../middlewares/multer';
+import { upload, uploadProductoMiddleware } from '../../middlewares/multer';
 
 const router = Router();
 const repo = new ProductoRepository();
@@ -26,7 +26,7 @@ const { getAll, getById, create, updateCompleto, update, remove, getDetallesById
 // Rutas de imágenes de producto
 router.get('/:productoId/imagenes', imagenCtrl.getByProductoId);
 router.post('/:productoId/imagenes', upload.single('file'), imagenCtrl.create);
-router.post('/:productoId/imagenes/multiples', upload.array('files'), imagenCtrl.createMany);
+router.post('/:productoId/imagenes/multiples', uploadProductoMiddleware, imagenCtrl.createMany);
 
 router.get('/detalles', getAllDetalles);
 router.get('/detalles/:id', getDetallesById);

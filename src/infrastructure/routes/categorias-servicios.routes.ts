@@ -9,6 +9,8 @@ const service = new CategoriaServicioService(repo);
 const ctrl = new CategoriaServiciosController(service);
 
 router.get('/', ctrl.getAll);
+router.get('/con-servicios', ctrl.getAllConServicios);
+router.get('/con-servicios/:id', ctrl.getConServiciosById);
 router.get('/:id', ctrl.getById);
 router.post('/', ctrl.create);
 router.put('/:id', ctrl.update);
