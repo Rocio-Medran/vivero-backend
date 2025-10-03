@@ -5,7 +5,7 @@ import path from "path";
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
-    cb(null, path.resolve(__dirname, '../uploads/productos'));
+    cb(null, path.resolve(process.cwd(), "uploads/productos"));
   },
   filename: (_req, file, cb) => {
     const safeName = file.originalname

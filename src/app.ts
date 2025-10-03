@@ -13,7 +13,7 @@ export const createApp = () => {
   app.use('/api', healthRoutes);
   app.use('/api', routes);
 
-  app.use("/uploads", express.static(path.resolve(__dirname, "../uploads")));
+  app.use("/uploads", express.static(path.resolve(process.cwd(), "uploads")));
 
   // manejador simple de errores (placeholder)
   app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

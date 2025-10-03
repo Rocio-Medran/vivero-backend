@@ -6,11 +6,11 @@ export async function seedTemporadas(dataSource: DataSource) {
     const repo = dataSource.getRepository(Temporada);
 
     const temporadas = [
-        { nombre: "Noviembre - Diciembre", fecha_desde: new Date("11-01"), fecha_hasta: new Date("12-31") },
-        { nombre: "Abril - Mayo - Junio", fecha_desde: new Date("04-01"), fecha_hasta: new Date("06-30") },
-        { nombre: "Diciembre - Enero", fecha_desde: new Date("12-01"), fecha_hasta: new Date("01-31") },
-        { nombre: "Noviembre - Diciembre - Enero", fecha_desde: new Date("11-01"), fecha_hasta: new Date("01-31") },
-        { nombre: "Todo el año", fecha_desde: new Date("01-01"), fecha_hasta: new Date("12-31") },
+        { nombre: "Noviembre - Diciembre", fecha_desde: 11, fecha_hasta: 12 },
+        { nombre: "Abril - Mayo - Junio", fecha_desde: 4, fecha_hasta: 6 },
+        { nombre: "Diciembre - Enero", fecha_desde: 12, fecha_hasta: 1 },
+        { nombre: "Noviembre - Diciembre - Enero", fecha_desde: 11, fecha_hasta: 1 },
+        { nombre: "Todo el año", fecha_desde: 1, fecha_hasta: 12 },
     ];
 
     for (const temp of temporadas) {

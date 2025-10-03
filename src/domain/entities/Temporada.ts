@@ -10,10 +10,10 @@ export class Temporada {
     nombre!: string;
 
     @Column()
-    fecha_desde!: Date;
+    fecha_desde!: number;
 
     @Column()
-    fecha_hasta!: Date;
+    fecha_hasta!: number;
 
     @OneToMany(() => Producto, p => p.temporada)
     productos?: Producto[];
