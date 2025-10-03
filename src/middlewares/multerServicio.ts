@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
-    cb(null, path.resolve(__dirname, '../uploads/servicios'));
+    cb(null, path.resolve(process.cwd(), "uploads/servicios"));
   },
   filename: (_req, file, cb) => {
     const safeName = file.originalname

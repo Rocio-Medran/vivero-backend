@@ -3,6 +3,7 @@ import { Producto } from "../entities/Producto";
 import { BaseRepository } from "../repositories/BaseRepository";
 import { IImagenProductoService } from "./interfaces/IImageneProductoService";
 import fs from "fs/promises";
+import path from "path";
 import { toImagenProductoDTO, toImagenProductoDTOs } from "../../app/mappings/imagenProducto.mapping";
 import { ImagenProductoDTO } from "../../app/schemas/imagenProducto.schema";
 
@@ -69,7 +70,9 @@ export class ImagenProductoService implements IImagenProductoService {
         await this.repo.delete(imagen);
 
         try {
-            await fs.unlink(imagen.url);
+            // Convertir la ruta relativa a absoluta
+            const absolutePath = path.resolve(__dirname, '../../..', imagen.url.replace(/^\//, ''));
+            await fs.unlink(absolutePath);
         } catch (err) {
             console.warn("No se pudo borrar archivo físico:", err);
         }

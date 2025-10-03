@@ -5,6 +5,7 @@ import { IImagenServicioService } from "./interfaces/IImagenServicioService";
 import fs from "fs/promises";
 import { toImagenServicioDTO, toImagenServicioDTOs } from "../../app/mappings/imagenServicio.mapping";
 import { BaseRepository } from "../repositories/BaseRepository";
+import path from "path";
 
 export class ImagenServicioService implements IImagenServicioService {
     constructor(private readonly repo: BaseRepository<ImagenServicio>) {}
@@ -64,7 +65,9 @@ export class ImagenServicioService implements IImagenServicioService {
         if (!imagen) return false;
         await this.repo.delete(imagen);
         try {
-            await fs.unlink(imagen.url);
+            // Convertir la ruta relativa a absoluta
+            const absolutePath = path.resolve(__dirname, '../../..', imagen.url.replace(/^\//, ''));
+            await fs.unlink(absolutePath);
         } catch (err) {
             console.warn("No se pudo borrar archivo físico:", err);
         }
