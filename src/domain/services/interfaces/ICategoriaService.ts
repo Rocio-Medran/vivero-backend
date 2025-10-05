@@ -2,10 +2,10 @@ import { CategoriaConProductosDTO, CategoriaDTO, CreateCategoriaDTO } from '../.
 
 export interface IcategoriaService {
     getAllCategorias(): Promise< CategoriaDTO[] >;
-    getCategoriaById(id: number): Promise< CategoriaDTO | null>;
+    getCategoriaById(id: number): Promise< CategoriaDTO>;
     createCategoria(dto: CreateCategoriaDTO): Promise< CategoriaDTO >;
     updateCategoria(id: number, dto: CreateCategoriaDTO): Promise< boolean >;
     removeCategoria(id: number): Promise< boolean >;
-    getCategoriaConProductosById(id: number): Promise< CategoriaConProductosDTO | null>;
-    getCategoriasConProductos(): Promise< CategoriaConProductosDTO[] >;
+    getCategoriaConProductosById(id: number, baseUrl?: string): Promise< CategoriaConProductosDTO >;
+    getCategoriasConProductos(baseUrl?: string): Promise< CategoriaConProductosDTO[] >;
 }

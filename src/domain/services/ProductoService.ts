@@ -1,6 +1,7 @@
 
+import { ConflictError, NotFoundError } from "../../app/errors/CustomErrors";
 import { toProductoConDetallesDTO, toProductoConDetallesDTOs, toProductoDTO, toProductoDTOs } from "../../app/mappings/producto.mapping";
-import { CreateProductoDTO, ProductoDTO, UpdateProductoDTO } from "../../app/schemas/producto.schema";
+import { CreateProductoDTO, ProductoConDetallesDTO, ProductoDTO, UpdateProductoDTO } from "../../app/schemas/producto.schema";
 import { Categoria } from "../entities/Categoria";
 import { Producto } from '../entities/Producto';
 import { Temporada } from "../entities/Temporada";
@@ -14,27 +15,30 @@ export class ProductoService implements IProductoService {
 
     constructor(private readonly repo: IProductoRepository) { }
 
-    async getAllProductos() {
+    async getAllProductos(): Promise<ProductoDTO[]> {
         const productos = await this.repo.getAll(['categoria', 'temporada', 'imagenes']);
         return toProductoDTOs(productos);
     }
 
-    async getProductoById(id: number) {
+    async getProductoById(id: number): Promise<ProductoDTO> {
         const producto = await this.repo.getById(id, ['categoria', 'temporada']);
-        return producto ? toProductoDTO(producto) : null;
+        if (!producto) throw new NotFoundError("Producto no existente");
+        return toProductoDTO(producto);
     }
 
     async createProductoAsync(dto: CreateProductoDTO): Promise< ProductoDTO > {
-        const nombreExiste = await this.repo.findByNombre(dto.nombre);
+
+        const nombreNormalizado = dto.nombre.trim().toLowerCase();
+        const nombreExiste = await this.repo.findByNombre(nombreNormalizado);
         if (nombreExiste) {
-            throw new Error("Ya existe un producto con este nombre");
+            throw new ConflictError("Ya existe un producto con este nombre");
         }
 
         const categoria = await this.categoriaRepo.findOneBy({ id: dto.categoria_id });
-        if (!categoria) throw new Error("Categoría no existente");
+        if (!categoria) throw new NotFoundError("Categoría no existente");
 
         const temporada = await this.temporadaRepo.findOneBy({ id: dto.temporada_id });
-        if (!temporada) throw new Error("Temporada no existente");
+        if (!temporada) throw new NotFoundError("Temporada no existente");
 
         const producto = new Producto();
         producto.nombre = dto.nombre;
@@ -46,23 +50,24 @@ export class ProductoService implements IProductoService {
         const saved = await this.repo.add(producto);
 
         const dtoProducto = await this.repo.getById(saved.id, ["categoria", "temporada"]);
-        if (!dtoProducto) throw new Error("Error al obtener producto");
+        if (!dtoProducto) throw new ConflictError("Error al obtener producto");
 
         return toProductoDTO(dtoProducto);
     }
 
-    async updateProductoCompletoAsync(id: number, dto: CreateProductoDTO) {
+    async updateProductoCompletoAsync(id: number, dto: CreateProductoDTO): Promise<boolean> {
         const producto = await this.repo.getById(id, ["categoria", "temporada"]);
-        if (!producto) throw new Error("Producto no existente");
+        if (!producto) throw new NotFoundError("Producto no existente");
 
-        const nombreExiste = await this.repo.findByNombre(dto.nombre);
-        if (nombreExiste && nombreExiste.id !== id) throw new Error("Ya existe un producto con este nombre");
+        const nombreNormalizado = dto.nombre.trim().toLowerCase();
+        const nombreExiste = await this.repo.findByNombre(nombreNormalizado);
+        if (nombreExiste && nombreExiste.id !== id) throw new ConflictError("Ya existe un producto con este nombre");
 
         const categoria = await this.categoriaRepo.findOneBy({ id: dto.categoria_id });
-        if (!categoria) throw new Error("Categoría no existente");
+        if (!categoria) throw new NotFoundError("Categoría no existente");
 
         const temporada = await this.temporadaRepo.findOneBy({ id: dto.temporada_id });
-        if (!temporada) throw new Error("Temporada no existente");
+        if (!temporada) throw new NotFoundError("Temporada no existente");
 
         producto.nombre = dto.nombre;
         producto.descripcion = dto.descripcion;
@@ -74,25 +79,26 @@ export class ProductoService implements IProductoService {
         return true;
     }
 
-    async updateProductoAsync(id: number, dto: UpdateProductoDTO) {
+    async updateProductoAsync(id: number, dto: UpdateProductoDTO): Promise<ProductoDTO> {
         const producto = await this.repo.getById(id, ['categoria', 'temporada']);
-        if (!producto) throw new Error("Producto no existente");
+        if (!producto) throw new NotFoundError("Producto no existente");
 
         if (dto.nombre !== undefined) {
-            const nombreExiste = await this.repo.findByNombre(dto.nombre);
-            if (nombreExiste && nombreExiste.id !== id) throw new Error("Ya existe un producto con este nombre");
+            const nombreNormalizado = dto.nombre.trim().toLowerCase();
+            const nombreExiste = await this.repo.findByNombre(nombreNormalizado);
+            if (nombreExiste && nombreExiste.id !== id) throw new ConflictError("Ya existe un producto con este nombre");
             producto.nombre = dto.nombre;
         }
 
         if (dto.categoria_id !== undefined) {
             const categoria = await this.categoriaRepo.findOneBy({ id: dto.categoria_id });
-            if (!categoria) throw new Error("Categoria no existente");
+            if (!categoria) throw new NotFoundError("Categoria no existente");
             producto.categoria = categoria;
         }
 
         if (dto.temporada_id !== undefined) {
             const temporada = await this.temporadaRepo.findOneBy({ id: dto.temporada_id });
-            if (!temporada) throw new Error("Temporada no existente");
+            if (!temporada) throw new NotFoundError("Temporada no existente");
             producto.temporada = temporada;
         }
 
@@ -104,21 +110,22 @@ export class ProductoService implements IProductoService {
         return toProductoDTO(producto);
     }
 
-    async removeProductoAsync(id: number) {
+    async removeProductoAsync(id: number): Promise<boolean> {
         const producto = await this.repo.getById(id);
-        if (!producto) return false;
+        if (!producto) throw new NotFoundError("Producto no existente");
 
         await this.repo.delete(producto);
         return true;
     }
 
-    async getAllProductosConDetalles() {
+    async getAllProductosConDetalles(baseUrl?: string): Promise<ProductoConDetallesDTO[]> {
         const productos = await this.repo.getProductosConDetalles();
-        return toProductoConDetallesDTOs(productos);
+        return toProductoConDetallesDTOs(productos, baseUrl);
     }
 
-    async getProductoConDetallesById(id: number) {
+    async getProductoConDetallesById(id: number, baseUrl?: string): Promise<ProductoConDetallesDTO > {
         const producto = await this.repo.getProductoConDetallesById(id);
-        return producto ? toProductoConDetallesDTO(producto) : null;
+        if (!producto) throw new NotFoundError("Producto no existente");
+        return toProductoConDetallesDTO(producto, baseUrl);
     }
 }

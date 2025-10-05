@@ -1,56 +1,91 @@
-import { StatusCodes } from "http-status-codes";
 import { IProductoService } from "../../domain/services/interfaces/IProductoService";
 import { Request, Response } from "express";
 import { CreateProductoSchema, UpdateProductoSchema } from "../../app/schemas/producto.schema";
+import { successResponse } from "../../utils/response";
+import { ValidationError } from "../../app/errors/CustomErrors";
 
 export class ProductosController {
     constructor(private readonly service: IProductoService) {}
 
-    getAll = async (_req: Request, res:Response) => {
-        const productos = await this.service.getAllProductos();
-        res.json(productos);
+    getAll = async (_req: Request, res:Response, next: Function) => {
+        try {
+            const productos = await this.service.getAllProductos();
+            successResponse(res, "PRODUCTOS_OBTENIDOS", "Productos obtenidos correctamente", productos);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    getById = async (req: Request, res: Response) => {
-        const producto = await this.service.getProductoById(Number(req.params.id));
-        if(!producto) return res.sendStatus(StatusCodes.NOT_FOUND);
-        res.json(producto);
+    getById = async (req: Request, res: Response, next: Function) => {
+        try {
+            const producto = await this.service.getProductoById(Number(req.params.id));
+            if (!producto) return next(new ValidationError("Producto no encontrado"));
+            successResponse(res, "PRODUCTO_OBTENIDO", "Producto obtenido correctamente", producto);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    create = async (req: Request, res: Response) => {
-        const dto = CreateProductoSchema.parse(req.body);
-        const producto = await this.service.createProductoAsync(dto);
-        res.status(StatusCodes.CREATED).json(producto);
+    create = async (req: Request, res: Response, next: Function) => {
+        try {
+            const dto = CreateProductoSchema.parse(req.body);
+            const producto = await this.service.createProductoAsync(dto);
+            successResponse(res, "PRODUCTO_CREADO", "Producto creado correctamente", producto);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    updateCompleto = async (req: Request, res: Response) => {
-        const dto = CreateProductoSchema.parse(req.body);
-        const ok = await this.service.updateProductoCompletoAsync(Number(req.params.id), dto);
-        if(!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
-        res.sendStatus(StatusCodes.NO_CONTENT);
+    updateCompleto = async (req: Request, res: Response, next: Function) => {
+        try {
+            const dto = CreateProductoSchema.parse(req.body);
+            const ok = await this.service.updateProductoCompletoAsync(Number(req.params.id), dto);
+            if (!ok) return next(new ValidationError("Producto no encontrado"));
+            successResponse(res, "PRODUCTO_ACTUALIZADO", "Producto actualizado correctamente");
+        } catch (error) {
+            next(error);
+        }
     }
 
-    update = async (req: Request, res: Response) => {
-        const dto = UpdateProductoSchema.parse(req.body);
-        const ok = await this.service.updateProductoAsync(Number(req.params.id), dto);
-        if (!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
-        res.sendStatus(StatusCodes.NO_CONTENT).json(ok);
+    update = async (req: Request, res: Response, next: Function) => {
+        try {
+            const dto = UpdateProductoSchema.parse(req.body);
+            const ok = await this.service.updateProductoAsync(Number(req.params.id), dto);
+            if (!ok) return next(new ValidationError("Producto no encontrado"));
+            successResponse(res, "PRODUCTO_ACTUALIZADO", "Producto actualizado correctamente");
+        } catch (error) {
+            next(error);
+        }
     }
 
-    remove = async (req: Request, res: Response) => {
-        const ok = await this.service.removeProductoAsync(Number(req.params.id));
-        if(!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
-        res.sendStatus(StatusCodes.NO_CONTENT);
+    remove = async (req: Request, res: Response, next: Function) => {
+        try {
+            const ok = await this.service.removeProductoAsync(Number(req.params.id));
+            if (!ok) return next(new ValidationError("Producto no encontrado"));
+            successResponse(res, "PRODUCTO_ELIMINADO", "Producto eliminado correctamente");
+        } catch (error) {
+            next(error);
+        }
     }
 
-    getAllDetalles = async (_req: Request, res:Response) => {
-        const productos = await this.service.getAllProductosConDetalles();
-        res.json(productos);
+    getAllDetalles = async (req: Request, res:Response, next: Function) => {
+        try {
+            const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+            const productos = await this.service.getAllProductosConDetalles(baseUrl);
+            successResponse(res, "PRODUCTOS_OBTENIDOS", "Productos obtenidos correctamente", productos);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    getDetallesById = async (req: Request, res: Response) => {
-        const producto = await this.service.getProductoConDetallesById(Number(req.params.id));
-        if(!producto) return res.sendStatus(StatusCodes.NOT_FOUND);
-        res.json(producto);
+    getDetallesById = async (req: Request, res: Response, next: Function) => {
+        try {
+            const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
+            const producto = await this.service.getProductoConDetallesById(Number(req.params.id), baseUrl);
+            if (!producto) return next(new ValidationError("Producto no encontrado"));
+            successResponse(res, "PRODUCTO_OBTENIDO", "Producto obtenido correctamente", producto);
+        } catch (error) {
+            next(error);
+        }
     }
 }

@@ -3,8 +3,9 @@ import { Servicio } from "../entities/Servicio";
 import { ImagenServicioDTO } from "../../app/schemas/imagenServicio.schema";
 import { IImagenServicioService } from "./interfaces/IImagenServicioService";
 import fs from "fs/promises";
-import { toImagenServicioDTO, toImagenServicioDTOs } from "../../app/mappings/imagenServicio.mapping";
+import { toImagenServicioDTOs } from "../../app/mappings/imagenServicio.mapping";
 import { BaseRepository } from "../repositories/BaseRepository";
+import { NotFoundError, ValidationError, ConflictError } from "../../app/errors/CustomErrors";
 import path from "path";
 
 export class ImagenServicioService implements IImagenServicioService {
@@ -17,29 +18,31 @@ export class ImagenServicioService implements IImagenServicioService {
         return toImagenServicioDTOs(imagenes);
     }
 
-    async createImagenServicio(file: Express.Multer.File, servicioId: number): Promise<ImagenServicioDTO> {
-        const servicio = await this.servicioRepo.findOneBy({ id: servicioId });
-        if (!servicio) throw new Error("Servicio no encontrado");
-
-        const relativeUrl = `/uploads/servicios/${file.filename}`;
-        const imagen = {
-            url: relativeUrl,
-            es_principal: false,
-            orden: 0,
-            servicio: servicio
-        } as ImagenServicio;
-        const saved = await this.repo.add(imagen);
-        return toImagenServicioDTO(saved);
-    }
-
     async createImagenesServicio(files: Express.Multer.File[], servicioId: number): Promise<ImagenServicioDTO[]> {
         const servicio = await this.servicioRepo.findOneBy({ id: servicioId });
-        if (!servicio) throw new Error("Servicio no encontrado");
+        if (!servicio) throw new NotFoundError("Servicio no encontrado");
         if (!files || files.length === 0) return [];
 
+        // Validar tipos y tamaños de archivos
+        const formatosPermitidos = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+        const maxSize = 5 * 1024 * 1024;
+        for (const file of files) {
+            if (!formatosPermitidos.includes(file.mimetype)) {
+                throw new ValidationError(`Tipo de archivo no permitido: ${file.originalname}`);
+            }
+            if (file.size > maxSize) {
+                throw new ValidationError(`El archivo ${file.originalname} excede el tamaño máximo permitido de 5MB.`);
+            }
+        }
+
+        // Validar límite de imágenes por servicio (max 5)
         const existentes = await this.repo.find({ servicio: { id: servicioId } });
-        const count = existentes.length;
+        if (existentes.length + files.length > 5) {
+            throw new ConflictError("No se pueden subir más de 5 imágenes por servicio.");
+        }
+
         let principalSet = existentes.some(img => img.es_principal);
+        const count = existentes.length;
 
         const imagenes: ImagenServicio[] = files.map((file, index) => {
             const esPrincipal = !principalSet && index === 0;
@@ -55,6 +58,13 @@ export class ImagenServicioService implements IImagenServicioService {
         const saved: ImagenServicio[] = [];
         for (const img of imagenes) {
             const s = await this.repo.add(img);
+            // Validar que el archivo físico exista
+            const absolutePath = path.resolve(__dirname, '../../..', img.url.replace(/^\//, ''));
+            try {
+                await fs.access(absolutePath);
+            } catch {
+                throw new ConflictError(`El archivo físico ${img.url} no se guardó correctamente en el servidor.`);
+            }
             saved.push(s);
         }
         return toImagenServicioDTOs(saved);
@@ -63,13 +73,17 @@ export class ImagenServicioService implements IImagenServicioService {
     async removeImagenServicio(id: number): Promise<boolean> {
         const imagen = await this.repo.findOneBy({ id });
         if (!imagen) return false;
+        // Validar que la ruta esté dentro de /uploads/servicios
+        const uploadsDir = path.resolve(__dirname, '../../..', 'uploads/servicios');
+        const absolutePath = path.resolve(__dirname, '../../..', imagen.url.replace(/^\//, ''));
+        if (!absolutePath.startsWith(uploadsDir)) {
+            throw new ConflictError("Ruta de archivo inválida o potencial intento de acceso no autorizado.");
+        }
         await this.repo.delete(imagen);
         try {
-            // Convertir la ruta relativa a absoluta
-            const absolutePath = path.resolve(__dirname, '../../..', imagen.url.replace(/^\//, ''));
             await fs.unlink(absolutePath);
         } catch (err) {
-            console.warn("No se pudo borrar archivo físico:", err);
+            console.warn("No se pudo borrar el archivo físico:", err);
         }
         return true;
     }

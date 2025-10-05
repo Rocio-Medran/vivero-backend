@@ -4,6 +4,7 @@ import cors from 'cors';
 import healthRoutes from './infrastructure/routes/health.routes';
 import routes from './infrastructure/routes/index';
 import path from 'path';
+import { errorHandler } from './middlewares/errorHandler';
 
 export const createApp = () => {
   const app = express();
@@ -15,11 +16,9 @@ export const createApp = () => {
 
   app.use("/uploads", express.static(path.resolve(process.cwd(), "uploads")));
 
-  // manejador simple de errores (placeholder)
-  app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  });
+
+  // Manejo centralizado de errores
+  app.use(errorHandler);
 
   return app;
 };

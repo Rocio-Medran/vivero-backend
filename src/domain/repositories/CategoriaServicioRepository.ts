@@ -13,4 +13,13 @@ export class CategoriaServicioRepository extends BaseRepository<CategoriaServici
     async getCategoriasServicioConServicios(): Promise<CategoriaServicio[]> {
         return this.getAll(['servicios', 'servicios.categoria']);
     }
+
+    async countServiciosByCategoria(id: number): Promise<number> {
+        const categoria = await this.getById(id, ['servicios']);
+        return categoria && categoria.servicios ? categoria.servicios.length : 0;
+    }
+
+    async findSubcategorias(id: number): Promise<CategoriaServicio[]> {
+        return this.find({ id_padre: id });
+    }
 }
