@@ -12,8 +12,6 @@ const imagenCtrl = new ImagenesServicioController(imagenService);
 
 // GET /servicios/:servicioId/imagenes
 router.get('/servicios/:servicioId/imagenes', imagenCtrl.getByServicioId);
-// POST /servicios/:servicioId/imagenes (una sola imagen)
-router.post('/servicios/:servicioId/imagenes', uploadServicio.single('file'), imagenCtrl.create);
 // POST /servicios/:servicioId/imagenes/multiples (varias imágenes)
 router.post('/servicios/:servicioId/imagenes/multiples', uploadServicioMiddleware, imagenCtrl.createMany);
 // DELETE /imagenes-servicio/:id

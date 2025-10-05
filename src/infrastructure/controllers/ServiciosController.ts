@@ -1,37 +1,59 @@
-import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
-import { CreateServicioDTO, UpServicioDTO } from "../../app/schemas/servicio.schema";
+import { CreateServicioSchema, UpServicioSchema } from "../../app/schemas/servicio.schema";
 import { IServicioService } from "../../domain/services/interfaces/IServicioService";
+import { successResponse } from "../../utils/response";
+import { ValidationError } from "../../app/errors/CustomErrors";
 
 export class ServiciosController {
   constructor(private readonly service: IServicioService) {}
 
-  getAll = async (_req: Request, res: Response) => {
-    const items = await this.service.getAllServicios();
-    res.json(items);
+  getAll = async (_req: Request, res: Response, next: Function) => {
+    try {
+      const servicios = await this.service.getAllServicios();
+      successResponse(res, "SERVICIOS_OBTENIDOS", "Servicios obtenidos correctamente", servicios);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  getById = async (req: Request, res: Response) => {
-    const item = await this.service.getServicioById(Number(req.params.id));
-    if (!item) return res.sendStatus(StatusCodes.NOT_FOUND);
-    res.json(item);
+  getById = async (req: Request, res: Response, next: Function) => {
+    try {
+      const servicio = await this.service.getServicioById(Number(req.params.id));
+      if (!servicio) return next(new ValidationError("Servicio no encontrado"));
+      successResponse(res, "SERVICIO_OBTENIDO", "Servicio obtenido correctamente", servicio);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  create = async (req: Request, res: Response) => {
-    const dto = req.body as CreateServicioDTO;
-    const created = await this.service.createServicioAsync(dto);
-    res.status(StatusCodes.CREATED).json(created);
+  create = async (req: Request, res: Response, next: Function) => {
+    try {
+      const dto = CreateServicioSchema.parse(req.body);
+      const servicio = await this.service.createServicioAsync(dto);
+      successResponse(res, "SERVICIO_CREADO", "Servicio creado correctamente", servicio);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  update = async (req: Request, res: Response) => {
-    const ok = await this.service.updateServicioAsync(Number(req.params.id), req.body as UpServicioDTO);
-    if (!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
-    res.sendStatus(StatusCodes.NO_CONTENT);
+  update = async (req: Request, res: Response, next: Function) => {
+    try {
+      const dto = UpServicioSchema.parse(req.body);
+      const ok = await this.service.updateServicioAsync(Number(req.params.id), dto);
+      if (!ok) return next(new ValidationError("Servicio no encontrado"));
+      successResponse(res, "SERVICIO_ACTUALIZADO", "Servicio actualizado correctamente");
+    } catch (error) {
+      next(error);
+    }
   }
 
-  remove = async (req: Request, res: Response) => {
-    const ok = await this.service.removeServicioAsync(Number(req.params.id));
-    if (!ok) return res.sendStatus(StatusCodes.NOT_FOUND);
-    res.sendStatus(StatusCodes.NO_CONTENT);
+  remove = async (req: Request, res: Response, next: Function) => {
+    try {
+      const ok = await this.service.removeServicioAsync(Number(req.params.id));
+      if (!ok) return next(new ValidationError("Servicio no encontrado"));
+      successResponse(res, "SERVICIO_ELIMINADO", "Servicio eliminado correctamente");
+    } catch (error) {
+      next(error);
+    }
   }
 }

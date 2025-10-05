@@ -4,8 +4,9 @@ import { BaseRepository } from "../repositories/BaseRepository";
 import { IImagenProductoService } from "./interfaces/IImageneProductoService";
 import fs from "fs/promises";
 import path from "path";
-import { toImagenProductoDTO, toImagenProductoDTOs } from "../../app/mappings/imagenProducto.mapping";
+import { toImagenProductoDTOs } from "../../app/mappings/imagenProducto.mapping";
 import { ImagenProductoDTO } from "../../app/schemas/imagenProducto.schema";
+import { ConflictError, NotFoundError, ValidationError } from "../../app/errors/CustomErrors";
 
 
 export class ImagenProductoService implements IImagenProductoService {
@@ -18,26 +19,22 @@ export class ImagenProductoService implements IImagenProductoService {
         return toImagenProductoDTOs(imagenes);
     }
 
-    async createImagenProducto(file: Express.Multer.File, productoId: number): Promise<ImagenProductoDTO> {
-        const producto = await this.productoRepo.findOneBy({ id: productoId });
-        if (!producto) throw new Error("Producto no encontrado");
-
-        const relativeUrl = `/uploads/productos/${file.filename}`;
-        const imagen = {
-            url: relativeUrl,
-            es_principal: false,
-            orden: 0,
-            producto: producto
-        } as ImagenProducto;
-        const saved = await this.repo.add(imagen);
-        return toImagenProductoDTO(saved);
-    }
-
     async createImagenesProducto(files: Express.Multer.File[], productoId: number): Promise<ImagenProductoDTO[]> {
         const producto = await this.productoRepo.findOneBy({ id: productoId });
-        if (!producto) throw new Error("Producto no encontrado");
-
+        if (!producto) throw new NotFoundError("Producto no encontrado");
         if (!files || files.length === 0) return [];
+
+        // Validar tipos y tamaños de archivos
+        const formatosPermitidos = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+        const maxSize = 5 * 1024 * 1024;
+        for (const file of files) {
+            if (!formatosPermitidos.includes(file.mimetype)) {
+                throw new ValidationError(`Tipo de archivo no permitido: ${file.originalname}`);
+            }
+            if (file.size > maxSize) {
+                throw new ValidationError(`El archivo ${file.originalname} excede el tamaño máximo permitido de 5MB.`);
+            }
+        }
 
         const existentes = await this.repo.find({ producto: { id: productoId } });
         const count = existentes.length;
@@ -58,6 +55,13 @@ export class ImagenProductoService implements IImagenProductoService {
         const saved: ImagenProducto[] = [];
         for (const img of imagenes) {
             const s = await this.repo.add(img);
+            // Validar que el archivo físico exista
+            const absolutePath = path.resolve(__dirname, '../../..', img.url.replace(/^\//, ''));
+            try {
+                await fs.access(absolutePath);
+            } catch {
+                throw new ConflictError(`El archivo físico ${img.url} no se guardó correctamente en el servidor.`);
+            }
             saved.push(s);
         }
         return toImagenProductoDTOs(saved);
@@ -67,16 +71,18 @@ export class ImagenProductoService implements IImagenProductoService {
         const imagen = await this.repo.findOneBy({ id });
         if (!imagen) return false;
 
+        // Validar que la ruta esté dentro de /uploads/productos
+        const uploadsDir = path.resolve(__dirname, '../../..', 'uploads/productos');
+        const absolutePath = path.resolve(__dirname, '../../..', imagen.url.replace(/^\//, ''));
+        if (!absolutePath.startsWith(uploadsDir)) {
+            throw new ConflictError("Ruta de archivo inválida o potencial intento de acceso no autorizado.");
+        }
         await this.repo.delete(imagen);
-
         try {
-            // Convertir la ruta relativa a absoluta
-            const absolutePath = path.resolve(__dirname, '../../..', imagen.url.replace(/^\//, ''));
             await fs.unlink(absolutePath);
         } catch (err) {
-            console.warn("No se pudo borrar archivo físico:", err);
+            console.warn("No se pudo borrar el archivo físico:", err);
         }
-
         return true;
     }
 

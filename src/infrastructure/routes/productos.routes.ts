@@ -21,11 +21,8 @@ const imagenCtrl = new ImagenesProductoController(imagenService);
 
 const { getAll, getById, create, updateCompleto, update, remove, getDetallesById, getAllDetalles } = ctrl;
 
-
-
 // Rutas de imágenes de producto
 router.get('/:productoId/imagenes', imagenCtrl.getByProductoId);
-router.post('/:productoId/imagenes', upload.single('file'), imagenCtrl.create);
 router.post('/:productoId/imagenes/multiples', uploadProductoMiddleware, imagenCtrl.createMany);
 
 router.get('/detalles', getAllDetalles);

@@ -1,5 +1,6 @@
+import { ConflictError, NotFoundError, ValidationError } from "../../app/errors/CustomErrors";
 import { toCategoriaServicioConServiciosDTO, toCategoriaServicioConServiciosDTOs, toCategoriaServicioDTO, toCategoriaServicioDTOs } from "../../app/mappings/categoriaServicio.mapping";
-import { CategoriaServicioDTO, CreateCategoriaServicioDTO } from "../../app/schemas/categoriaServicio.schema";
+import { CategoriaServicioConServiciosDTO, CategoriaServicioDTO, CreateCategoriaServicioDTO } from "../../app/schemas/categoriaServicio.schema";
 import { CategoriaServicio } from "../entities/CategoriaServicio";
 import { ICategoriaServicioRepository } from '../repositories/interfaces/ICategoriaServicioRepository';
 import { ICategoriaServicioService } from "./interfaces/ICategoriaServicioService";
@@ -12,26 +13,48 @@ export class CategoriaServicioService implements ICategoriaServicioService {
         return toCategoriaServicioDTOs(categorias);
     }
 
-    async getCategoriaById(id: number): Promise<CategoriaServicioDTO | null> {
+    async getCategoriaById(id: number): Promise<CategoriaServicioDTO> {
         const categoria = await this.repo.getById(id);
-        return categoria ? toCategoriaServicioDTO(categoria) : null;
+        if (!categoria) throw new NotFoundError("Categoría no encontrada");
+        return toCategoriaServicioDTO(categoria);
     }
 
     async createCategoria(dto: CreateCategoriaServicioDTO): Promise<CategoriaServicioDTO> {
-        const nombreExiste = await this.repo.findByNombre(dto.nombre);
-        if (nombreExiste) throw new Error("Ya existe una categoria de servicio con este nombre");
+        if (!dto.nombre?.trim()) {
+            throw new ValidationError("El nombre de la categoría es obligatorio");
+        }
 
-        const categoria = Object.assign(new CategoriaServicio(), dto);
+        if (!dto.tipo) {
+            throw new ValidationError("El tipo de categoría es obligatorio");
+        }
+
+        const nombreNormalizado = dto.nombre.trim().toLowerCase();
+        const nombreExiste = await this.repo.findByNombre(nombreNormalizado);
+        if (nombreExiste) throw new ConflictError("Ya existe una categoria de servicio con este nombre");
+
+        if (dto.id_padre) {
+            const padre = await this.repo.getById(dto.id_padre);
+            if (!padre) {
+                throw new NotFoundError("La categoría padre no existe");
+            }
+        }
+
+        const categoria = new CategoriaServicio();
+        categoria.nombre = dto.nombre;
+        categoria.tipo = dto.tipo;
+        categoria.id_padre = dto.id_padre ?? 0;
+
         await this.repo.add(categoria);
         return toCategoriaServicioDTO(categoria);
     }
 
     async updateCategoria(id: number, dto: CreateCategoriaServicioDTO): Promise<boolean> {
         const categoria = await this.repo.getById(id);
-        if (!categoria) return false;
+        if (!categoria) throw new NotFoundError("Categoría no encontrada");
 
-        const nombreExiste = await this.repo.findByNombre(dto.nombre);
-        if (nombreExiste && nombreExiste.id !== id) throw new Error("Ya existe una categoria de servicio con este nombre");
+        const nombreNormalizado = dto.nombre.trim().toLowerCase();
+        const nombreExiste = await this.repo.findByNombre(nombreNormalizado);
+        if (nombreExiste && nombreExiste.id !== id) throw new ConflictError("Ya existe una categoría de servicio con este nombre");
 
         Object.assign(categoria, dto);
         await this.repo.update(categoria);
@@ -40,18 +63,29 @@ export class CategoriaServicioService implements ICategoriaServicioService {
 
     async removeCategoria(id: number): Promise<boolean> {
         const categoria = await this.repo.getById(id);
-        if (!categoria) return false;
+        if (!categoria) throw new NotFoundError("Categoría no encontrada");
+
+        const servicios = await this.repo.countServiciosByCategoria(id);
+        if (servicios > 0) {
+            throw new ConflictError("No se puede eliminar una categoría con servicios asociados");
+        }
+
+        const hijas = await this.repo.findSubcategorias(id);
+        if (hijas.length > 0) {
+            throw new ConflictError("No se puede eliminar una categoría que tiene subcategorías");
+        }
 
         await this.repo.delete(categoria);
         return true;
     }
 
-    async getCategoriaServicioConServiciosById(id: number) {
+    async getCategoriaServicioConServiciosById(id: number): Promise<CategoriaServicioConServiciosDTO> {
         const categoria = await this.repo.getCategoriaServicioConServiciosById(id);
-        return categoria ? toCategoriaServicioConServiciosDTO(categoria) : null;
+        if (!categoria) throw new NotFoundError("Categoría no encontrada");
+        return toCategoriaServicioConServiciosDTO(categoria);
     }
 
-    async getCategoriasServicioConServicios() {
+    async getCategoriasServicioConServicios(): Promise<CategoriaServicioConServiciosDTO[]> {
         const categorias = await this.repo.getCategoriasServicioConServicios();
         return toCategoriaServicioConServiciosDTOs(categorias);
     }
