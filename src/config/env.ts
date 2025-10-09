@@ -16,5 +16,8 @@ export const env = {
     user: process.env.DB_USER!,
     password: process.env.DB_PASSWORD!
   },
-  whatsappNumber: process.env.WHATSAPP_NUMBER || ''
+  whatsappNumber: process.env.WHATSAPP_NUMBER || '',
+  jwtSecret: process.env.JWT_SECRET || 'default_secret_key',
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '2h',
+  admin_password: process.env.ADMIN_PASSWORD || ''
 };
