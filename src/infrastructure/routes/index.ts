@@ -7,6 +7,7 @@ import servicios from './servicios.routes';
 import categoriasServicios from './categorias-servicios.routes';
 import imagenes from './imagenes.routes';
 import imagenesServicio from './imagenes-servicio.routes';
+import admin from './admin.routes';
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use('/servicios', servicios);
 router.use('/categorias-servicios', categoriasServicios);
 router.use('/imagenes', imagenes);
 router.use('/', imagenesServicio);
+router.use('/admin', admin);
 
 export default router;
