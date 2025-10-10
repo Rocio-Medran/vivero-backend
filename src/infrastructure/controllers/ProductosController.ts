@@ -70,8 +70,7 @@ export class ProductosController {
 
     getAllDetalles = async (req: Request, res:Response, next: Function) => {
         try {
-            const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
-            const productos = await this.service.getAllProductosConDetalles(baseUrl);
+            const productos = await this.service.getAllProductosConDetalles();
             successResponse(res, "PRODUCTOS_OBTENIDOS", "Productos obtenidos correctamente", productos);
         } catch (error) {
             next(error);
@@ -80,8 +79,7 @@ export class ProductosController {
 
     getDetallesById = async (req: Request, res: Response, next: Function) => {
         try {
-            const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
-            const producto = await this.service.getProductoConDetallesById(Number(req.params.id), baseUrl);
+            const producto = await this.service.getProductoConDetallesById(Number(req.params.id));
             if (!producto) return next(new ValidationError("Producto no encontrado"));
             successResponse(res, "PRODUCTO_OBTENIDO", "Producto obtenido correctamente", producto);
         } catch (error) {

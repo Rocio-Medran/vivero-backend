@@ -10,6 +10,9 @@ const ctrl = new ServiciosController(service);
 
 const { getAll, getById, create, update, remove } = ctrl;
 
+router.get('/detalles', ctrl.getAllDetalles);
+router.get('/detalles/:id', ctrl.getDetallesById);
+
 router.get('/', getAll);
 router.get('/:id', getById);
 router.post('/', create);

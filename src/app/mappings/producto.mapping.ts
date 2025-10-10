@@ -15,7 +15,7 @@ export const toProductoDTO = (entity: Producto): ProductoDTO =>
 export const toProductoDTOs = (entities: Producto[]): ProductoDTO[] =>
     entities.map(e => toProductoDTO(e));
 
-export const toProductoConDetallesDTO = (entity: Producto, baseUrl?: string): ProductoConDetallesDTO =>
+export const toProductoConDetallesDTO = (entity: Producto): ProductoConDetallesDTO =>
     ProductoConDetallesSchema.parse({
         id: entity.id,
         nombre: entity.nombre,
@@ -26,11 +26,11 @@ export const toProductoConDetallesDTO = (entity: Producto, baseUrl?: string): Pr
         nombre_temporada: entity.temporada.nombre,
         imagenes: entity.imagenes ? entity.imagenes.map(i => ({
             id: i.id,
-            url: baseUrl ? encodeURI(`${baseUrl}${i.url}`) : i.url,
+            url: i.url,
             es_principal: i.es_principal,
             orden: i.orden
         })) : []
     });
 
-export const toProductoConDetallesDTOs = (entities: Producto[], baseUrl?: string): ProductoConDetallesDTO[] =>
-    entities.map(e => toProductoConDetallesDTO(e, baseUrl));
+export const toProductoConDetallesDTOs = (entities: Producto[]): ProductoConDetallesDTO[] =>
+    entities.map(e => toProductoConDetallesDTO(e));

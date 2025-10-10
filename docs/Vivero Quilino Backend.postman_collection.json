@@ -1,782 +1,1166 @@
 {
-  "info": {
-    "_postman_id": "91a2f40b-293e-40bf-a7cd-bee1d33f0dc0",
-    "name": "Vivero Quilino Backend",
-    "description": "# API Vivero Quilino\n\nAPI RESTful para la gestión de productos, imágenes, categorías, temporadas y servicios del **Vivero Municipal de Quilino**.\n\nPermite administrar el catálogo de productos, subir y gestionar imágenes, consultar temporadas, administrar servicios y mucho más. Es la base para el desarrollo y las pruebas del frontend de la aplicación.\n\n---\n\n### Configuración Principal\n\n- **Base URL:** `http://localhost:4001/api`\n    \n    - _Nota: Se recomienda configurar esta URL como una variable de entorno en Postman, por ejemplo_ `_{{baseURL}}_`_._\n        \n- **Autenticación:** `(proximamente)`\n    \n\n---\n\n### Endpoints Principales\n\nA continuación se detallan los recursos principales disponibles en la API:\n\n- **Productos:**\n    \n    - CRUD completo para la gestión de productos.\n        \n    - Asociación y gestión de imágenes individuales y múltiples.\n        \n- **Categorías:**\n    \n    - CRUD para categorías.\n        \n    - Consulta de categorías y los productos asociados.\n        \n- **Temporadas:**\n    \n    - CRUD para la gestión de temporadas.\n        \n- **Servicios:**\n    \n    - CRUD para los servicios ofrecidos por el vivero.\n        \n- **Imágenes:**\n    \n    - Endpoints dedicados para la subida y eliminación de imágenes.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "39403640"
-  },
-  "item": [
-    {
-      "name": "Productos",
-      "item": [
-        {
-          "name": "Imagen Producto",
-          "item": [
-            {
-              "name": "GET Imagenes Producto",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{BaseUrl}}/productos/1/imagenes",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["productos", "1", "imagenes"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "POST Imagen de producto",
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "formdata",
-                  "formdata": [
-                    {
-                      "key": "file",
-                      "type": "file",
-                      "src": "/C:/Users/Rocio/Downloads/HOME.png"
-                    }
-                  ]
-                },
-                "url": {
-                  "raw": "{{BaseUrl}}/productos/1/imagenes",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["productos", "1", "imagenes"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "POST Múltiples imágenes",
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "formdata",
-                  "formdata": [
-                    {
-                      "key": "files",
-                      "type": "file",
-                      "src": [
-                        "/C:/Users/Rocio/Downloads/images (1).jpeg",
-                        "/C:/Users/Rocio/Downloads/arboles-e1569184563522.jpg",
-                        "/C:/Users/Rocio/Downloads/tree-with-huge-tree-trunk-field-870x563.jpg",
-                        "/C:/Users/Rocio/Downloads/images.jpeg",
-                        "/C:/Users/Rocio/Downloads/Eiche_bei_Graditz.jpg"
-                      ]
-                    }
-                  ]
-                },
-                "url": {
-                  "raw": "{{BaseUrl}}/productos/1/imagenes/multiples",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["productos", "1", "imagenes", "multiples"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "DELETE Imagen de producto",
-              "request": {
-                "method": "DELETE",
-                "header": [],
-                "url": {
-                  "raw": "{{BaseUrl}}/imagenes/1",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["imagenes", "1"]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "GET Productos",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/productos",
-              "host": ["{{BaseUrl}}"],
-              "path": ["productos"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Producto",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/productos/1",
-              "host": ["{{BaseUrl}}"],
-              "path": ["productos", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST producto",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nombre\": \"Mandarina\",\r\n  \"descripcion\": \"Fruta fresca\",\r\n  \"informacion_extra\": \"debe tener minimo 7 caracteres\",\r\n  \"categoria_id\": 1,\r\n  \"temporada_id\": 3\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/productos",
-              "host": ["{{BaseUrl}}"],
-              "path": ["productos"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "PUT Producto",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nombre\": \"ejemplo\",\r\n  \"descripcion\": \"desc\",\r\n  \"imagen_url\": \"frutas.jpg\",\r\n  \"categoria\": 3,\r\n  \"temporada\": 3\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/productos/2",
-              "host": ["{{BaseUrl}}"],
-              "path": ["productos", "2"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "DELETE Producto",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/productos/3",
-              "host": ["{{BaseUrl}}"],
-              "path": ["productos", "3"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Producto con detalles",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/productos/detalles/1",
-              "host": ["{{BaseUrl}}"],
-              "path": ["productos", "detalles", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "PATCH Producto",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nombre\": \"Mandarina\",\r\n  \"descripcion\": \"desc\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/productos/2",
-              "host": ["{{BaseUrl}}"],
-              "path": ["productos", "2"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Productos con detalles",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/productos/detalles",
-              "host": ["{{BaseUrl}}"],
-              "path": ["productos", "detalles"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Categorias Producto",
-      "item": [
-        {
-          "name": "GET Categorias",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/categorias",
-              "host": ["{{BaseUrl}}"],
-              "path": ["categorias"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Categoria",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/categorias/1",
-              "host": ["{{BaseUrl}}"],
-              "path": ["categorias", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST Categoria",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nombre\": \"Frutas\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/categorias",
-              "host": ["{{BaseUrl}}"],
-              "path": ["categorias"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "PUT Categoria",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nombre\": \"Frutas\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/categorias/1",
-              "host": ["{{BaseUrl}}"],
-              "path": ["categorias", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "DELETE Categoria",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nombre\": \"Frutas\"\r\n}"
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/categorias/4",
-              "host": ["{{BaseUrl}}"],
-              "path": ["categorias", "4"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Categoria con productos",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/categorias/1/productos",
-              "host": ["{{BaseUrl}}"],
-              "path": ["categorias", "1", "productos"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Categorias con productos",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/categorias/productos",
-              "host": ["{{BaseUrl}}"],
-              "path": ["categorias", "productos"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Temporadas",
-      "item": [
-        {
-          "name": "GET Temporadas",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/temporadas",
-              "host": ["{{BaseUrl}}"],
-              "path": ["temporadas"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Temporada",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/temporadas/1",
-              "host": ["{{BaseUrl}}"],
-              "path": ["temporadas", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST Temporada",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nombre\": \"primaver-verano\",\r\n  \"fecha_desde\": \"2025/09/21\",\r\n  \"fecha_hasta\": \"2026/03/21\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/temporadas",
-              "host": ["{{BaseUrl}}"],
-              "path": ["temporadas"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "PUT Temporada",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nombre\": \"Primavera-2025\",\r\n  \"fecha_desde\": \"2025/09/21\",\r\n  \"fecha_hasta\": \"2025/12/21\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/temporadas/1",
-              "host": ["{{BaseUrl}}"],
-              "path": ["temporadas", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "DELETE Temporada",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/temporadas/2",
-              "host": ["{{BaseUrl}}"],
-              "path": ["temporadas", "2"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Health",
-      "item": [
-        {
-          "name": "GET Health",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/health",
-              "host": ["{{BaseUrl}}"],
-              "path": ["health"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET DB Check",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/db-check",
-              "host": ["{{BaseUrl}}"],
-              "path": ["db-check"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Servicios",
-      "item": [
-        {
-          "name": "Categorias Servicios",
-          "item": [
-            {
-              "name": "GET Categorias",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{BaseUrl}}/categorias-servicios",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["categorias-servicios"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "GET Categoria",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{BaseUrl}}/categorias-servicios/1",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["categorias-servicios", "1"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "POST Categoria",
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"nombre\": \"Alquiler de maquinarias\",\r\n  \"id_padre\": 0,\r\n  \"tipo\": \"principal\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{BaseUrl}}/categorias-servicios",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["categorias-servicios"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "PUT Categoria",
-              "request": {
-                "method": "PUT",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"nombre\": \"Surcador\",\r\n  \"id_padre\": 1,\r\n  \"tipo\": \"Maquinas\"\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{BaseUrl}}/categorias-servicios/2",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["categorias-servicios", "2"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "DELETE Categoria",
-              "request": {
-                "method": "DELETE",
-                "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n  \"nombre\": \"Frutas\"\r\n}"
-                },
-                "url": {
-                  "raw": "{{BaseUrl}}/categorias-servicios/3",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["categorias-servicios", "3"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "GET Categoria con servicio",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{BaseUrl}}/categorias-servicios/1/productos",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["categorias-servicios", "1", "productos"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "GET Categorias con servicios",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{BaseUrl}}/categorias-servicios/con-servicios",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["categorias-servicios", "con-servicios"]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "Imagenes Servicios",
-          "item": [
-            {
-              "name": "GET Imágenes Servicio",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{BaseUrl}}/servicios/1/imagenes",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["servicios", "1", "imagenes"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "POST Imagen de producto",
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "formdata",
-                  "formdata": [
-                    {
-                      "key": "file",
-                      "type": "file",
-                      "src": "/C:/Users/Rocio/Downloads/images.jpeg"
-                    }
-                  ]
-                },
-                "url": {
-                  "raw": "{{BaseUrl}}/servicios/1/imagenes",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["servicios", "1", "imagenes"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "POST Múltiples imágenes",
-              "request": {
-                "method": "POST",
-                "header": [],
-                "body": {
-                  "mode": "formdata",
-                  "formdata": [
-                    {
-                      "key": "files",
-                      "type": "file",
-                      "src": [
-                        "/C:/Users/Rocio/Downloads/images (1).jpeg",
-                        "/C:/Users/Rocio/Downloads/arboles-e1569184563522.jpg",
-                        "/C:/Users/Rocio/Downloads/tree-with-huge-tree-trunk-field-870x563.jpg",
-                        "/C:/Users/Rocio/Downloads/images.jpeg",
-                        "/C:/Users/Rocio/Downloads/Eiche_bei_Graditz.jpg"
-                      ]
-                    }
-                  ]
-                },
-                "url": {
-                  "raw": "{{BaseUrl}}/servicios/1/imagenes/multiples",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["servicios", "1", "imagenes", "multiples"]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "DELETE Imagen de producto",
-              "request": {
-                "method": "DELETE",
-                "header": [],
-                "url": {
-                  "raw": "{{BaseUrl}}/imagenes-servicio/1",
-                  "host": ["{{BaseUrl}}"],
-                  "path": ["imagenes-servicio", "1"]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "GET Servicios",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/servicios",
-              "host": ["{{BaseUrl}}"],
-              "path": ["servicios"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Servicio",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/servicios/2",
-              "host": ["{{BaseUrl}}"],
-              "path": ["servicios", "2"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "POST Servicio",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"Alquiler de maquinas\",\r\n    \"descripcion\": \"desc\",\r\n    \"imagen_url\": \"maquina.jpg\",\r\n    \"categoria_id\": 1\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/servicios",
-              "host": ["{{BaseUrl}}"],
-              "path": ["servicios"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "PATCH Servicio",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"Maquina de riego\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{BaseUrl}}/servicios/1",
-              "host": ["{{BaseUrl}}"],
-              "path": ["servicios", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "DELETE Servicio",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{BaseUrl}}/servicios/1",
-              "host": ["{{BaseUrl}}"],
-              "path": ["servicios", "1"]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "requests": {},
-        "exec": [""]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "requests": {},
-        "exec": [""]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "BaseUrl",
-      "value": ""
-    }
-  ]
+	"info": {
+		"_postman_id": "91a2f40b-293e-40bf-a7cd-bee1d33f0dc0",
+		"name": "Vivero Quilino Backend",
+		"description": "# API Vivero Quilino\n\nAPI RESTful para la gestión de productos, imágenes, categorías, temporadas y servicios del **Vivero Municipal de Quilino**.\n\nPermite administrar el catálogo de productos, subir y gestionar imágenes, consultar temporadas, administrar servicios y mucho más. Es la base para el desarrollo y las pruebas del frontend de la aplicación.\n\n---\n\n### Configuración Principal\n\n- **Base URL:** `http://localhost:4001/api`\n    \n    - _Nota: Se recomienda configurar esta URL como una variable de entorno en Postman, por ejemplo_ `_{{baseURL}}_`_._\n        \n- **Autenticación:** `(proximamente)`\n    \n\n---\n\n### Endpoints Principales\n\nA continuación se detallan los recursos principales disponibles en la API:\n\n- **Productos:**\n    \n    - CRUD completo para la gestión de productos.\n        \n    - Asociación y gestión de imágenes individuales y múltiples.\n        \n- **Categorías:**\n    \n    - CRUD para categorías.\n        \n    - Consulta de categorías y los productos asociados.\n        \n- **Temporadas:**\n    \n    - CRUD para la gestión de temporadas.\n        \n- **Servicios:**\n    \n    - CRUD para los servicios ofrecidos por el vivero.\n        \n- **Imágenes:**\n    \n    - Endpoints dedicados para la subida y eliminación de imágenes.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39403640"
+	},
+	"item": [
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Imagen Producto",
+					"item": [
+						{
+							"name": "GET Imagenes Producto",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var jsonData = pm.response.json();",
+											"",
+											"pm.test(\"Response success is true\", function () {",
+											"    pm.expect(jsonData.success).to.eql(true);",
+											"});",
+											"",
+											"pm.test(\"Response code is 'IMAGENES_OBTENIDAS'\", function () {",
+											"    pm.expect(jsonData.code).to.eql('IMAGENES_OBTENIDAS');",
+											"});",
+											"",
+											"pm.test(\"Response message is 'Imágenes obtenidas correctamente'\", function () {",
+											"    pm.expect(jsonData.message).to.eql('Imágenes obtenidas correctamente');",
+											"});",
+											"",
+											"pm.test(\"Data field is an array\", function () {",
+											"    pm.expect(jsonData.data).to.be.an('array');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/productos/1/imagenes",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"productos",
+										"1",
+										"imagenes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Múltiples imágenes",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": [
+												"/C:/Users/Rocio/Downloads/images (1).jpeg",
+												"/C:/Users/Rocio/Downloads/arboles-e1569184563522.jpg",
+												"/C:/Users/Rocio/Downloads/tree-with-huge-tree-trunk-field-870x563.jpg",
+												"/C:/Users/Rocio/Downloads/images.jpeg",
+												"/C:/Users/Rocio/Downloads/Eiche_bei_Graditz.jpg"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/productos/1/imagenes/multiples",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"productos",
+										"1",
+										"imagenes",
+										"multiples"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Imagen de producto",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/imagenes/1",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"imagenes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/productos",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Producto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/productos/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Mandarina\",\r\n  \"descripcion\": \"Fruta fresca\",\r\n  \"informacion_extra\": \"debe tener minimo 7 caracteres\",\r\n  \"categoria_id\": 1,\r\n  \"temporada_id\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/productos",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Producto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"ejemplo\",\r\n  \"descripcion\": \"desc\",\r\n  \"imagen_url\": \"frutas.jpg\",\r\n  \"categoria\": 3,\r\n  \"temporada\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/productos/2",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Producto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/productos/3",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Producto con detalles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/productos/detalles/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos",
+								"detalles",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET Producto con detalles",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/productos/detalles/1",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"productos",
+										"detalles",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "518"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"206-GNugltw/EHwGPfpZr9lI3ZlNVlg\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Oct 2025 00:48:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": \"PRODUCTO_OBTENIDO\",\n    \"message\": \"Producto obtenido correctamente\",\n    \"data\": {\n        \"nombre\": \"Mandarinas\",\n        \"descripcion\": \"Mandarinas frescas, dulces y fáciles de pelar.\",\n        \"informacion_extra\": \"Las mandarinas son ricas en vitamina C y antioxidantes. Son ideales para consumir frescas, en jugos o en ensaladas.\",\n        \"nombre_categoria\": \"Frutas\",\n        \"nombre_temporada\": \"Abril - Mayo - Junio\",\n        \"imagenes\": [\n            {\n                \"id\": 1,\n                \"url\": \"http://localhost:4001/uploads/productos/1759452389477-arbol-og.webp\",\n                \"es_principal\": true,\n                \"orden\": 1\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "PATCH Producto",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Mandarina\",\r\n  \"descripcion\": \"desc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/productos/2",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Productos con detalles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/productos/detalles",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos",
+								"detalles"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET Productos con detalles",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/productos/detalles",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"productos",
+										"detalles"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2465"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"9a1-ovKbQcmrdAByvo+8KnpM4uwWCz8\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 06 Oct 2025 00:59:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": \"PRODUCTOS_OBTENIDOS\",\n    \"message\": \"Productos obtenidos correctamente\",\n    \"data\": [\n        {\n            \"nombre\": \"Mandarinas\",\n            \"descripcion\": \"Mandarinas frescas, dulces y fáciles de pelar.\",\n            \"informacion_extra\": \"Las mandarinas son ricas en vitamina C y antioxidantes. Son ideales para consumir frescas, en jugos o en ensaladas.\",\n            \"nombre_categoria\": \"Frutas\",\n            \"nombre_temporada\": \"Abril - Mayo - Junio\",\n            \"imagenes\": [\n                {\n                    \"id\": 1,\n                    \"url\": \"http://localhost:4001/uploads/productos/1759452389477-arbol-og.webp\",\n                    \"es_principal\": true,\n                    \"orden\": 1\n                }\n            ]\n        },\n        {\n            \"nombre\": \"Uvas\",\n            \"descripcion\": \"Uvas jugosas, ideales para consumir frescas o hacer vino.\",\n            \"informacion_extra\": \"Las uvas son una excelente fuente de vitaminas C y K, así como de antioxidantes. Pueden consumirse frescas, en jugos, mermeladas o para la elaboración de vino.\",\n            \"nombre_categoria\": \"Frutas\",\n            \"nombre_temporada\": \"Noviembre - Diciembre\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Vid\",\n            \"descripcion\": \"Planta trepadora que produce uvas, ideal para jardines y viñedos.\",\n            \"informacion_extra\": \"La vid es una planta trepadora que produce uvas, utilizadas para el consumo fresco y la elaboración de vino.\",\n            \"nombre_categoria\": \"Plantas\",\n            \"nombre_temporada\": \"Todo el año\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Mandarino\",\n            \"descripcion\": \"Árbol frutal que produce mandarinas, fácil de cultivar y mantener.\",\n            \"informacion_extra\": \"El mandarino es un árbol frutal que produce mandarinas, muy apreciadas por su sabor dulce y fácil pelado.\",\n            \"nombre_categoria\": \"Plantas\",\n            \"nombre_temporada\": \"Todo el año\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Higos\",\n            \"descripcion\": \"Higos dulces y suaves, perfectos para postres y mermeladas.\",\n            \"informacion_extra\": \"Los higos son una excelente fuente de fibra, vitaminas y minerales. Pueden consumirse frescos, secos o en mermeladas y postres.\",\n            \"nombre_categoria\": \"Frutas\",\n            \"nombre_temporada\": \"Noviembre - Diciembre - Enero\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Tunas\",\n            \"descripcion\": \"Fruto de cactus, refrescante y lleno de nutrientes.\",\n            \"informacion_extra\": \"Las tunas son ricas en fibra, vitamina C y antioxidantes. Son ideales para consumir frescas, en jugos o en ensaladas.\",\n            \"nombre_categoria\": \"Frutas\",\n            \"nombre_temporada\": \"Diciembre - Enero\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Higuera\",\n            \"descripcion\": \"Árbol frutal que produce higos, ideal para climas cálidos.\",\n            \"informacion_extra\": \"La higuera es un árbol frutal que produce higos, frutos dulces y suaves, ideales para consumir frescos o secos.\",\n            \"nombre_categoria\": \"Plantas\",\n            \"nombre_temporada\": \"Todo el año\",\n            \"imagenes\": []\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Categorias Producto",
+			"item": [
+				{
+					"name": "GET Categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/categorias",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Categoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Frutas\",\r\n  \"id_padre\": 0, // cero por default\r\n  \"tipo\": \"principal\", // hace referencia al tipo de categoria principal al que pertenece\r\n  \"imagen_url\": \"\", // es opcional\r\n  \"imagen2_url\": \"\" // tambien opcional\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/categorias",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Categoria",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Frutas\",\r\n  \"id_padre\": 0, // cero por default\r\n  \"tipo\": \"principal\", // hace referencia al tipo de categoria principal al que pertenece\r\n  \"imagen_url\": \"\", // es opcional\r\n  \"imagen2_url\": \"\" // tambien opcional\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Categoria",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Frutas\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/4",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Categoria con productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/1/productos",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"1",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Categorias con productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/productos",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Temporadas",
+			"item": [
+				{
+					"name": "GET Temporadas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/temporadas",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"temporadas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Temporada",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/temporadas/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"temporadas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Temporada",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"primaver-verano\",\r\n  \"fecha_desde\": \"2025/09/21\",\r\n  \"fecha_hasta\": \"2026/03/21\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/temporadas",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"temporadas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Temporada",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Primavera-2025\",\r\n  \"fecha_desde\": \"2025/09/21\",\r\n  \"fecha_hasta\": \"2025/12/21\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/temporadas/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"temporadas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Temporada",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/temporadas/2",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"temporadas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "GET Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/health",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET DB Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/db-check",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"db-check"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Servicios",
+			"item": [
+				{
+					"name": "Categorias Servicios",
+					"item": [
+						{
+							"name": "GET Categorias",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/categorias-servicios",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"categorias-servicios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Categoria",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/categorias-servicios/1",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"categorias-servicios",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Categoria",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Alquiler de maquinarias\",\r\n  \"id_padre\": 0, // cero por default\r\n  \"tipo\": \"principal\", // hace referencia al tipo de categoria principal al que pertenece\r\n  \"imagen_url\": \"\", // es opcional\r\n  \"imagen2_url\": \"\" // tambien opcional\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/categorias-servicios",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"categorias-servicios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Categoria",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Surcador\",\r\n  \"id_padre\": 0, // cero por default\r\n  \"tipo\": \"principal\", // hace referencia al tipo de categoria principal al que pertenece\r\n  \"imagen_url\": \"\", // es opcional\r\n  \"imagen2_url\": \"\" // tambien opcional\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/categorias-servicios/1",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"categorias-servicios",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Categoria",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Frutas\"\r\n}"
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/categorias-servicios/3",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"categorias-servicios",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Categoria con servicio",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/categorias-servicios/con-servicios/1",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"categorias-servicios",
+										"con-servicios",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Categorias con servicios",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/categorias-servicios/con-servicios",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"categorias-servicios",
+										"con-servicios"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Imagenes Servicios",
+					"item": [
+						{
+							"name": "GET Imágenes Servicio",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/servicios/1/imagenes",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"servicios",
+										"1",
+										"imagenes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Múltiples imágenes",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": [
+												"/C:/Users/Rocio/Downloads/images (1).jpeg",
+												"/C:/Users/Rocio/Downloads/arboles-e1569184563522.jpg",
+												"/C:/Users/Rocio/Downloads/tree-with-huge-tree-trunk-field-870x563.jpg",
+												"/C:/Users/Rocio/Downloads/images.jpeg",
+												"/C:/Users/Rocio/Downloads/Eiche_bei_Graditz.jpg"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/servicios/1/imagenes/multiples",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"servicios",
+										"1",
+										"imagenes",
+										"multiples"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Imagen de producto",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/imagenes-servicio/1",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"imagenes-servicio",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET Servicios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/servicios",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"servicios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Servicio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/servicios/2",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"servicios",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Servicio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Tractor\",\r\n    \"descripcion\": \"desc\",\r\n    \"informacion_extra\": \"debe tener minimo 7 caracteres\",\r\n    \"categoria_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/servicios",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"servicios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH Servicio",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Maquina de riego\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/servicios/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"servicios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Servicio",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/servicios/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"servicios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Servicios con detalles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "GET Servicio con detalles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "POST Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/admin/login",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Test for successful HTTP status codes",
+					"pm.test(\"Status code is 2xx\", function () {",
+					"    pm.expect(pm.response.code).to.be.within(200, 299);",
+					"});",
+					"",
+					"// Test for Content-Type header",
+					"pm.test(\"Content-Type is application/json\", function () {",
+					"    pm.response.to.have.header(\"Content-Type\");",
+					"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+					"});",
+					"",
+					"// Test for expected response structure (example: GET Productos con detalles)",
+					"if (pm.request.url.path && pm.request.url.path.join(\"/\").includes(\"productos/detalles\")) {",
+					"    let jsonData = pm.response.json();",
+					"    pm.test(\"Response has success, code, message, and data\", function () {",
+					"        pm.expect(jsonData).to.have.property(\"success\");",
+					"        pm.expect(jsonData).to.have.property(\"code\");",
+					"        pm.expect(jsonData).to.have.property(\"message\");",
+					"        pm.expect(jsonData).to.have.property(\"data\");",
+					"    });",
+					"    pm.test(\"Data is an array\", function () {",
+					"        pm.expect(jsonData.data).to.be.an(\"array\");",
+					"    });",
+					"    pm.test(\"Each product has required fields\", function () {",
+					"        jsonData.data.forEach(function(product) {",
+					"            pm.expect(product).to.have.property(\"nombre\");",
+					"            pm.expect(product).to.have.property(\"descripcion\");",
+					"            pm.expect(product).to.have.property(\"informacion_extra\");",
+					"            pm.expect(product).to.have.property(\"nombre_categoria\");",
+					"            pm.expect(product).to.have.property(\"nombre_temporada\");",
+					"            pm.expect(product).to.have.property(\"imagenes\");",
+					"            pm.expect(product.imagenes).to.be.an(\"array\");",
+					"        });",
+					"    });",
+					"}",
+					"// Add similar structure checks for other endpoints as needed."
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": ""
+		}
+	]
 }

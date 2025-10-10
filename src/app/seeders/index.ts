@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../config/data-source";
 import { seedAdmin } from "./admin.seeder";
 import { seedCategorias } from "./categoria.seeder";
+import { seedCategoriaServicios } from "./categoriaServicios.seeder";
 import { seedProductos } from "./producto.seeder";
 import { seedTemporadas } from "./temporada.seeder";
 
@@ -12,6 +13,7 @@ async function runSeeders() {
   await seedCategorias(AppDataSource);
   await seedTemporadas(AppDataSource);
   await seedProductos(AppDataSource);
+  await seedCategoriaServicios(AppDataSource);
 
   await AppDataSource.destroy();
   console.log("Seeders ejecutados correctamente");

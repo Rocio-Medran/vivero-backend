@@ -15,6 +15,12 @@ export class CategoriaServicio {
   @Column({ length: 50, default: 'principal' })
   tipo!: string;
 
+  @Column( { nullable: true } )
+  imagen_url?: string;
+
+  @Column( { nullable: true } )
+  imagen2_url?: string;
+
   @OneToMany(() => Servicio, s => s.categoria)
   servicios?: Servicio[];
 }

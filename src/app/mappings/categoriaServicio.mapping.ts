@@ -7,7 +7,9 @@ export const toCategoriaServicioDTO = (entity: CategoriaServicio) =>
         id: entity.id,
         nombre: entity.nombre,
         id_padre: entity.id_padre,
-        tipo: entity.tipo
+        tipo: entity.tipo,
+        imagen_url: entity.imagen_url,
+        imagen2_url: entity.imagen2_url
     });
 
 export const toCategoriaServicioDTOs = (entities: CategoriaServicio[]) =>

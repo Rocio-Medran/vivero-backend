@@ -7,6 +7,7 @@ import path from "path";
 import { toImagenProductoDTOs } from "../../app/mappings/imagenProducto.mapping";
 import { ImagenProductoDTO } from "../../app/schemas/imagenProducto.schema";
 import { ConflictError, NotFoundError, ValidationError } from "../../app/errors/CustomErrors";
+import { uploadBufferToCloudinary } from "../../utils/cloudinaryUpload";
 
 
 export class ImagenProductoService implements IImagenProductoService {
@@ -41,27 +42,19 @@ export class ImagenProductoService implements IImagenProductoService {
 
         let principalSet = existentes.some(img => img.es_principal);
 
-        const imagenes: ImagenProducto[] = files.map((file, index) => {
+        const saved: ImagenProducto[] = [];
+        for (const [index, file] of files.entries()) {
             const esPrincipal = !principalSet && index === 0;
             if (esPrincipal) principalSet = true;
-            return {
-                url: `/uploads/productos/${file.filename}`,
+            const uploadResult = await uploadBufferToCloudinary(file.buffer, 'productos');
+            const url = uploadResult.secure_url || uploadResult.url;
+            const img: ImagenProducto = {
+                url,
                 es_principal: esPrincipal,
                 orden: count + index + 1,
                 producto: producto
             } as ImagenProducto;
-        });
-
-        const saved: ImagenProducto[] = [];
-        for (const img of imagenes) {
             const s = await this.repo.add(img);
-            // Validar que el archivo físico exista
-            const absolutePath = path.resolve(__dirname, '../../..', img.url.replace(/^\//, ''));
-            try {
-                await fs.access(absolutePath);
-            } catch {
-                throw new ConflictError(`El archivo físico ${img.url} no se guardó correctamente en el servidor.`);
-            }
             saved.push(s);
         }
         return toImagenProductoDTOs(saved);

@@ -44,6 +44,8 @@ export class CategoriaService implements IcategoriaService {
         categoria.nombre = dto.nombre;
         categoria.tipo = dto.tipo;
         categoria.id_padre = dto.id_padre ?? 0;
+        categoria.imagen_url = dto.imagen_url ?? '';
+        categoria.imagen2_url = dto.imagen2_url ?? '';
 
         await this.repo.add(categoria);
         return toCategoriaDTO(categoria);

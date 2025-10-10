@@ -9,11 +9,14 @@ export const toCategoriaDTO = (entity: Categoria): CategoriaDTO =>
         id: entity.id,
         nombre: entity.nombre,
         id_padre: entity.id_padre,
-        tipo: entity.tipo
+        tipo: entity.tipo,
+        imagen_url: entity.imagen_url,
+        imagen2_url: entity.imagen2_url
     });
 
 export const toCategoriaDTOs = (entities: Categoria[]): CategoriaDTO[] =>
     entities.map(e => toCategoriaDTO(e));
+
 export const toCategoriaConProductosDTO = (entity: Categoria): CategoriaConProductosDTO => {
     return CategoriaConProductosSchema.parse({
         id: entity.id,

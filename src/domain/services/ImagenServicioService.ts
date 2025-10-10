@@ -6,6 +6,7 @@ import fs from "fs/promises";
 import { toImagenServicioDTOs } from "../../app/mappings/imagenServicio.mapping";
 import { BaseRepository } from "../repositories/BaseRepository";
 import { NotFoundError, ValidationError, ConflictError } from "../../app/errors/CustomErrors";
+import { uploadBufferToCloudinary } from "../../utils/cloudinaryUpload";
 import path from "path";
 
 export class ImagenServicioService implements IImagenServicioService {
@@ -44,27 +45,19 @@ export class ImagenServicioService implements IImagenServicioService {
         let principalSet = existentes.some(img => img.es_principal);
         const count = existentes.length;
 
-        const imagenes: ImagenServicio[] = files.map((file, index) => {
+        const saved: ImagenServicio[] = [];
+        for (const [index, file] of files.entries()) {
             const esPrincipal = !principalSet && index === 0;
             if (esPrincipal) principalSet = true;
-            return {
-                url: `/uploads/servicios/${file.filename}`,
+            const uploadResult = await uploadBufferToCloudinary(file.buffer, 'servicios');
+            const url = uploadResult.secure_url || uploadResult.url;
+            const img: ImagenServicio = {
+                url,
                 es_principal: esPrincipal,
                 orden: count + index + 1,
                 servicio: servicio
             } as ImagenServicio;
-        });
-
-        const saved: ImagenServicio[] = [];
-        for (const img of imagenes) {
             const s = await this.repo.add(img);
-            // Validar que el archivo físico exista
-            const absolutePath = path.resolve(__dirname, '../../..', img.url.replace(/^\//, ''));
-            try {
-                await fs.access(absolutePath);
-            } catch {
-                throw new ConflictError(`El archivo físico ${img.url} no se guardó correctamente en el servidor.`);
-            }
             saved.push(s);
         }
         return toImagenServicioDTOs(saved);

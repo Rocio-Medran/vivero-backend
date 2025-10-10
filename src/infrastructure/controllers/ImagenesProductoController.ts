@@ -12,11 +12,10 @@ export class ImagenesProductoController {
             const productoId = Number(req.params.productoId);
             if (isNaN(productoId)) return next(new ValidationError("ID de producto inválido"));
 
-            const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
             const imagenes = await this.service.getImagenesByProductoId(productoId);
             const result = imagenes.map(img => ({
                 id: img.id,
-                url: encodeURI(`${baseUrl}${img.url}`),
+                url: img.url,
                 es_principal: img.es_principal,
                 orden: img.orden
             }));
