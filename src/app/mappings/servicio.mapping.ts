@@ -6,7 +6,7 @@ export const toServicioDTO = (entity: Servicio): ServicioDTO =>
   ServicioSchema.parse({
     id: entity.id,
     nombre: entity.nombre,
-    descripcion: entity.description,
+    descripcion: entity.descripcion,
     informacion_extra: entity.informacion_extra,
     esta_activo: entity.esta_activo,
     categoria_id: entity.categoria?.id
@@ -20,7 +20,7 @@ export const toServicioConDetallesDTO = (entity: Servicio): ServicioConDetallesD
   ServicioConDetallesSchema.parse(
     {
       nombre: entity.nombre,
-      descripcion: entity.description,
+      descripcion: entity.descripcion,
       informacion_extra: entity.informacion_extra,
       esta_activo: entity.esta_activo,
       nombre_categoria: entity.categoria?.nombre,

@@ -5,7 +5,7 @@ import { successResponse } from "../../utils/response";
 import { ValidationError } from "../../app/errors/CustomErrors";
 
 export class ServiciosController {
-  constructor(private readonly service: IServicioService) {}
+  constructor(private readonly service: IServicioService) { }
 
   getAll = async (_req: Request, res: Response, next: Function) => {
     try {
@@ -52,6 +52,25 @@ export class ServiciosController {
       const ok = await this.service.removeServicioAsync(Number(req.params.id));
       if (!ok) return next(new ValidationError("Servicio no encontrado"));
       successResponse(res, "SERVICIO_ELIMINADO", "Servicio eliminado correctamente");
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  getAllDetalles = async (req: Request, res: Response, next: Function) => {
+    try {
+      const servicios = await this.service.getAllServiciosConDetalles();
+      successResponse(res, "SERVICIOS_OBTENIDOS", "Servicios obtenidos correctamente", servicios);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  getDetallesById = async (req: Request, res: Response, next: Function) => {
+    try {
+      const servicio = await this.service.getServicioConDetallesById(Number(req.params.id));
+      if (!servicio) return next(new ValidationError("Servicio no encontrado"));
+      successResponse(res, "SERVICIO_OBTENIDO", "Servicio obtenido correctamente", servicio);
     } catch (error) {
       next(error);
     }

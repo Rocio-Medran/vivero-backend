@@ -3,7 +3,7 @@ import { ImagenServicio } from '../../domain/entities/ImagenServicio';
 import { ImagenServicioService } from '../../domain/services/ImagenServicioService';
 import { ImagenesServicioController } from '../controllers/ImagenesServicioController';
 import { BaseRepository } from '../../domain/repositories/BaseRepository';
-import { uploadServicio, uploadServicioMiddleware } from '../../middlewares/multerServicio';
+import { uploadMiddleware } from '../../middlewares/multer';
 
 const router = Router();
 const imagenRepo = new BaseRepository(ImagenServicio);
@@ -13,7 +13,7 @@ const imagenCtrl = new ImagenesServicioController(imagenService);
 // GET /servicios/:servicioId/imagenes
 router.get('/servicios/:servicioId/imagenes', imagenCtrl.getByServicioId);
 // POST /servicios/:servicioId/imagenes/multiples (varias imágenes)
-router.post('/servicios/:servicioId/imagenes/multiples', uploadServicioMiddleware, imagenCtrl.createMany);
+router.post('/servicios/:servicioId/imagenes/multiples', uploadMiddleware, imagenCtrl.createMany);
 // DELETE /imagenes-servicio/:id
 router.delete('/imagenes-servicio/:id', imagenCtrl.remove);
 

@@ -118,14 +118,14 @@ export class ProductoService implements IProductoService {
         return true;
     }
 
-    async getAllProductosConDetalles(baseUrl?: string): Promise<ProductoConDetallesDTO[]> {
+    async getAllProductosConDetalles(): Promise<ProductoConDetallesDTO[]> {
         const productos = await this.repo.getProductosConDetalles();
-        return toProductoConDetallesDTOs(productos, baseUrl);
+        return toProductoConDetallesDTOs(productos);
     }
 
-    async getProductoConDetallesById(id: number, baseUrl?: string): Promise<ProductoConDetallesDTO > {
+    async getProductoConDetallesById(id: number): Promise<ProductoConDetallesDTO > {
         const producto = await this.repo.getProductoConDetallesById(id);
         if (!producto) throw new NotFoundError("Producto no existente");
-        return toProductoConDetallesDTO(producto, baseUrl);
+        return toProductoConDetallesDTO(producto);
     }
 }

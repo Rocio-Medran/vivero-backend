@@ -12,7 +12,7 @@ export class Servicio{
     nombre!: string;
 
     @Column('text')
-    description!: string;
+    descripcion!: string;
 
     @Column('text')
     informacion_extra!: string;

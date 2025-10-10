@@ -27,9 +27,9 @@ export const UpServicioSchema = z.object({
 
 export const ServicioConDetallesSchema = z.object({
     nombre: z.string().min(2).max(250),
-    descripcion: z.string().min(10).max(1000),
-    informacion_extra: z.string().min(10).max(2000),
-    nombre_categoria: z.string().min(2).max(250),
+    descripcion: z.string(),
+    informacion_extra: z.string().optional(),
+    nombre_categoria: z.string(),
     imagenes: z.array(z.object({
         id: z.number().min(1),
         url: z.string(),

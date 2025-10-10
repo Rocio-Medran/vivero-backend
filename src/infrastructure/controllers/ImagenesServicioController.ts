@@ -11,11 +11,10 @@ export class ImagenesServicioController {
         try {
             const servicioId = Number(req.params.servicioId);
             if (isNaN(servicioId)) return next(new ValidationError("ID de servicio inválido"));
-            const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get("host")}`;
             const imagenes = await this.service.getImagenesByServicioId(servicioId);
             const result = imagenes.map(img => ({
                 id: img.id,
-                url: encodeURI(`${baseUrl}${img.url}`),
+                url: img.url,
                 es_principal: img.es_principal,
                 orden: img.orden
             }));
@@ -30,6 +29,7 @@ export class ImagenesServicioController {
         try {
             const servicioId = Number(req.params.servicioId);
             if (isNaN(servicioId)) return next(new ValidationError("ID de servicio inválido"));
+            
             if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
                 return next(new ValidationError("No se subieron archivos"));
             }
