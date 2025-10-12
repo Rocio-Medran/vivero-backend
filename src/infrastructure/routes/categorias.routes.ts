@@ -1,6 +1,4 @@
 import { Router } from "express";
-import { BaseRepository } from "../../domain/repositories/BaseRepository";
-import { Categoria } from "../../domain/entities/Categoria";
 import { CategoriaService } from "../../domain/services/CategoriaService";
 import { CategoriasController } from "../controllers/CategoriasController";
 import { CategoriaRepository } from "../../domain/repositories/CategoriaRepository";
@@ -13,7 +11,9 @@ const ctrl = new CategoriasController(service);
 const { getAll, getById, create, update, remove, getAllConProductos, getConProductosById } = ctrl;
 
 router.get('/productos', getAllConProductos);
+router.get('/subcategorias', ctrl.getAllSubcategorias);
 router.get('/:id/productos', getConProductosById);
+router.get('/:id/subcategorias', ctrl.getSubcategorias);
 
 router.get('/', getAll);
 router.get('/:id', getById);

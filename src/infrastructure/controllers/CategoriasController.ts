@@ -77,4 +77,21 @@ export class CategoriasController {
         }
     }
 
+    getSubcategorias = async (req: Request, res: Response, next: Function) => {
+        try {
+            const subcategorias = await this.service.getSubcategorias(Number(req.params.id));
+            return successResponse(res, "SUBCATEGORIAS_OBTENIDAS", "Subcategorías obtenidas correctamente", subcategorias);
+        } catch (err) {
+            next(err);
+        }       
+    }
+
+    getAllSubcategorias = async (_req: Request, res: Response, next: Function) => {
+        try {
+            const subcategorias = await this.service.getAllSubcategorias();
+            return successResponse(res, "SUBCATEGORIAS_OBTENIDAS", "Subcategorías obtenidas correctamente", subcategorias);
+        } catch (err) {
+            next(err);
+        }   
+    }
 }

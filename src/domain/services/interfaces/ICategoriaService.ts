@@ -8,4 +8,6 @@ export interface IcategoriaService {
     removeCategoria(id: number): Promise< boolean >;
     getCategoriaConProductosById(id: number, baseUrl?: string): Promise< CategoriaConProductosDTO >;
     getCategoriasConProductos(baseUrl?: string): Promise< CategoriaConProductosDTO[] >;
+    getSubcategorias(id: number): Promise<CategoriaDTO[]>;
+    getAllSubcategorias(): Promise<CategoriaDTO[]>;
 }

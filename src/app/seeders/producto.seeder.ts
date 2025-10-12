@@ -3,6 +3,7 @@ import { Producto } from "../../domain/entities/Producto";
 import { Categoria } from "../../domain/entities/Categoria";
 import { Temporada } from "../../domain/entities/Temporada";
 import { ImagenProducto } from "../../domain/entities/ImagenProducto";
+import { no } from "zod/v4/locales";
 
 
 export async function seedProductos(dataSource: DataSource) {
@@ -85,7 +86,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"aportan frutos naturales, saludables y ricos en antioxidantes; además, las hojas y ramas pueden ser usadas en jardinería ornamental.\",
       \"conservacion\": \"mantener la planta en un lugar con luz adecuada y proteger de heladas intensas durante los primeros meses; trasplante recomendado en primavera o inicio del verano.\"
       }`,
-      id_categoria: 2,
+      id_categoria: 5,
       id_temporada: 5, // Todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057913/vives_ano7rh.jpg",
@@ -102,7 +103,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"Además de su valor ornamental, permite disfrutar de frutas frescas, naturales y libres de pesticidas si se cultiva en casa.\",
       \"consejos\": \"Podar ramas secas o dañadas y proteger de heladas fuertes para asegurar su desarrollo y salud.\"
       }`,
-      id_categoria: 2,
+      id_categoria: 5,
       id_temporada: 5, // Todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057911/mandarino-criollo_mid3fw.png",
@@ -117,7 +118,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"al plantar esta variedad, obtienes frutas frescas y naturales, ricas en vitamina C y antioxidantes, cultivadas en tu propio hogar.\",
       \"mantenimiento\": \"poda ligera para mantener forma y salud del árbol; proteger de heladas fuertes.\"
       }`,
-      id_categoria: 2,
+      id_categoria: 5,
       id_temporada: 5, // Todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057910/mandarino-clementinas_cugpdr.jpg",
@@ -132,7 +133,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"no solo aporta deliciosas frutas, sino que su follaje aporta frescura y estética al jardín; además, al cultivarla en casa, se asegura fruta libre de químicos.\",
       \"presentacion\": \"plantas en maceta lista para trasplante o continuar su crecimiento en el jardín.\"
       }`,
-      id_categoria: 2,
+      id_categoria: 5,
       id_temporada: 5, // Todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057909/mandarino-marisol_zaje4f.jpg",
@@ -147,7 +148,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"además de sus frutos comestibles, aportan sombra y un atractivo visual al espacio; los higos son nutritivos y fuente de fibra y antioxidantes.\",
       \"conservacion\": \"mantener en lugar con buena luz; regar regularmente sin encharcar; trasplantar a tierra firme cuando la planta esté establecida para un crecimiento más saludable.\"
       }`,
-      id_categoria: 2,
+      id_categoria: 5,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057914/higuera_q42a8w.jpg",
@@ -162,7 +163,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"contribuye a la conservación del suelo, atrae polinizadores y ofrece sombra natural; sus vainas pueden ser usadas para alimentación animal.\",
       \"conservacion\": \"mantener en un lugar con buena luz hasta el trasplante; regar regularmente hasta que se adapte al nuevo espacio.\"
       }`,
-      id_categoria: 4,
+      id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057813/algarrobo1_o6ppca.jpg",
@@ -178,7 +179,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"aporta sombra, mejora la estética del jardín y sus hojas desprenden un aroma agradable que puede ayudar a repeler insectos.\",
       \"conservacion\": \"trasplantar con cuidado si es necesario; mantener tierra húmeda pero no encharcada y proteger de heladas intensas.\"
       }`,
-      id_categoria: 4,
+      id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057812/aguaribay_sn2ytj.webp",
@@ -195,7 +196,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"riego\": \"moderado; resistente a periodos cortos de sequía una vez establecido.\",
       \"crecimiento\": \"puede alcanzar gran altura con el tiempo, ideal para jardines amplios o parques.\"
       }`,
-      id_categoria: 4,
+      id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057810/quebracho_dwkcrh.jpg",
@@ -211,7 +212,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"contribuye a la mejora del microclima del jardín, aporta sombra y belleza natural; algunas variedades también atraen polinizadores como abejas y mariposas.\",
       \"conservacion\": \"mantener en lugar soleado o con semi-sombra; podar regularmente para favorecer su forma y crecimiento saludable.\"
       }`,
-      id_categoria: 4,
+      id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057810/tala_su7vnp.jpg",
@@ -227,7 +228,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"favorece la biodiversidad, atrae polinizadores y contribuye al mantenimiento de especies nativas.\",
       \"conservacion\": \"ubicar en lugar con buena luz y suelo bien drenado; podar ocasionalmente para mantener su forma y salud.\"
       }`,
-      id_categoria: 4,
+      id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057808/mistol_yd7yfq.jpg",
@@ -243,7 +244,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"resistente a la sequía, mejora la biodiversidad del jardín y ofrece frutos con propiedades antioxidantes y digestivas.\",
       \"usos\": \"los frutos pueden consumirse secos o preparados en dulces, mieles y tés; la planta también puede funcionar como sombra o protección para otras especies.\"
       }`,
-      id_categoria: 4,
+      id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057807/cha%C3%B1ar_qno3l7.jpg",
@@ -259,7 +260,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"aromatiza el ambiente de manera natural, contribuye a la sensación de bienestar y mejora la estética de cualquier espacio.\",
       \"conservacion\": \"mantener en lugar con buena ventilación y proteger de heladas; podar regularmente para fomentar un crecimiento saludable.\"
       }`,
-      id_categoria: 4,
+      id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057806/aromito_t7il6l.jpg",
@@ -275,7 +276,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"purifica el aire, mejora la estética del espacio y proporciona un ambiente agradable y relajante.\",
       \"conservacion\": \"mantener el sustrato ligeramente húmedo, retirar hojas secas para fomentar un crecimiento saludable.\"
       }`,
-      id_categoria: 5,
+      id_categoria: 8,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057869/paraiso_hdsuog.jpg",
@@ -291,7 +292,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"además de su belleza ornamental, contribuye a la biodiversidad local y a la purificación del aire.\",
       \"conservacion\": \"mantener en sustrato húmedo y bien drenado hasta su ubicación definitiva; proteger de heladas en sus primeros meses si se encuentra en zonas frías.\"
       }`,
-      id_categoria: 5,
+      id_categoria: 8,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057868/lapacho_nlgwwv.jpg",
@@ -307,7 +308,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"propiedades digestivas y relajantes; contribuye al bienestar general, reduce la tensión y ayuda a inducir un sueño reparador.\",
       \"conservacion\": \"mantener en lugar fresco y seco; si es en maceta, regar moderadamente y colocar en lugar con buena luz indirecta.\"
       }`,
-      id_categoria: 6,
+      id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057767/cedron_qq0hsd.jpg",
@@ -323,7 +324,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"conocida por sus propiedades relajantes y calmantes; sus flores se pueden usar para infusiones, aceites esenciales y decoraciones aromáticas.\",
       \"conservacion\": \"mantener en un lugar luminoso; regar con moderación para evitar encharcamientos y prolongar su vida y floración.\"
       }`,
-      id_categoria: 6,
+      id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057766/lavanda_vx3eec.jpg",
@@ -339,7 +340,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"contribuye a la digestión, posee propiedades antioxidantes y aromáticas que mejoran el ambiente.\",
       \"conservacion\": \"mantener en lugar con buena luz y ventilación; regar moderadamente evitando encharcamientos.\"
       }`,
-      id_categoria: 6,
+      id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057765/romero_ucy6nz.jpg",
@@ -355,11 +356,75 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"contribuye a mejorar la calidad del aire, embellece el entorno y es ideal para quienes buscan una planta de bajo mantenimiento.\",
       \"conservacion\": \"ubicar en lugar con buena circulación de aire; mantener el sustrato ligeramente húmedo. Con el cuidado adecuado, crece saludable y se mantiene frondosa durante todo el año.\"
       }`,
-      id_categoria: 6,
+      id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057764/sertal_dubnwy.jpg",
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057763/sertal2_z81wle.jpg"
+      ]
+    },
+    {
+      nombre: "Rosas",
+      descripcion: "Rosas frescas y vibrantes, disponibles en una variedad de colores y tamaños, perfectas para expresar sentimientos, decorar espacios o regalar en ocasiones especiales. Cada rosa es seleccionada cuidadosamente para garantizar su frescura y belleza, ofreciendo un toque de elegancia y sofisticación en cada ramo o arreglo floral.",
+      informacion_extra: `{
+      \"cuidado\": \"mantener en agua fresca, cambiar el agua cada dos días y recortar los tallos para prolongar su vida.\",
+      \"presentacion\": \"disponibles en ramos, arreglos o sueltas, adaptándose a las necesidades del cliente.\",
+      \"beneficios\": \"aportan belleza, aroma y un toque especial a cualquier ocasión; símbolo universal de amor y aprecio.\",
+      \"conservacion\": \"evitar la exposición directa al sol y a corrientes de aire para mantener su frescura por más tiempo.\"
+      }`,
+      id_categoria: 5,
+      id_temporada: 5, // todo el año
+      imagenes: [
+        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057894/rosas_grftrn.jpg",
+        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057893/rosa-capullo_r3gdwb.jpg"
+      ]
+    },
+    {
+      nombre: "Santa Rita",
+      descripcion: "La Santa Rita es una planta ornamental de flores vibrantes y hojas verdes brillantes, ideal para jardines y espacios interiores. Su belleza y resistencia la convierten en una opción popular para quienes buscan añadir un toque de color y frescura a su entorno.",
+      informacion_extra: `{
+      \"cuidado\": \"mantener en agua fresca, cambiar el agua cada dos días y recortar los tallos para prolongar su vida.\",
+      \"presentacion\": \"disponibles en ramos, arreglos o sueltas, adaptándose a las necesidades del cliente.\",
+      \"beneficios\": \"aportan belleza, aroma y un toque especial a cualquier ocasión; símbolo universal de amor y aprecio.\",
+      \"conservacion\": \"evitar la exposición directa al sol y a corrientes de aire para mantener su frescura por más tiempo.\"
+      }`,
+      id_categoria: 5,
+      id_temporada: 5, // todo el año
+      imagenes: [
+        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057892/santaRita_jn6pdd.png",
+        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057891/SantaRita2_v6nrue.jpg"
+      ]
+    },
+    {
+      nombre: "Hibiscus",
+      descripcion: "El hibisco es una planta ornamental conocida por sus grandes y coloridas flores, que pueden ser rojas, rosas, amarillas o blancas. Es ideal para jardines y patios, y su floración puede atraer colibríes y mariposas.",
+      informacion_extra: `{
+      \"cuidado\": \"mantener en agua fresca, cambiar el agua cada dos días y recortar los tallos para prolongar su vida.\",
+      \"presentacion\": \"disponibles en ramos, arreglos o sueltas, adaptándose a las necesidades del cliente.\",
+      \"beneficios\": \"aportan belleza, aroma y un toque especial a cualquier ocasión; símbolo universal de amor y aprecio.\",
+      \"conservacion\": \"evitar la exposición directa al sol y a corrientes de aire para mantener su frescura por más tiempo.\"
+      }`,
+      id_categoria: 5,
+      id_temporada: 5, // todo el año
+      imagenes: [
+        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057890/hibiscus_ox7fwy.jpg",
+        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057890/hibiscus_2_o7gvjl.jpg"
+      ]
+    },
+    {
+      nombre: "Durantas",
+      descripcion: "Las durantas son plantas ornamentales de flores pequeñas y coloridas, que suelen atraer mariposas y colibríes. Son ideales para jardines y espacios exteriores, y su cuidado es relativamente sencillo.",
+      informacion_extra: `{
+      \"cuidado\": \"mantener en agua fresca, cambiar el agua cada dos días y recortar los tallos para prolongar su vida.\",
+      \"presentacion\": \"disponibles en ramos, arreglos o sueltas, adaptándose a las necesidades del cliente.\",
+      \"beneficios\": \"aportan belleza, aroma y un toque especial a cualquier ocasión; símbolo universal de amor y aprecio.\",
+      \"conservacion\": \"evitar la exposición directa al sol y a corrientes de aire para mantener su frescura por más tiempo.\"
+      }`,
+      id_categoria: 5,
+      id_temporada: 5, // todo el año
+      imagenes: [
+        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057889/durantas_ka3ocl.jpg",
+        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057889/durantas2_go1ris.jpg"
       ]
     },
   ];
