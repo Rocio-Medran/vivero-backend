@@ -4,12 +4,13 @@ import { toCategoriaConProductosDTO, toCategoriaConProductosDTOs, toCategoriaDTO
 import { IcategoriaService } from "./interfaces/ICategoriaService";
 import { ICategoriaRepository } from '../repositories/interfaces/ICategoriaRepository';
 import { ConflictError, NotFoundError, ValidationError } from '../../app/errors/CustomErrors';
+import { Not } from 'typeorm';
 
 export class CategoriaService implements IcategoriaService {
     constructor(private readonly repo: ICategoriaRepository) { }
 
     async getAllCategorias(): Promise<CategoriaDTO[]> {
-        const categorias = await this.repo.getAll();
+        const categorias = await this.repo.find( {id_padre: 0});
         return toCategoriaDTOs(categorias);
     }
 
@@ -17,6 +18,16 @@ export class CategoriaService implements IcategoriaService {
         const categoria = await this.repo.getById(id);
         if (!categoria) throw new NotFoundError("Categoría no encontrada");
         return toCategoriaDTO(categoria);
+    }
+
+    async getSubcategorias(id: number): Promise<CategoriaDTO[]> {
+        const subcategorias = await this.repo.find( {id_padre: id});
+        return toCategoriaDTOs(subcategorias);
+    }
+
+    async getAllSubcategorias(): Promise<CategoriaDTO[]> {
+        const subcategorias = await this.repo.find( {id_padre: Not(0)});
+        return toCategoriaDTOs(subcategorias);
     }
 
     async createCategoria(dto: CreateCategoriaDTO): Promise<CategoriaDTO> {
