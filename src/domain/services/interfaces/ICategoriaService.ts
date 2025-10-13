@@ -10,4 +10,6 @@ export interface IcategoriaService {
     getCategoriasConProductos(baseUrl?: string): Promise< CategoriaConProductosDTO[] >;
     getSubcategorias(id: number): Promise<CategoriaDTO[]>;
     getAllSubcategorias(): Promise<CategoriaDTO[]>;
+    getCategoriasByTipo(tipo: string): Promise<CategoriaDTO[]>;
+    getCategoriaByNombre(nombre: string): Promise<CategoriaDTO>;
 }

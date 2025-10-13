@@ -94,4 +94,30 @@ export class CategoriasController {
             next(err);
         }   
     }
+
+    getCategoriasByTipo = async (req: Request, res: Response, next: Function) => {
+        try {
+            const tipo = req.params.tipo;
+            if (typeof tipo !== "string") {
+                return next(new ValidationError("El parámetro 'tipo' es requerido"));
+            }
+            const categorias = await this.service.getCategoriasByTipo(tipo);
+            return successResponse(res, "CATEGORIAS_POR_TIPO_OBTENIDAS", `Categorías del tipo '${tipo}' obtenidas correctamente`, categorias);
+        } catch (err) {
+            next(err);
+        }   
+    }
+
+    getCategoriaByNombre = async (req: Request, res: Response, next: Function) => {
+        try {
+            const nombre = req.params.nombre;
+            if (typeof nombre !== "string" || !nombre.trim()) {
+                return next(new ValidationError("El parámetro 'nombre' es requerido"));
+            }
+            const categoria = await this.service.getCategoriaByNombre(nombre);
+            return successResponse(res, "CATEGORIA_POR_NOMBRE_OBTENIDA", `Categoría con nombre '${nombre}' obtenida correctamente`, categoria);
+        } catch (err) {
+            next(err);
+        }   
+    }
 }

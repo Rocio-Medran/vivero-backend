@@ -12,6 +12,8 @@ const { getAll, getById, create, update, remove, getAllConProductos, getConProdu
 
 router.get('/productos', getAllConProductos);
 router.get('/subcategorias', ctrl.getAllSubcategorias);
+router.get('/tipo/:tipo', ctrl.getCategoriasByTipo);
+router.get('/nombre/:nombre', ctrl.getCategoriaByNombre);
 router.get('/:id/productos', getConProductosById);
 router.get('/:id/subcategorias', ctrl.getSubcategorias);
 
