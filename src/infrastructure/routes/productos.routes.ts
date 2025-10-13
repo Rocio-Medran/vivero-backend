@@ -19,7 +19,7 @@ const imagenRepo = new BaseRepository(ImagenProducto);
 const imagenService = new ImagenProductoService(imagenRepo);
 const imagenCtrl = new ImagenesProductoController(imagenService);
 
-const { getAll, getById, create, updateCompleto, update, remove, getDetallesById, getAllDetalles } = ctrl;
+const { getAll, getById, create, updateCompleto, update, remove, getDetallesById, getAllDetalles, getByCategoria } = ctrl;
 
 // Rutas de imágenes de producto
 router.get('/:productoId/imagenes', imagenCtrl.getByProductoId);
@@ -28,7 +28,13 @@ router.post('/:productoId/imagenes/multiples', uploadMiddleware, imagenCtrl.crea
 router.get('/detalles', getAllDetalles);
 router.get('/detalles/:id', getDetallesById);
 
-router.get('/', getAll);
+router.get('/', (req, res, next) => {
+	if (req.query.categoria) {
+		return ctrl.getByCategoria(req, res, next);
+	}
+	return ctrl.getAll(req, res, next);
+});
+
 router.get('/:id', getById);
 router.post('/', create);
 router.put('/:id', updateCompleto);

@@ -10,4 +10,5 @@ export interface IProductoService {
     removeProductoAsync(id: number): Promise<boolean>;
     getAllProductosConDetalles(baseUrl?: string): Promise<ProductoConDetallesDTO[]>;
     getProductoConDetallesById(id: number, baseUrl?: string): Promise<ProductoConDetallesDTO>;
+    getProductosByCategoria(nombre: string): Promise<ProductoConDetallesDTO[]>;
 }

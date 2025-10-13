@@ -86,4 +86,15 @@ export class ProductosController {
             next(error);
         }
     }
+
+    getByCategoria = async (req: Request, res: Response, next: Function) => {
+        try {
+            const nombre = req.query.categoria as string;
+            if (!nombre) return next(new ValidationError("El parámetro de consulta 'categoria' es requerido."));
+            const productos = await this.service.getProductosByCategoria(nombre);
+            successResponse(res, "PRODUCTOS_OBTENIDOS", "Productos obtenidos correctamente", productos);
+        } catch (error) {
+            next(error);
+        }
+    }
 }

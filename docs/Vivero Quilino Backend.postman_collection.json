@@ -405,6 +405,29 @@
 							"body": "{\n    \"success\": true,\n    \"code\": \"PRODUCTOS_OBTENIDOS\",\n    \"message\": \"Productos obtenidos correctamente\",\n    \"data\": [\n        {\n            \"nombre\": \"Mandarinas\",\n            \"descripcion\": \"Mandarinas frescas, dulces y fáciles de pelar.\",\n            \"informacion_extra\": \"Las mandarinas son ricas en vitamina C y antioxidantes. Son ideales para consumir frescas, en jugos o en ensaladas.\",\n            \"nombre_categoria\": \"Frutas\",\n            \"nombre_temporada\": \"Abril - Mayo - Junio\",\n            \"imagenes\": [\n                {\n                    \"id\": 1,\n                    \"url\": \"http://localhost:4001/uploads/productos/1759452389477-arbol-og.webp\",\n                    \"es_principal\": true,\n                    \"orden\": 1\n                }\n            ]\n        },\n        {\n            \"nombre\": \"Uvas\",\n            \"descripcion\": \"Uvas jugosas, ideales para consumir frescas o hacer vino.\",\n            \"informacion_extra\": \"Las uvas son una excelente fuente de vitaminas C y K, así como de antioxidantes. Pueden consumirse frescas, en jugos, mermeladas o para la elaboración de vino.\",\n            \"nombre_categoria\": \"Frutas\",\n            \"nombre_temporada\": \"Noviembre - Diciembre\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Vid\",\n            \"descripcion\": \"Planta trepadora que produce uvas, ideal para jardines y viñedos.\",\n            \"informacion_extra\": \"La vid es una planta trepadora que produce uvas, utilizadas para el consumo fresco y la elaboración de vino.\",\n            \"nombre_categoria\": \"Plantas\",\n            \"nombre_temporada\": \"Todo el año\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Mandarino\",\n            \"descripcion\": \"Árbol frutal que produce mandarinas, fácil de cultivar y mantener.\",\n            \"informacion_extra\": \"El mandarino es un árbol frutal que produce mandarinas, muy apreciadas por su sabor dulce y fácil pelado.\",\n            \"nombre_categoria\": \"Plantas\",\n            \"nombre_temporada\": \"Todo el año\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Higos\",\n            \"descripcion\": \"Higos dulces y suaves, perfectos para postres y mermeladas.\",\n            \"informacion_extra\": \"Los higos son una excelente fuente de fibra, vitaminas y minerales. Pueden consumirse frescos, secos o en mermeladas y postres.\",\n            \"nombre_categoria\": \"Frutas\",\n            \"nombre_temporada\": \"Noviembre - Diciembre - Enero\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Tunas\",\n            \"descripcion\": \"Fruto de cactus, refrescante y lleno de nutrientes.\",\n            \"informacion_extra\": \"Las tunas son ricas en fibra, vitamina C y antioxidantes. Son ideales para consumir frescas, en jugos o en ensaladas.\",\n            \"nombre_categoria\": \"Frutas\",\n            \"nombre_temporada\": \"Diciembre - Enero\",\n            \"imagenes\": []\n        },\n        {\n            \"nombre\": \"Higuera\",\n            \"descripcion\": \"Árbol frutal que produce higos, ideal para climas cálidos.\",\n            \"informacion_extra\": \"La higuera es un árbol frutal que produce higos, frutos dulces y suaves, ideales para consumir frescos o secos.\",\n            \"nombre_categoria\": \"Plantas\",\n            \"nombre_temporada\": \"Todo el año\",\n            \"imagenes\": []\n        }\n    ]\n}"
 						}
 					]
+				},
+				{
+					"name": "GET Productos by categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/productos?categoria=Frutas",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"productos"
+							],
+							"query": [
+								{
+									"key": "categoria",
+									"value": "Frutas"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -553,6 +576,43 @@
 							"path": [
 								"categorias",
 								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Subcategorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/3/subcategorias",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"3",
+								"subcategorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Subcategorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/categorias/subcategorias",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"categorias",
+								"subcategorias"
 							]
 						}
 					},
@@ -1053,7 +1113,17 @@
 					"name": "GET Servicios con detalles",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/servicios/detalles",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"servicios",
+								"detalles"
+							]
+						}
 					},
 					"response": []
 				},

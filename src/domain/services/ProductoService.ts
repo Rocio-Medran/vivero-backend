@@ -1,5 +1,6 @@
 
 import { ConflictError, NotFoundError } from "../../app/errors/CustomErrors";
+import { In } from "typeorm";
 import { toProductoConDetallesDTO, toProductoConDetallesDTOs, toProductoDTO, toProductoDTOs } from "../../app/mappings/producto.mapping";
 import { CreateProductoDTO, ProductoConDetallesDTO, ProductoDTO, UpdateProductoDTO } from "../../app/schemas/producto.schema";
 import { Categoria } from "../entities/Categoria";
@@ -127,5 +128,22 @@ export class ProductoService implements IProductoService {
         const producto = await this.repo.getProductoConDetallesById(id);
         if (!producto) throw new NotFoundError("Producto no existente");
         return toProductoConDetallesDTO(producto);
+    }
+
+    async getProductosByCategoria(nombre: string): Promise<ProductoConDetallesDTO[]> {
+        // const nombreNormalizado = nombre.trim().toLowerCase();
+
+        const categoria = await this.categoriaRepo.findOneBy({ nombre: nombre });
+        if (!categoria) throw new NotFoundError("Categoría no existente");
+
+        if (categoria.id_padre === 0) {
+            // Obtener subcategorias con id_padre igual al id de la categoria actual
+            const subcategorias = await this.categoriaRepo.find({ id_padre: categoria.id });
+            const productos = await this.repo.find({ categoria: { id: In(subcategorias.map(c => c.id)) } }, ['categoria', 'temporada', 'imagenes']);
+            return toProductoConDetallesDTOs(productos);
+        }
+
+        const productos = await this.repo.find({ categoria: { id: categoria.id } }, ['categoria', 'temporada', 'imagenes']);
+        return toProductoConDetallesDTOs(productos);
     }
 }

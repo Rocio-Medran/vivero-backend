@@ -20,6 +20,18 @@ export class CategoriaService implements IcategoriaService {
         return toCategoriaDTO(categoria);
     }
 
+    async getCategoriasByTipo(tipo: string): Promise<CategoriaDTO[]> {
+        const categorias = await this.repo.find( {tipo, id_padre: 0});
+        return toCategoriaDTOs(categorias);
+    }
+
+    async getCategoriaByNombre(nombre: string): Promise<CategoriaDTO> {
+        const nombreNormalizado = nombre.trim().toLowerCase();
+        const categoria = await this.repo.findByNombre(nombreNormalizado);
+        if (!categoria) throw new NotFoundError("Categoría no encontrada");
+        return toCategoriaDTO(categoria);
+    }
+
     async getSubcategorias(id: number): Promise<CategoriaDTO[]> {
         const subcategorias = await this.repo.find( {id_padre: id});
         return toCategoriaDTOs(subcategorias);
@@ -97,7 +109,22 @@ export class CategoriaService implements IcategoriaService {
     async getCategoriaConProductosById(id: number): Promise<CategoriaConProductosDTO> {
         const categoria = await this.repo.getCategoriaConProductosById(id);
         if (!categoria) throw new NotFoundError("Categoría no encontrada");
-        return toCategoriaConProductosDTO(categoria);
+
+        // Buscar subcategorías
+        const subcategorias = await this.repo.findSubcategorias(id);
+        let productos = categoria.productos || [];
+        if (subcategorias.length > 0) {
+            // Buscar productos de cada subcategoría
+            for (const subcat of subcategorias) {
+                const subcatConProductos = await this.repo.getCategoriaConProductosById(subcat.id);
+                if (subcatConProductos && subcatConProductos.productos) {
+                    productos = productos.concat(subcatConProductos.productos);
+                }
+            }
+        }
+        // Clonar la categoría y ponerle todos los productos
+        const categoriaConTodos = { ...categoria, productos };
+        return toCategoriaConProductosDTO(categoriaConTodos);
     }
 
     async getCategoriasConProductos(): Promise<CategoriaConProductosDTO[]> {
