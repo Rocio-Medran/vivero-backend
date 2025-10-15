@@ -33,7 +33,7 @@ export class ServicioService implements IServicioService {
 
     const servicio = new Servicio();
     servicio.nombre = dto.nombre;
-    servicio.description = dto.descripcion;
+    servicio.descripcion = dto.descripcion;
     servicio.informacion_extra = dto.informacion_extra ?? '';
     servicio.categoria = { id: dto.categoria_id } as any;
 
@@ -56,7 +56,7 @@ export class ServicioService implements IServicioService {
       servicio.nombre = dto.nombre;
     }
 
-    if (dto.descripcion !== undefined) servicio.description = dto.descripcion;
+    if (dto.descripcion !== undefined) servicio.descripcion = dto.descripcion;
     if (dto.informacion_extra !== undefined) servicio.informacion_extra = dto.informacion_extra;
     if (dto.esta_activo !== undefined) servicio.esta_activo = dto.esta_activo;
     if (dto.categoria_id !== undefined) {

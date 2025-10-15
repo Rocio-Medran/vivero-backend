@@ -131,19 +131,24 @@ export class ProductoService implements IProductoService {
     }
 
     async getProductosByCategoria(nombre: string): Promise<ProductoConDetallesDTO[]> {
-        // const nombreNormalizado = nombre.trim().toLowerCase();
-
-        const categoria = await this.categoriaRepo.findOneBy({ nombre: nombre });
+        const categoria = await this.categoriaRepo.findByNombre(nombre);
         if (!categoria) throw new NotFoundError("Categoría no existente");
 
+        let productos: Producto[] = [];
+
+        // Incluir productos de la categoría consultada
+        const productosCategoria = await this.repo.find({ categoria: { id: categoria.id } }, ['categoria', 'temporada', 'imagenes']);
+        productos = productos.concat(productosCategoria);
+
+        // Si es principal, incluir productos de subcategorías
         if (categoria.id_padre === 0) {
-            // Obtener subcategorias con id_padre igual al id de la categoria actual
             const subcategorias = await this.categoriaRepo.find({ id_padre: categoria.id });
-            const productos = await this.repo.find({ categoria: { id: In(subcategorias.map(c => c.id)) } }, ['categoria', 'temporada', 'imagenes']);
-            return toProductoConDetallesDTOs(productos);
+            if (subcategorias.length > 0) {
+                const productosSubcats = await this.repo.find({ categoria: { id: In(subcategorias.map(c => c.id)) } }, ['categoria', 'temporada', 'imagenes']);
+                productos = productos.concat(productosSubcats);
+            }
         }
 
-        const productos = await this.repo.find({ categoria: { id: categoria.id } }, ['categoria', 'temporada', 'imagenes']);
         return toProductoConDetallesDTOs(productos);
     }
 }
