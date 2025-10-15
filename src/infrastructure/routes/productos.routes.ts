@@ -19,7 +19,7 @@ const imagenRepo = new BaseRepository(ImagenProducto);
 const imagenService = new ImagenProductoService(imagenRepo);
 const imagenCtrl = new ImagenesProductoController(imagenService);
 
-const { getAll, getById, create, updateCompleto, update, remove, getDetallesById, getAllDetalles, getByCategoria } = ctrl;
+const { getById, create, updateCompleto, update, remove, getDetallesById, getAllDetalles } = ctrl;
 
 // Rutas de imágenes de producto
 router.get('/:productoId/imagenes', imagenCtrl.getByProductoId);

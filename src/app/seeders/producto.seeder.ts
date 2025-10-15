@@ -372,7 +372,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"aportan belleza, aroma y un toque especial a cualquier ocasión; símbolo universal de amor y aprecio.\",
       \"conservacion\": \"evitar la exposición directa al sol y a corrientes de aire para mantener su frescura por más tiempo.\"
       }`,
-      id_categoria: 5,
+      id_categoria: 6,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057894/rosas_grftrn.jpg",
@@ -388,7 +388,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"aportan belleza, aroma y un toque especial a cualquier ocasión; símbolo universal de amor y aprecio.\",
       \"conservacion\": \"evitar la exposición directa al sol y a corrientes de aire para mantener su frescura por más tiempo.\"
       }`,
-      id_categoria: 5,
+      id_categoria: 6,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057892/santaRita_jn6pdd.png",
@@ -404,7 +404,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"aportan belleza, aroma y un toque especial a cualquier ocasión; símbolo universal de amor y aprecio.\",
       \"conservacion\": \"evitar la exposición directa al sol y a corrientes de aire para mantener su frescura por más tiempo.\"
       }`,
-      id_categoria: 5,
+      id_categoria: 6,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057890/hibiscus_ox7fwy.jpg",
@@ -420,7 +420,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"aportan belleza, aroma y un toque especial a cualquier ocasión; símbolo universal de amor y aprecio.\",
       \"conservacion\": \"evitar la exposición directa al sol y a corrientes de aire para mantener su frescura por más tiempo.\"
       }`,
-      id_categoria: 5,
+      id_categoria: 6,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057889/durantas_ka3ocl.jpg",
