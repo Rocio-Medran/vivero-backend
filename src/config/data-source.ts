@@ -9,6 +9,7 @@ import { CategoriaServicio } from '../domain/entities/CategoriaServicio';
 import { ImagenProducto } from '../domain/entities/ImagenProducto';
 import { ImagenServicio } from '../domain/entities/ImagenServicio';
 import { Admin } from '../domain/entities/Admin';
+import { RefreshToken } from '../domain/entities/RefreshToken';
 
 
 export const AppDataSource = new DataSource({
@@ -18,7 +19,7 @@ export const AppDataSource = new DataSource({
   username: env.db.user,
   password: env.db.password,
   database: env.db.name,
-  entities: [Producto, Categoria, Temporada, Servicio, CategoriaServicio, ImagenProducto, ImagenServicio, Admin],
+  entities: [Producto, Categoria, Temporada, Servicio, CategoriaServicio, ImagenProducto, ImagenServicio, Admin, RefreshToken],
   synchronize: true,
   logging: false
 });

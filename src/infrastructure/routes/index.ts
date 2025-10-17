@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import productos from './productos.routes';
 import categorias from './categorias.routes';
 import temporadas from './temporadas.routes';
@@ -7,10 +6,9 @@ import servicios from './servicios.routes';
 import categoriasServicios from './categorias-servicios.routes';
 import imagenes from './imagenes.routes';
 import imagenesServicio from './imagenes-servicio.routes';
-import admin from './admin.routes';
+import auth from './auth.routes';
 
 const router = Router();
-
 
 router.use('/productos', productos);
 router.use('/categorias', categorias);
@@ -19,6 +17,6 @@ router.use('/servicios', servicios);
 router.use('/categorias-servicios', categoriasServicios);
 router.use('/imagenes', imagenes);
 router.use('/', imagenesServicio);
-router.use('/admin', admin);
+router.use('/auth', auth);
 
 export default router;
