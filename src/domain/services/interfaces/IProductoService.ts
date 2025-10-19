@@ -1,4 +1,4 @@
-import { ProductoDTO, CreateProductoDTO, ProductoConDetallesDTO, UpdateProductoDTO } from "../../../app/schemas/producto.schema";
+import { ProductoDTO, CreateProductoDTO, ProductoConDetallesDTO, UpdateProductoDTO, ProductoCompletoDTO } from "../../../app/schemas/producto.schema";
 
 
 export interface IProductoService {
@@ -11,4 +11,6 @@ export interface IProductoService {
     getAllProductosConDetalles(baseUrl?: string): Promise<ProductoConDetallesDTO[]>;
     getProductoConDetallesById(id: number, baseUrl?: string): Promise<ProductoConDetallesDTO>;
     getProductosByCategoria(nombre: string): Promise<ProductoConDetallesDTO[]>;
+    getProductoCompletoById(id: number): Promise<ProductoCompletoDTO>;
+    getProductosCompletos(): Promise<ProductoCompletoDTO[]>;
 }

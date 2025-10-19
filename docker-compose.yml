@@ -3,6 +3,8 @@ services:
     image: postgres:16
     container_name: vivero_db
     restart: always
+    env_file:
+      - .env
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -20,13 +22,8 @@ services:
       - "${PORT}:4000"
     depends_on:
       - db
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
-      PORT: ${PORT}
+    env_file:
+      - .env
     command: ["npm", "start"]
 
   backend-dev:
@@ -37,13 +34,8 @@ services:
       - "4001:4000"
     depends_on:
       - db
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
-      PORT: 4000
+    env_file:
+      - .env
     volumes:
       - .:/app
       - /app/node_modules
