@@ -97,4 +97,23 @@ export class ProductosController {
             next(error);
         }
     }
+
+    getCompletoById = async (req: Request, res: Response, next: Function) => {
+        try {
+            const producto = await this.service.getProductoCompletoById(Number(req.params.id));
+            if (!producto) return next(new ValidationError("Producto no encontrado"));
+            successResponse(res, "PRODUCTO_OBTENIDO", "Producto obtenido correctamente", producto);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    getCompletos = async (req: Request, res: Response, next: Function) => {
+        try {
+            const productos = await this.service.getProductosCompletos();
+            successResponse(res, "PRODUCTOS_OBTENIDOS", "Productos obtenidos correctamente", productos);
+        } catch (error) {
+            next(error);
+        }
+    }
 }

@@ -1,5 +1,5 @@
 import { Producto } from "../../domain/entities/Producto";
-import { ProductoConDetallesDTO, ProductoConDetallesSchema, ProductoDTO, ProductoSchema } from "../schemas/producto.schema";
+import { ProductoCompletoDTO, ProductoCompletoSchema, ProductoConDetallesDTO, ProductoConDetallesSchema, ProductoDTO, ProductoSchema } from "../schemas/producto.schema";
 
 export const toProductoDTO = (entity: Producto): ProductoDTO =>
     ProductoSchema.parse({
@@ -17,7 +17,6 @@ export const toProductoDTOs = (entities: Producto[]): ProductoDTO[] =>
 
 export const toProductoConDetallesDTO = (entity: Producto): ProductoConDetallesDTO =>
     ProductoConDetallesSchema.parse({
-        id: entity.id,
         nombre: entity.nombre,
         descripcion: entity.descripcion,
         informacion_extra: entity.informacion_extra,
@@ -25,7 +24,6 @@ export const toProductoConDetallesDTO = (entity: Producto): ProductoConDetallesD
         nombre_categoria: entity.categoria.nombre,
         nombre_temporada: entity.temporada.nombre,
         imagenes: entity.imagenes ? entity.imagenes.map(i => ({
-            id: i.id,
             url: i.url,
             es_principal: i.es_principal,
             orden: i.orden
@@ -34,3 +32,32 @@ export const toProductoConDetallesDTO = (entity: Producto): ProductoConDetallesD
 
 export const toProductoConDetallesDTOs = (entities: Producto[]): ProductoConDetallesDTO[] =>
     entities.map(e => toProductoConDetallesDTO(e));
+
+
+export const toProductoCompletoDTO = (entity: Producto): ProductoCompletoDTO =>
+    ProductoCompletoSchema.parse({
+        id: entity.id,
+        nombre: entity.nombre,
+        descripcion: entity.descripcion,
+        informacion_extra: entity.informacion_extra,
+        esta_activo: entity.esta_activo,
+        categoria_id: entity.categoria.id,
+        temporada_id: entity.temporada.id,
+        categoria: {
+            id: entity.categoria.id,
+            nombre: entity.categoria.nombre
+        },
+        temporada: {
+            id: entity.temporada.id,
+            nombre: entity.temporada.nombre
+        },
+        imagenes: entity.imagenes ? entity.imagenes.map(i => ({
+            id: i.id,
+            url: i.url,
+            es_principal: i.es_principal,
+            orden: i.orden
+        })) : []
+    });
+
+export const toProductoCompletoDTOs = (entities: Producto[]): ProductoCompletoDTO[] =>
+    entities.map(e => toProductoCompletoDTO(e));

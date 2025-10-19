@@ -19,5 +19,6 @@ export const env = {
   whatsappNumber: process.env.WHATSAPP_NUMBER || '',
   jwtSecret: process.env.JWT_SECRET || 'default_secret_key',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '2h',
-  admin_password: process.env.ADMIN_PASSWORD || ''
+  admin_password: process.env.ADMIN_PASSWORD || '',
+  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:4200',
 };

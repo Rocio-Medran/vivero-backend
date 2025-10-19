@@ -1,8 +1,8 @@
 
 import { ConflictError, NotFoundError } from "../../app/errors/CustomErrors";
 import { In } from "typeorm";
-import { toProductoConDetallesDTO, toProductoConDetallesDTOs, toProductoDTO, toProductoDTOs } from "../../app/mappings/producto.mapping";
-import { CreateProductoDTO, ProductoConDetallesDTO, ProductoDTO, UpdateProductoDTO } from "../../app/schemas/producto.schema";
+import { toProductoCompletoDTO, toProductoCompletoDTOs, toProductoConDetallesDTO, toProductoConDetallesDTOs, toProductoDTO, toProductoDTOs } from "../../app/mappings/producto.mapping";
+import { CreateProductoDTO, ProductoCompletoDTO, ProductoConDetallesDTO, ProductoDTO, UpdateProductoDTO } from "../../app/schemas/producto.schema";
 import { Categoria } from "../entities/Categoria";
 import { Producto } from '../entities/Producto';
 import { Temporada } from "../entities/Temporada";
@@ -150,5 +150,16 @@ export class ProductoService implements IProductoService {
         }
 
         return toProductoConDetallesDTOs(productos);
+    }
+
+    async getProductoCompletoById(id: number): Promise<ProductoCompletoDTO> {
+        const producto = await this.repo.getProductoConDetallesById(id);
+        if (!producto) throw new NotFoundError("Producto no existente");
+        return toProductoCompletoDTO(producto);
+    }
+
+    async getProductosCompletos(): Promise<ProductoCompletoDTO[]> {
+        const productos = await this.repo.getProductosConDetalles();
+        return toProductoCompletoDTOs(productos);
     }
 }
