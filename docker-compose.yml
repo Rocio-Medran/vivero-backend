@@ -24,6 +24,8 @@ services:
       - db
     env_file:
       - .env
+    environment:
+      DB_HOST: db
     command: ["npm", "start"]
 
   backend-dev:
@@ -36,10 +38,22 @@ services:
       - db
     env_file:
       - .env
+    environment:
+      DB_HOST: db
     volumes:
       - .:/app
       - /app/node_modules
     command: ["npm", "run", "dev"]
+
+  seed:
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    command: ["node", "dist/app/seeders/index.js"]
 
 volumes:
   db_data:

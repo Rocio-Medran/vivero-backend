@@ -8,7 +8,9 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "seed": "ts-node ./src/app/seeders/index.ts"
+    "seed": "ts-node ./src/app/seeders/index.ts",
+    "seed:build": "npm run build && node dist/app/seeders/index.js",
+    "seed:docker": "docker compose run --rm seed"
   },
   "repository": {
     "type": "git",
