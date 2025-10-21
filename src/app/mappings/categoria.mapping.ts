@@ -1,7 +1,6 @@
-import { id } from "zod/v4/locales";
 import { Categoria } from "../../domain/entities/Categoria";
 import { CategoriaConProductosDTO, CategoriaConProductosSchema, CategoriaDTO, CategoriaSchema } from "../schemas/categoria.schema";
-import { toProductoConDetallesDTO, toProductoDTO } from "./producto.mapping";
+import { toProductoDTO } from "./producto.mapping";
 
 
 export const toCategoriaDTO = (entity: Categoria): CategoriaDTO =>

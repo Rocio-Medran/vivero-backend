@@ -1,5 +1,4 @@
 import z from "zod";
-import { Servicio } from '../../domain/entities/Servicio';
 
 export const ServicioSchema = z.object({
   id: z.number().min(1),
@@ -26,19 +25,34 @@ export const UpServicioSchema = z.object({
 });
 
 export const ServicioConDetallesSchema = z.object({
-    nombre: z.string().min(2).max(250),
-    descripcion: z.string(),
-    informacion_extra: z.string().optional(),
-    nombre_categoria: z.string(),
-    imagenes: z.array(z.object({
-        id: z.number().min(1),
-        url: z.string(),
-        es_principal: z.boolean().default(false),
-        orden: z.number().min(0)
-    })).optional()
+  nombre: z.string().min(2).max(250),
+  descripcion: z.string(),
+  informacion_extra: z.string().optional(),
+  nombre_categoria: z.string(),
+  imagenes: z.array(z.object({
+    url: z.string(),
+    es_principal: z.boolean().default(false),
+    orden: z.number().min(0)
+  })).optional()
+});
+
+export const ServicioCompletoSchema = z.object({
+  id: z.number().min(1),
+  nombre: z.string().min(2).max(250),
+  descripcion: z.string(),
+  informacion_extra: z.string().optional(),
+  nombre_categoria: z.string(),
+  categoria_id: z.number(),
+  imagenes: z.array(z.object({
+    id: z.number().min(1),
+    url: z.string(),
+    es_principal: z.boolean().default(false),
+    orden: z.number().min(0)
+  })).optional()
 });
 
 export type ServicioDTO = z.infer<typeof ServicioSchema>;
 export type CreateServicioDTO = z.infer<typeof CreateServicioSchema>;
 export type UpServicioDTO = z.infer<typeof UpServicioSchema>;
 export type ServicioConDetallesDTO = z.infer<typeof ServicioConDetallesSchema>;
+export type ServicioCompletoDTO = z.infer<typeof ServicioCompletoSchema>;
