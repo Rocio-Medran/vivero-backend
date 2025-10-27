@@ -308,7 +308,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"propiedades digestivas y relajantes; contribuye al bienestar general, reduce la tensión y ayuda a inducir un sueño reparador.\",
       \"conservacion\": \"mantener en lugar fresco y seco; si es en maceta, regar moderadamente y colocar en lugar con buena luz indirecta.\"
       }`,
-      id_categoria: 3,
+      id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057767/cedron_qq0hsd.jpg",
@@ -324,7 +324,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"conocida por sus propiedades relajantes y calmantes; sus flores se pueden usar para infusiones, aceites esenciales y decoraciones aromáticas.\",
       \"conservacion\": \"mantener en un lugar luminoso; regar con moderación para evitar encharcamientos y prolongar su vida y floración.\"
       }`,
-      id_categoria: 3,
+      id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057766/lavanda_vx3eec.jpg",
@@ -340,7 +340,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"contribuye a la digestión, posee propiedades antioxidantes y aromáticas que mejoran el ambiente.\",
       \"conservacion\": \"mantener en lugar con buena luz y ventilación; regar moderadamente evitando encharcamientos.\"
       }`,
-      id_categoria: 3,
+      id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057765/romero_ucy6nz.jpg",
@@ -356,7 +356,7 @@ export async function seedProductos(dataSource: DataSource) {
       \"beneficios\": \"contribuye a mejorar la calidad del aire, embellece el entorno y es ideal para quienes buscan una planta de bajo mantenimiento.\",
       \"conservacion\": \"ubicar en lugar con buena circulación de aire; mantener el sustrato ligeramente húmedo. Con el cuidado adecuado, crece saludable y se mantiene frondosa durante todo el año.\"
       }`,
-      id_categoria: 3,
+      id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
         "https://res.cloudinary.com/djssc9idq/image/upload/v1760057764/sertal_dubnwy.jpg",
