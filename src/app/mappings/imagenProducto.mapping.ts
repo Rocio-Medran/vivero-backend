@@ -5,6 +5,7 @@ import { ImagenProductoDTO, ImagenProductoSchema } from "../schemas/imagenProduc
 export const toImagenProductoDTO = (entity: ImagenProducto): ImagenProductoDTO =>
     ImagenProductoSchema.parse({
         id: entity.id,
+        public_id: entity.public_id,
         url: entity.url,
         es_principal: entity.es_principal,
         orden: entity.orden

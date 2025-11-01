@@ -10,13 +10,13 @@ import { uploadMiddleware } from '../../middlewares/multer';
 
 const router = Router();
 const repo = new ProductoRepository();
-const service = new ProductoService(repo);
-const ctrl = new ProductosController(service);
-
 
 const imagenRepo = new BaseRepository(ImagenProducto);
 const imagenService = new ImagenProductoService(imagenRepo);
 const imagenCtrl = new ImagenesProductoController(imagenService);
+
+const service = new ProductoService(repo, imagenService);
+const ctrl = new ProductosController(service);
 
 const { getById, create, updateCompleto, update, remove } = ctrl;
 

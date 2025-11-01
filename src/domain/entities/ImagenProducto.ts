@@ -11,13 +11,16 @@ export class ImagenProducto {
     @Column('text')
     url!: string;
 
+    @Column({ type: 'text', nullable: true })
+    public_id?: string;
+
     @Column({ default: false })
     es_principal!: boolean;
 
     @Column()
     orden!: number;
 
-    @ManyToOne(() => Producto, p => p.imagenes)
+    @ManyToOne(() => Producto, p => p.imagenes, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'producto_id' })
     producto!: Producto;
 
