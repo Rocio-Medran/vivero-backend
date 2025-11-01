@@ -3,6 +3,7 @@ import z from "zod";
 
 export const ImagenProductoSchema = z.object({
     id: z.number().min(1),
+    public_id: z.string().optional(),
     url: z.string(),
     es_principal: z.boolean().default(false),
     orden: z.number().min(0)

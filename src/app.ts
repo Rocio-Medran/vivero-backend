@@ -31,7 +31,7 @@ export const createApp = () => {
 
   app.use(cors());
   // app.use(cookieParser());
-  // app.use(express.json());
+  app.use(express.json());
 
   app.use('/api', healthRoutes);
   app.use('/api', routes);

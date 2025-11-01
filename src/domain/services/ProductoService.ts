@@ -1,4 +1,3 @@
-
 import { ConflictError, NotFoundError } from "../../app/errors/CustomErrors";
 import { In } from "typeorm";
 import { toProductoCompletoDTO, toProductoCompletoDTOs, toProductoConDetallesDTO, toProductoConDetallesDTOs, toProductoDTO, toProductoDTOs } from "../../app/mappings/producto.mapping";
@@ -9,12 +8,16 @@ import { Temporada } from "../entities/Temporada";
 import { BaseRepository } from "../repositories/BaseRepository";
 import { IProductoRepository } from "../repositories/interfaces/IProductoRepository";
 import { IProductoService } from "./interfaces/IProductoService";
+import { IImagenProductoService } from './interfaces/IImageneProductoService';
 
 export class ProductoService implements IProductoService {
     categoriaRepo = new BaseRepository(Categoria);
     temporadaRepo = new BaseRepository(Temporada);
+    imagenProductoService: IImagenProductoService;
 
-    constructor(private readonly repo: IProductoRepository) { }
+    constructor(private readonly repo: IProductoRepository, imagenProductoService: IImagenProductoService) {
+        this.imagenProductoService = imagenProductoService;
+    }
 
     async getAllProductos(): Promise<ProductoDTO[]> {
         const productos = await this.repo.getAll(['categoria', 'temporada', 'imagenes']);
@@ -27,7 +30,7 @@ export class ProductoService implements IProductoService {
         return toProductoDTO(producto);
     }
 
-    async createProductoAsync(dto: CreateProductoDTO): Promise< ProductoDTO > {
+    async createProductoAsync(dto: CreateProductoDTO): Promise<ProductoDTO> {
 
         const nombreNormalizado = dto.nombre.trim().toLowerCase();
         const nombreExiste = await this.repo.findByNombre(nombreNormalizado);
@@ -112,8 +115,13 @@ export class ProductoService implements IProductoService {
     }
 
     async removeProductoAsync(id: number): Promise<boolean> {
-        const producto = await this.repo.getById(id);
+        const producto = await this.repo.getById(id, ['imagenes']);
         if (!producto) throw new NotFoundError("Producto no existente");
+
+        // Eliminar imágenes (Cloudinary)
+        for (const img of producto.imagenes ?? []) {
+            await this.imagenProductoService.removeImagenProducto(img.id);
+        }
 
         await this.repo.delete(producto);
         return true;
@@ -124,7 +132,7 @@ export class ProductoService implements IProductoService {
         return toProductoConDetallesDTOs(productos);
     }
 
-    async getProductoConDetallesById(id: number): Promise<ProductoConDetallesDTO > {
+    async getProductoConDetallesById(id: number): Promise<ProductoConDetallesDTO> {
         const producto = await this.repo.getProductoConDetallesById(id);
         if (!producto) throw new NotFoundError("Producto no existente");
         return toProductoConDetallesDTO(producto);

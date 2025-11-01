@@ -2,8 +2,7 @@ import { ImagenProducto } from "../entities/ImagenProducto";
 import { Producto } from "../entities/Producto";
 import { BaseRepository } from "../repositories/BaseRepository";
 import { IImagenProductoService } from "./interfaces/IImageneProductoService";
-import fs from "fs/promises";
-import path from "path";
+import { cloudinaryDelete } from "../../utils/cloudinaryDelete";
 import { toImagenProductoDTOs } from "../../app/mappings/imagenProducto.mapping";
 import { ImagenProductoDTO } from "../../app/schemas/imagenProducto.schema";
 import { ConflictError, NotFoundError, ValidationError } from "../../app/errors/CustomErrors";
@@ -50,6 +49,7 @@ export class ImagenProductoService implements IImagenProductoService {
             const url = uploadResult.secure_url || uploadResult.url;
             const img: ImagenProducto = {
                 url,
+                public_id: uploadResult.public_id,
                 es_principal: esPrincipal,
                 orden: count + index + 1,
                 producto: producto
@@ -64,18 +64,17 @@ export class ImagenProductoService implements IImagenProductoService {
         const imagen = await this.repo.findOneBy({ id });
         if (!imagen) return false;
 
-        // Validar que la ruta esté dentro de /uploads/productos
-        const uploadsDir = path.resolve(__dirname, '../../..', 'uploads/productos');
-        const absolutePath = path.resolve(__dirname, '../../..', imagen.url.replace(/^\//, ''));
-        if (!absolutePath.startsWith(uploadsDir)) {
-            throw new ConflictError("Ruta de archivo inválida o potencial intento de acceso no autorizado.");
+        // Si tiene public_id, borrar en Cloudinary
+        if (imagen.public_id) {
+            try {
+                await cloudinaryDelete(imagen.public_id);
+            } catch (err) {
+                console.warn("No se pudo borrar en Cloudinary:", err);
+            }
         }
+
+        // Eliminar el registro en BD
         await this.repo.delete(imagen);
-        try {
-            await fs.unlink(absolutePath);
-        } catch (err) {
-            console.warn("No se pudo borrar el archivo físico:", err);
-        }
         return true;
     }
 
