@@ -51,6 +51,7 @@ export const ProductoCompletoSchema = z.object({
     temporada_id: z.number(),
     categoria: z.object({
         id: z.number(),
+        id_padre: z.number(),
         nombre: z.string()
     }),
     temporada: z.object({

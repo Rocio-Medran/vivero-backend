@@ -3,6 +3,7 @@ import { seedAdmin } from "./admin.seeder";
 import { seedCategorias } from "./categoria.seeder";
 import { seedCategoriaServicios } from "./categoriaServicios.seeder";
 import { seedProductos } from "./producto.seeder";
+import { seedServicios } from "./servicio.seeder";
 import { seedTemporadas } from "./temporada.seeder";
 
 
@@ -14,6 +15,7 @@ async function runSeeders() {
   await seedTemporadas(AppDataSource);
   await seedProductos(AppDataSource);
   await seedCategoriaServicios(AppDataSource);
+  await seedServicios(AppDataSource);
 
   await AppDataSource.destroy();
   console.log("Seeders ejecutados correctamente");

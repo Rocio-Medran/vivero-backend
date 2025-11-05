@@ -45,6 +45,7 @@ export const toProductoCompletoDTO = (entity: Producto): ProductoCompletoDTO =>
         temporada_id: entity.temporada.id,
         categoria: {
             id: entity.categoria.id,
+            id_padre: entity.categoria.id_padre,
             nombre: entity.categoria.nombre
         },
         temporada: {
