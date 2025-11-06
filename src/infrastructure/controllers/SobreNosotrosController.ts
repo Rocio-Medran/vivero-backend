@@ -1,4 +1,4 @@
-import { CreateSobreNosotrosSchema, UpSobreNosotrosSchema } from "../../app/schemas/sobreNosotros.schema";
+import { UpSobreNosotrosSchema } from "../../app/schemas/sobreNosotros.schema";
 import { ISobreNosotrosService } from "../../domain/services/interfaces/ISobreNosotrosService";
 import { Request, Response } from "express";
 import { successResponse } from "../../utils/response";
@@ -14,16 +14,6 @@ export class SobreNosotrosController {
             next(error);
         }
     }
-
-    create = async (req: Request, res: Response, next: Function) => {
-        try {
-            const dto = CreateSobreNosotrosSchema.parse(req.body);
-            const sobreNosotros = await this.service.createSobreNosotros(dto);
-            successResponse(res, "SOBRE_NOSOTROS_CREADO", "Sobre Nosotros creado correctamente", sobreNosotros);
-        } catch (error) {
-            next(error);
-        }
-    }   
 
     update = async (req: Request, res: Response, next: Function) => {
         try {
