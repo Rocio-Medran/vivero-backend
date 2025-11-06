@@ -9,6 +9,9 @@ export class ImagenServicio {
     @Column('text')
     url!: string;
 
+    @Column({ type: 'text', nullable: true })
+    public_id?: string;
+
     @Column({ default: false })
     es_principal!: boolean;
 
