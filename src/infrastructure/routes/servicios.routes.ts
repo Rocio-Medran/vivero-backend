@@ -12,6 +12,8 @@ const { getAll, getById, create, update, remove } = ctrl;
 
 router.get('/detalles', ctrl.getAllDetalles);
 router.get('/detalles/:id', ctrl.getDetallesById);
+router.get('/completos', ctrl.getAllCompletos);
+router.get('/completos/:id', ctrl.getCompletoById);
 
 router.get('/', getAll);
 router.get('/:id', getById);

@@ -1,4 +1,4 @@
-import { CreateServicioDTO, ServicioConDetallesDTO, ServicioDTO, UpServicioDTO } from "../../../app/schemas/servicio.schema";
+import { CreateServicioDTO, ServicioConDetallesDTO, ServicioDTO, ServicioCompletoDTO, UpServicioDTO } from "../../../app/schemas/servicio.schema";
 
 export interface IServicioService {
   getAllServicios(): Promise<ServicioDTO[]>;
@@ -8,4 +8,6 @@ export interface IServicioService {
   removeServicioAsync(id: number): Promise<boolean>;
   getAllServiciosConDetalles(): Promise<ServicioConDetallesDTO[]>;
   getServicioConDetallesById(id: number): Promise<ServicioConDetallesDTO>;
+  getServiciosCompletos(): Promise<ServicioCompletoDTO[]>;
+  getServicioCompletoById(id: number): Promise<ServicioCompletoDTO>;
 }
