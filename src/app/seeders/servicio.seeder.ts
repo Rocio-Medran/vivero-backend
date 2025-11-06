@@ -31,7 +31,7 @@ export async function seedServicios(dataSource: DataSource) {
         {
             nombre: "Cámara de Enraizamiento",
             descripcion: "Servicio de enraizamiento de plantas con técnicas avanzadas y personal especializado. Ideal para viveristas que buscan mejorar la calidad de sus plantas.",
-            informacion_extra: `{"• El proceso de enraizamiento se realiza en condiciones controladas para asegurar el éxito de las plantas.\n• Se utilizan hormonas de enraizamiento y sustratos especiales para optimizar el crecimiento.\n• Los tiempos de enraizamiento pueden variar según la especie y las condiciones ambientales.\n• Se recomienda realizar un seguimiento periódico del estado de las plantas durante el proceso."}`,
+            informacion_extra: `• El proceso de enraizamiento se realiza en condiciones controladas para asegurar el éxito de las plantas.\n• Se utilizan hormonas de enraizamiento y sustratos especiales para optimizar el crecimiento.\n• Los tiempos de enraizamiento pueden variar según la especie y las condiciones ambientales.\n• Se recomienda realizar un seguimiento periódico del estado de las plantas durante el proceso.`,
             id_categoria: 2,
             imagenes: [
                 "https://res.cloudinary.com/djssc9idq/image/upload/v1762288979/enraizamiento1_yewfdf.jpg",
@@ -42,7 +42,7 @@ export async function seedServicios(dataSource: DataSource) {
         {
             nombre: "Asesoramiento Personalizado",
             descripcion: "Servicio de asesoramiento técnico agronómico personalizado para productores y viveristas. Ofrecemos recomendaciones basadas en las mejores prácticas agrícolas y las últimas investigaciones del sector.",
-            informacion_extra: `{"• El asesoramiento puede abarcar desde la selección de cultivos hasta el manejo integrado de plagas.\n• Se realizan visitas técnicas al campo para evaluar las condiciones y necesidades específicas.\n• Se brindan informes detallados con recomendaciones prácticas y estrategias de mejora.\n• El servicio está a cargo de profesionales con amplia experiencia en agronomía y producción agrícola."}`,
+            informacion_extra: `• El asesoramiento puede abarcar desde la selección de cultivos hasta el manejo integrado de plagas.\n• Se realizan visitas técnicas al campo para evaluar las condiciones y necesidades específicas.\n• Se brindan informes detallados con recomendaciones prácticas y estrategias de mejora.\n• El servicio está a cargo de profesionales con amplia experiencia en agronomía y producción agrícola.`,
             id_categoria: 3,
             imagenes: [
                 "https://res.cloudinary.com/djssc9idq/image/upload/v1762289169/asesoramiento2_hgu4du.jpg",

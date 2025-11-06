@@ -75,4 +75,23 @@ export class ServiciosController {
       next(error);
     }
   }
+
+  getAllCompletos = async (_req: Request, res: Response, next: Function) => {
+    try {
+      const servicios = await this.service.getServiciosCompletos();
+      successResponse(res, "SERVICIOS_OBTENIDOS", "Servicios obtenidos correctamente", servicios);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  getCompletoById = async (req: Request, res: Response, next: Function) => {
+    try {
+      const servicio = await this.service.getServicioCompletoById(Number(req.params.id));
+      if (!servicio) return next(new ValidationError("Servicio no encontrado"));
+      successResponse(res, "SERVICIO_OBTENIDO", "Servicio obtenido correctamente", servicio);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

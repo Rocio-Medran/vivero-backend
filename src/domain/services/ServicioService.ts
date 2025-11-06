@@ -1,5 +1,5 @@
-import { CreateServicioDTO, ServicioConDetallesDTO, ServicioDTO, UpServicioDTO } from "../../app/schemas/servicio.schema";
-import { toServicioConDetallesDTO, toServicioConDetallesDTOs, toServicioDTO, toServicioDTOs } from "../../app/mappings/servicio.mapping";
+import { CreateServicioDTO, ServicioConDetallesDTO, ServicioDTO, ServicioCompletoDTO, UpServicioDTO } from "../../app/schemas/servicio.schema";
+import { toServicioConDetallesDTO, toServicioConDetallesDTOs, toServicioDTO, toServicioDTOs, toServicioCompletoDTO, toServicioCompletoDTOs } from "../../app/mappings/servicio.mapping";
 import { Servicio } from "../entities/Servicio";
 import { IServicioRepository } from "../repositories/interfaces/IServicioRepository";
 import { IServicioService } from "./interfaces/IServicioService";
@@ -86,5 +86,16 @@ export class ServicioService implements IServicioService {
     const servicio = await this.repo.getServicioConDetallesById(id);
     if (!servicio) throw new NotFoundError("Servicio no existente");
     return toServicioConDetallesDTO(servicio);
+  }
+
+  async getServiciosCompletos(): Promise<ServicioCompletoDTO[]> {
+    const servicios = await this.repo.getServiciosConDetalles();
+    return toServicioCompletoDTOs(servicios);
+  }
+
+  async getServicioCompletoById(id: number): Promise<ServicioCompletoDTO> {
+    const servicio = await this.repo.getServicioConDetallesById(id);
+    if (!servicio) throw new NotFoundError("Servicio no existente");
+    return toServicioCompletoDTO(servicio);
   }
 }

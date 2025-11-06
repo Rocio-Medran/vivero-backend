@@ -10,7 +10,6 @@ const service = new SobreNosotrosService(repo);
 const ctrl = new SobreNosotrosController(service);
 
 router.get('/:id', ctrl.getDetalles);
-router.post('/', ctrl.create);
 router.put('/:id', ctrl.update);
 
 export default router;

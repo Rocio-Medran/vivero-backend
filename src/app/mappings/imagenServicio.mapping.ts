@@ -6,6 +6,7 @@ export const toImagenServicioDTO = (entity: ImagenServicio): ImagenServicioDTO =
     ImagenServicioSchema.parse({
         id: entity.id,
         url: entity.url,
+        public_id: entity.public_id ?? undefined,
         es_principal: entity.es_principal,
         orden: entity.orden
     });

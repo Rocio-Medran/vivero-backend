@@ -2,12 +2,11 @@ import { ImagenServicio } from "../entities/ImagenServicio";
 import { Servicio } from "../entities/Servicio";
 import { ImagenServicioDTO } from "../../app/schemas/imagenServicio.schema";
 import { IImagenServicioService } from "./interfaces/IImagenServicioService";
-import fs from "fs/promises";
 import { toImagenServicioDTOs } from "../../app/mappings/imagenServicio.mapping";
 import { BaseRepository } from "../repositories/BaseRepository";
 import { NotFoundError, ValidationError, ConflictError } from "../../app/errors/CustomErrors";
 import { uploadBufferToCloudinary } from "../../utils/cloudinaryUpload";
-import path from "path";
+import { cloudinaryDelete } from "../../utils/cloudinaryDelete";
 
 export class ImagenServicioService implements IImagenServicioService {
     constructor(private readonly repo: BaseRepository<ImagenServicio>) {}
@@ -53,6 +52,7 @@ export class ImagenServicioService implements IImagenServicioService {
             const url = uploadResult.secure_url || uploadResult.url;
             const img: ImagenServicio = {
                 url,
+                public_id: uploadResult.public_id,
                 es_principal: esPrincipal,
                 orden: count + index + 1,
                 servicio: servicio
@@ -66,18 +66,18 @@ export class ImagenServicioService implements IImagenServicioService {
     async removeImagenServicio(id: number): Promise<boolean> {
         const imagen = await this.repo.findOneBy({ id });
         if (!imagen) return false;
-        // Validar que la ruta esté dentro de /uploads/servicios
-        const uploadsDir = path.resolve(__dirname, '../../..', 'uploads/servicios');
-        const absolutePath = path.resolve(__dirname, '../../..', imagen.url.replace(/^\//, ''));
-        if (!absolutePath.startsWith(uploadsDir)) {
-            throw new ConflictError("Ruta de archivo inválida o potencial intento de acceso no autorizado.");
+
+        // Si tiene public_id, borrar en Cloudinary
+        if (imagen.public_id) {
+            try {
+                await cloudinaryDelete(imagen.public_id);
+            } catch (err) {
+                console.warn("No se pudo borrar en Cloudinary:", err);
+            }
         }
+
+        // Eliminar el registro en BD
         await this.repo.delete(imagen);
-        try {
-            await fs.unlink(absolutePath);
-        } catch (err) {
-            console.warn("No se pudo borrar el archivo físico:", err);
-        }
         return true;
     }
 }

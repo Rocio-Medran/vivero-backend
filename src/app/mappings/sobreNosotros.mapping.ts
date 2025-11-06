@@ -4,24 +4,25 @@ import { SobreNosotrosDetallesDTO, SobreNosotrosDetallesSchema, SobreNosotrosDTO
 export const toSobreNosotrosDTO = (entity: SobreNosotros): SobreNosotrosDTO =>
     SobreNosotrosSchema.parse({
         id: entity.id,
-        titulo: entity.titulo,
-        contenido: entity.contenido,
-        mision: entity.mision ?? null,
-        vision: entity.vision ?? null,
-        valores: entity.valores ?? null,
+        nuestro_origen: entity.nuestro_origen,
+        produccion_historica: entity.produccion_historica,
+        nuevas_producciones: entity.nuevas_producciones,
         ultima_actualizacion: entity.ultima_actualizacion,
-        esta_activo: entity.esta_activo,
         imagen_url: entity.imagen_url ?? null,
-        imagen2_url: entity.imagen2_url ?? null
+        imagen2_url: entity.imagen2_url ?? null,
+        imagen3_url: entity.imagen3_url ?? null,
+        imagen4_url: entity.imagen4_url ?? null,
+        imagen5_url: entity.imagen5_url ?? null
     });
 
 export const toSobreNosotrosDetallesDTO = (entity: SobreNosotros): SobreNosotrosDetallesDTO =>
     SobreNosotrosDetallesSchema.parse({
-        titulo: entity.titulo,
-        contenido: entity.contenido,
-        mision: entity.mision ?? null,
-        vision: entity.vision ?? null,
-        valores: entity.valores ?? null,
+        nuestro_origen: entity.nuestro_origen,
+        produccion_historica: entity.produccion_historica,
+        nuevas_producciones: entity.nuevas_producciones,
         imagen_url: entity.imagen_url ?? null,
-        imagen2_url: entity.imagen2_url ?? null
+        imagen2_url: entity.imagen2_url ?? null,
+        imagen3_url: entity.imagen3_url ?? null,
+        imagen4_url: entity.imagen4_url ?? null,
+        imagen5_url: entity.imagen5_url ?? null
     });
