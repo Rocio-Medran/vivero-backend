@@ -1567,13 +1567,13 @@
 					"response": []
 				},
 				{
-					"name": "POST Sobre nosotros",
+					"name": "PUT Sobre nosotros",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titulo\": \"Nelsonnnnn holisss\", // este campo es obligatorio\r\n    \"contenido\": \"contenido de ejemplo\", // este campo es obligatorio\r\n    //\"mision\": \"\",\r\n    //\"vision\": \"\",\r\n    //\"valores\": \"\",\r\n    //\"imagen_url\": \"\",\r\n    //\"imagen2_url\": \r\n}",
+							"raw": "{\r\n  \"nuestro_origen\": \"Historia y orígenes...\",\r\n  \"produccion_historica\": \"Producción histórica...\",\r\n  \"nuevas_producciones\": \"Líneas nuevas...\",\r\n  \"imagen_url\": \"https://...\",\r\n  \"imagen2_url\": \"https://...\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1581,12 +1581,120 @@
 							}
 						},
 						"url": {
-							"raw": "{{BaseUrl}}/sobre-nosotros",
+							"raw": "{{BaseUrl}}/sobre-nosotros/1",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
-								"sobre-nosotros"
+								"sobre-nosotros",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contacto",
+			"item": [
+				{
+					"name": "GET Contacto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/contacto/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"contacto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Contacto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"horario_atencion\": \"07:30 a 13:30\",\r\n  \"email\": \"contacto@viveroquilino.gob.ar\",\r\n  \"telefono\": \"351-1234567\",\r\n  \"whatsapp\": \"+54 9 351 765 4321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/contacto/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"contacto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Encargado",
+			"item": [
+				{
+					"name": "GET Encargado",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"horario_atencion\": \"07:30 a 13:30\",\r\n  \"email\": \"contacto@viveroquilino.gob.ar\",\r\n  \"telefono\": \"351-1234567\",\r\n  \"whatsapp\": \"+54 9 351 765 4321\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/encargado/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"encargado",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Encargado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Ing. Juan Pérez\",\r\n  \"foto\": \"https://res.cloudinary.com/.../encargado.jpg\",\r\n  \"descripcion\": \"Responsable del vivero...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/encargado/1",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"encargado",
+								"1"
 							]
 						}
 					},
