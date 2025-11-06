@@ -11,6 +11,7 @@ import { ImagenServicio } from '../domain/entities/ImagenServicio';
 import { Admin } from '../domain/entities/Admin';
 import { RefreshToken } from '../domain/entities/RefreshToken';
 import { SobreNosotros } from '../domain/entities/SobreNosotros';
+import { Contacto } from '../domain/entities/Contacto';
 
 
 export const AppDataSource = new DataSource({
@@ -20,7 +21,12 @@ export const AppDataSource = new DataSource({
   username: env.db.user,
   password: env.db.password,
   database: env.db.name,
-  entities: [Producto, Categoria, Temporada, Servicio, CategoriaServicio, ImagenProducto, ImagenServicio, Admin, RefreshToken, SobreNosotros],
+  entities: [
+    Producto, Categoria, Temporada,
+    Servicio, CategoriaServicio, ImagenProducto,
+    ImagenServicio, Admin, RefreshToken,
+    SobreNosotros, Contacto
+  ],
   synchronize: true,
   logging: false
 });

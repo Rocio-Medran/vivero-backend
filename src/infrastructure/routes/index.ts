@@ -8,6 +8,7 @@ import imagenes from './imagenes.routes';
 import imagenesServicio from './imagenes-servicio.routes';
 import auth from './auth.routes';
 import SobreNosotros from "./sobreNosotros.routes";
+import contacto from './contacto.routes';
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use('/imagenes', imagenes);
 router.use('/', imagenesServicio);
 router.use('/auth', auth);
 router.use('/sobre-nosotros', SobreNosotros);
+router.use('/contacto', contacto);
 
 export default router;
