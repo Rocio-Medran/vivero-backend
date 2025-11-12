@@ -70,16 +70,16 @@ El backend implementa autenticación con JWT y refresh tokens. Los refresh token
 
 ## Endpoints principales
 
-- **Productos:** CRUD, consulta por categoría, detalles, completos, imágenes individuales y múltiples
-- **Categorías:** CRUD, consulta por nombre, tipo, subcategorías y productos
-- **Temporadas:** CRUD
-- **Servicios:** CRUD, detalles y completos
-- **Imágenes de producto y servicio:** subida y eliminación
-- **Contenido institucional:**
-	- **Sobre Nosotros:** GET/PUT
-	- **Contacto:** GET/PUT
-	- **Encargado:** GET/PUT
-- **Categoría de Servicios:** CRUD y consulta con servicios
+- Productos: CRUD, consulta por categoría, detalles, completos, imágenes individuales y múltiples
+- Categorías: CRUD, consulta por nombre, tipo, subcategorías y productos
+- Temporadas: CRUD
+- Servicios: CRUD, detalles y completos
+- Imágenes de producto y servicio: subida y eliminación
+- Contenido institucional:
+	- Sobre Nosotros: GET/PUT
+	- Contacto: GET/PUT
+	- Encargado: GET/PUT
+- Categoría de Servicios: CRUD y consulta con servicios
 
 ### Subida de imágenes
 
@@ -118,7 +118,7 @@ El backend implementa autenticación con JWT y refresh tokens. Los refresh token
 ## Notas
 
 - El backend expone la API en `http://localhost:4000/`
-- Las imágenes se guardan en Cloudinary
+- Las imágenes se guardan en Cloudinary (no en `uploads/` local)
 - La autenticación es obligatoria para endpoints protegidos
 - Puedes probar la API con la colección Postman en `docs/`
 
