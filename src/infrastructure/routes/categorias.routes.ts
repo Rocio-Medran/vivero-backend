@@ -2,6 +2,7 @@ import { Router } from "express";
 import { CategoriaService } from "../../domain/services/CategoriaService";
 import { CategoriasController } from "../controllers/CategoriasController";
 import { CategoriaRepository } from "../../domain/repositories/CategoriaRepository";
+import { authMiddleware } from "../auth/auth.middleware";
 
 const router = Router();
 const repo = new CategoriaRepository();
@@ -19,8 +20,8 @@ router.get('/:id/subcategorias', ctrl.getSubcategorias);
 
 router.get('/', getAll);
 router.get('/:id', getById);
-router.post('/', create);
-router.put('/:id', update);
-router.delete('/:id', remove);
+router.post('/', authMiddleware, create);
+router.put('/:id', authMiddleware, update);
+router.delete('/:id', authMiddleware, remove);
 
 export default router;

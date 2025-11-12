@@ -8,29 +8,28 @@ import { errorHandler } from './middlewares/errorHandler';
 import { env } from './config/env';
 
 
-// const allowOrigins = [
-//   'http://localhost:4200', // Angular dev server
-//   env.frontendUrl || '', // URL del frontend desde variables de entorno
-// ];
+const allowOrigins = [
+  env.frontendUrl,
+  'http://localhost:4200'
+];
 
-// const corsOptions: CorsOptions = {
-//   origin: (origin, callback) => {
-//     // Permitir solicitudes sin origen (como las de Postman o curl)
-//     if (!origin || !allowOrigins.includes(origin)) {
-//       callback(null, true);
-//     }
-//     else {
-//       callback(new Error('No permitido por CORS')); // Rechazar origenes no permitidos
-//     }
-//   },
-//   credentials: true, // Permitir cookies
-// }
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    // Permitir solicitudes sin origen (Postman, curl) y orígenes incluidos
+    if (!origin || allowOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Origen no permitido por CORS'));
+    }
+  },
+  credentials: true
+};
 
 export const createApp = () => {
   const app = express();
 
-  app.use(cors());
-  // app.use(cookieParser());
+  app.use(cors(corsOptions));
+  app.use(cookieParser());
   app.use(express.json());
 
   app.use('/api', healthRoutes);
