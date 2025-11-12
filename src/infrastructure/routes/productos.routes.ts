@@ -7,6 +7,7 @@ import { BaseRepository } from '../../domain/repositories/BaseRepository';
 import { ImagenProducto } from '../../domain/entities/ImagenProducto';
 import { ImagenesProductoController } from '../controllers/ImagenesProductoController';
 import { uploadMiddleware } from '../../middlewares/multer';
+import { authMiddleware } from '../auth/auth.middleware';
 
 const router = Router();
 const repo = new ProductoRepository();
@@ -22,7 +23,7 @@ const { getById, create, updateCompleto, update, remove } = ctrl;
 
 // Rutas de imágenes de producto
 router.get('/:productoId/imagenes', imagenCtrl.getByProductoId);
-router.post('/:productoId/imagenes/multiples', uploadMiddleware, imagenCtrl.createMany);
+router.post('/:productoId/imagenes/multiples', authMiddleware, uploadMiddleware, imagenCtrl.createMany);
 
 router.get('/detalles', ctrl.getAllDetalles);
 router.get('/detalles/:id', ctrl.getDetallesById);
@@ -37,9 +38,9 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id', getById);
-router.post('/', create);
-router.put('/:id', updateCompleto);
-router.delete('/:id', remove);
-router.patch('/:id', update);
+router.post('/', authMiddleware, create);
+router.put('/:id', authMiddleware, updateCompleto);
+router.delete('/:id', authMiddleware, remove);
+router.patch('/:id', authMiddleware, update);
 
 export default router;

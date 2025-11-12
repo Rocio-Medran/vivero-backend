@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { ServiciosController } from '../controllers/ServiciosController';
 import { ServicioService } from '../../domain/services/ServicioService';
 import { ServicioRepository } from '../../domain/repositories/ServicioRepository';
+import { authMiddleware } from '../auth/auth.middleware';
 
 const router = Router();
 const repo = new ServicioRepository();
@@ -17,8 +18,8 @@ router.get('/completos/:id', ctrl.getCompletoById);
 
 router.get('/', getAll);
 router.get('/:id', getById);
-router.post('/', create);
-router.patch('/:id', update);
-router.delete('/:id', remove);
+router.post('/', authMiddleware, create);
+router.patch('/:id', authMiddleware, update);
+router.delete('/:id', authMiddleware, remove);
 
 export default router;
