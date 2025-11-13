@@ -118,6 +118,43 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "PUT Imagen de producto",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc2Mjk5NTI2NCwiZXhwIjoxNzYzMDAyNDY0fQ.u-MXbLv4ChRWxTWXlnVBrtMmEqbhjNijZReaCEvWPzk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"es_principal\": true, // campo opcional\r\n  \"orden\": 1 // campo opcional\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/imagenes/2",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"imagenes",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -1223,7 +1260,7 @@
 							"response": []
 						},
 						{
-							"name": "DELETE Imagen de producto",
+							"name": "DELETE Imagen de servicio",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -1235,6 +1272,43 @@
 									"path": [
 										"imagenes-servicio",
 										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Imagen de servicio",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc2Mjk5NTI2NCwiZXhwIjoxNzYzMDAyNDY0fQ.u-MXbLv4ChRWxTWXlnVBrtMmEqbhjNijZReaCEvWPzk",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"es_principal\": true,\r\n  \"orden\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/imagenes-servicio/2",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"imagenes-servicio",
+										"2"
 									]
 								}
 							},
