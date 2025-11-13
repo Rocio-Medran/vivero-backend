@@ -17,5 +17,7 @@ router.get('/servicios/:servicioId/imagenes', imagenCtrl.getByServicioId);
 router.post('/servicios/:servicioId/imagenes/multiples', authMiddleware, uploadMiddleware, imagenCtrl.createMany);
 // DELETE /imagenes-servicio/:id
 router.delete('/imagenes-servicio/:id', authMiddleware, imagenCtrl.remove);
+// PUT /imagenes-servicio/:id
+router.put('/imagenes-servicio/:id', authMiddleware, imagenCtrl.update);
 
 export default router;

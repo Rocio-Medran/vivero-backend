@@ -3,10 +3,12 @@ import { Producto } from "../entities/Producto";
 import { BaseRepository } from "../repositories/BaseRepository";
 import { IImagenProductoService } from "./interfaces/IImageneProductoService";
 import { cloudinaryDelete } from "../../utils/cloudinaryDelete";
-import { toImagenProductoDTOs } from "../../app/mappings/imagenProducto.mapping";
+import { toImagenProductoDTO, toImagenProductoDTOs } from "../../app/mappings/imagenProducto.mapping";
 import { ImagenProductoDTO } from "../../app/schemas/imagenProducto.schema";
 import { ConflictError, NotFoundError, ValidationError } from "../../app/errors/CustomErrors";
 import { uploadBufferToCloudinary } from "../../utils/cloudinaryUpload";
+import { Not } from "typeorm";
+import { AppDataSource } from "../../config/data-source";
 
 
 export class ImagenProductoService implements IImagenProductoService {
@@ -76,6 +78,66 @@ export class ImagenProductoService implements IImagenProductoService {
         // Eliminar el registro en BD
         await this.repo.delete(imagen);
         return true;
+    }
+
+    async updateImagenProducto(id: number, es_principal: boolean, orden?: number): Promise<ImagenProductoDTO> {
+        const imagen = await this.repo.findOneBy({ id }, ['producto']);
+        if (!imagen) throw new NotFoundError("Imagen no encontrada");
+
+        const imagenRepo = AppDataSource.getRepository(ImagenProducto);
+
+        if (es_principal) {
+            await imagenRepo.update(
+                { producto: { id: imagen.producto.id }, id: Not(id) },
+                { es_principal: false }
+            );
+            imagen.es_principal = true;
+        }
+
+        if (orden !== undefined) {
+           const updated = await this.updateOrdenImagen(id, orden);
+           return updated;
+        }
+
+        const updated = await imagenRepo.save(imagen);
+        return toImagenProductoDTO(updated);
+    }
+
+    async updateOrdenImagen(id: number, nuevoOrden: number): Promise<ImagenProductoDTO> {
+        const imagen = await this.repo.findOneBy({ id },["producto"]);
+        if (!imagen) throw new NotFoundError("Imagen no encontrada");
+
+        const imagenRepo = AppDataSource.getRepository(ImagenProducto);
+        const productoId = imagen.producto.id;
+
+        const imagenes = await imagenRepo.find({
+            where: { producto: { id: productoId } },
+            order: { orden: "ASC" },
+        });
+
+        const ordenActual = imagen.orden;
+
+
+        if (nuevoOrden < ordenActual) {
+            for (const img of imagenes) {
+                if (img.orden >= nuevoOrden && img.orden < ordenActual) {
+                    img.orden += 1; // desplazar hacia abajo
+                    await imagenRepo.save(img);
+                }
+            }
+        }
+        // Si el nuevo orden es mayor (baja)
+        else if (nuevoOrden > ordenActual) {
+            for (const img of imagenes) {
+                if (img.orden <= nuevoOrden && img.orden > ordenActual) {
+                    img.orden -= 1; // desplazar hacia arriba
+                    await imagenRepo.save(img);
+                }
+            }
+        }
+
+        imagen.orden = nuevoOrden;
+        return await imagenRepo.save(imagen);
     }
 
 }
