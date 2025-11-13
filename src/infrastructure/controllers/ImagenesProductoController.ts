@@ -54,4 +54,18 @@ export class ImagenesProductoController {
             next(err);
         }
     };
+
+    // PUT /imagenes/:id
+    update = async (req: Request, res: Response, next: Function) => {
+        try {
+            const id = Number(req.params.id);
+            if (isNaN(id)) return next(new ValidationError("ID de imagen inválido"));
+            const { es_principal, orden } = req.body;
+
+            const updated = await this.service.updateImagenProducto(id, es_principal, orden);
+            return successResponse(res, "IMAGEN_ACTUALIZADA", "Imagen actualizada correctamente", updated);
+        } catch (err) {
+            next(err);
+        }
+    };
 }

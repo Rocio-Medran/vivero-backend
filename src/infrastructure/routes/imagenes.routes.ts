@@ -12,5 +12,7 @@ const imagenCtrl = new ImagenesProductoController(imagenService);
 
 // DELETE /imagenes/:id
 router.delete('/:id', authMiddleware, imagenCtrl.remove);
+// PUT /imagenes/:id
+router.put('/:id', authMiddleware, imagenCtrl.update);
 
 export default router;

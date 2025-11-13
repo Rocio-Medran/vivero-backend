@@ -2,14 +2,16 @@ import { ImagenServicio } from "../entities/ImagenServicio";
 import { Servicio } from "../entities/Servicio";
 import { ImagenServicioDTO } from "../../app/schemas/imagenServicio.schema";
 import { IImagenServicioService } from "./interfaces/IImagenServicioService";
-import { toImagenServicioDTOs } from "../../app/mappings/imagenServicio.mapping";
+import { toImagenServicioDTO, toImagenServicioDTOs } from "../../app/mappings/imagenServicio.mapping";
 import { BaseRepository } from "../repositories/BaseRepository";
 import { NotFoundError, ValidationError, ConflictError } from "../../app/errors/CustomErrors";
 import { uploadBufferToCloudinary } from "../../utils/cloudinaryUpload";
 import { cloudinaryDelete } from "../../utils/cloudinaryDelete";
+import { AppDataSource } from "../../config/data-source";
+import { Not } from "typeorm";
 
 export class ImagenServicioService implements IImagenServicioService {
-    constructor(private readonly repo: BaseRepository<ImagenServicio>) {}
+    constructor(private readonly repo: BaseRepository<ImagenServicio>) { }
 
     servicioRepo = new BaseRepository(Servicio);
 
@@ -80,4 +82,64 @@ export class ImagenServicioService implements IImagenServicioService {
         await this.repo.delete(imagen);
         return true;
     }
+
+    async updateImagenServicio(id: number, es_principal: boolean, orden?: number): Promise<ImagenServicioDTO> {
+        const imagen = await this.repo.findOneBy({ id }, ['servicio']);
+        if (!imagen) throw new NotFoundError("Imagen no encontrada");
+
+        const imagenRepo = AppDataSource.getRepository(ImagenServicio);
+
+        if (es_principal) {
+            await imagenRepo.update(
+                { servicio: { id: imagen.servicio.id }, id: Not(id) },
+                { es_principal: false }
+            );
+            imagen.es_principal = true;
+        }
+
+        if (orden !== undefined) {
+            const updated = await this.updateOrdenImagen(id, orden);
+            return updated;
+        }
+
+        const updated = await imagenRepo.save(imagen);
+        return toImagenServicioDTO(updated);
+    }
+
+    async updateOrdenImagen(id: number, nuevoOrden: number): Promise<ImagenServicioDTO> {
+        const imagen = await this.repo.findOneBy({ id }, ["servicio"]);
+        if (!imagen) throw new NotFoundError("Imagen no encontrada");
+
+        const imagenRepo = AppDataSource.getRepository(ImagenServicio);
+        const servicioId = imagen.servicio.id;
+        const imagenes = await imagenRepo.find({
+            where: { servicio: { id: servicioId } },
+            order: { orden: "ASC" },
+        });
+
+        const ordenActual = imagen.orden;
+
+
+        if (nuevoOrden < ordenActual) {
+            for (const img of imagenes) {
+                if (img.orden >= nuevoOrden && img.orden < ordenActual) {
+                    img.orden += 1; // desplazar hacia abajo
+                    await imagenRepo.save(img);
+                }
+            }
+        }
+        // Si el nuevo orden es mayor (baja)
+        else if (nuevoOrden > ordenActual) {
+            for (const img of imagenes) {
+                if (img.orden <= nuevoOrden && img.orden > ordenActual) {
+                    img.orden -= 1; // desplazar hacia arriba
+                    await imagenRepo.save(img);
+                }
+            }
+        }
+
+        imagen.orden = nuevoOrden;
+        return await imagenRepo.save(imagen);
+    }
+
 }
