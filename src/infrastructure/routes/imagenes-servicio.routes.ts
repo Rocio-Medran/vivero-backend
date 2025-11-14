@@ -13,6 +13,8 @@ const imagenCtrl = new ImagenesServicioController(imagenService);
 
 // GET /servicios/:servicioId/imagenes
 router.get('/servicios/:servicioId/imagenes', imagenCtrl.getByServicioId);
+// PUT /servicios/:servicioId/imagenes/orden
+router.put('/servicios/:servicioId/imagenes/orden', authMiddleware, imagenCtrl.updateOrden);
 // POST /servicios/:servicioId/imagenes/multiples (varias imágenes)
 router.post('/servicios/:servicioId/imagenes/multiples', authMiddleware, uploadMiddleware, imagenCtrl.createMany);
 // DELETE /imagenes-servicio/:id
