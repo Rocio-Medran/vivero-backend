@@ -120,7 +120,7 @@
 							"response": []
 						},
 						{
-							"name": "PUT Imagen de producto",
+							"name": "PUT Imagen principal",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -136,7 +136,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"es_principal\": true, // campo opcional\r\n  \"orden\": 1 // campo opcional\r\n}",
+									"raw": "{\r\n  \"es_principal\": true // campo opcional\r\n  //\"orden\": 1 // campo opcional\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -155,6 +155,117 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "PUT Orden de imagenes",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzA5MzEwNywiZXhwIjoxNzYzMTAwMzA3fQ.IfbjM2FE0Tu9LqbbYbDpBSYy8HpFnzxA7SmQMqbVnjY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"orden\": [1, 2]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/productos/1/imagenes/orden",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"productos",
+										"1",
+										"imagenes",
+										"orden"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Response",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"orden\": [1, 2]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/productos/1/imagenes/orden",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"productos",
+												"1",
+												"imagenes",
+												"orden"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "373"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"175-jXV6r6t5iLVAGmxGjOZHw51rt0Y\""
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Nov 2025 04:05:55 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"code\": \"ORDEN_ACTUALIZADO\",\n    \"message\": \"Imágenes reordenadas correctamente\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"url\": \"https://res.cloudinary.com/djssc9idq/image/upload/v1760057663/cajaMandarinas_cxmwpr.jpg\",\n            \"es_principal\": false,\n            \"orden\": 1\n        },\n        {\n            \"id\": 2,\n            \"url\": \"https://res.cloudinary.com/djssc9idq/image/upload/v1760057663/mandarinas-arbol_bmmkaw.jpg\",\n            \"es_principal\": true,\n            \"orden\": 2\n        }\n    ]\n}"
+								}
+							]
 						}
 					]
 				},
@@ -1278,7 +1389,7 @@
 							"response": []
 						},
 						{
-							"name": "PUT Imagen de servicio",
+							"name": "PUT Imagen principal",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1309,6 +1420,45 @@
 									"path": [
 										"imagenes-servicio",
 										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Orden de imagenes",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzA5MzEwNywiZXhwIjoxNzYzMTAwMzA3fQ.IfbjM2FE0Tu9LqbbYbDpBSYy8HpFnzxA7SmQMqbVnjY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"orden\": [2, 1]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/servicios/1/imagenes/orden",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"servicios",
+										"1",
+										"imagenes",
+										"orden"
 									]
 								}
 							},

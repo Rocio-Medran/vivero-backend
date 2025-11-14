@@ -24,6 +24,7 @@ const { getById, create, updateCompleto, update, remove } = ctrl;
 // Rutas de imágenes de producto
 router.get('/:productoId/imagenes', imagenCtrl.getByProductoId);
 router.post('/:productoId/imagenes/multiples', authMiddleware, uploadMiddleware, imagenCtrl.createMany);
+router.put('/:productoId/imagenes/orden', authMiddleware, imagenCtrl.updateOrden);
 
 router.get('/detalles', ctrl.getAllDetalles);
 router.get('/detalles/:id', ctrl.getDetallesById);

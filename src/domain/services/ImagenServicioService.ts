@@ -142,4 +142,41 @@ export class ImagenServicioService implements IImagenServicioService {
         return await imagenRepo.save(imagen);
     }
 
+    async reordenarImagenes(servicioId: number, nuevoOrden: number[]): Promise<ImagenServicioDTO[]> {
+        const repo = AppDataSource.getRepository(ImagenServicio);
+
+        const imagenes = await repo.find({
+            where: { servicio: { id: servicioId } },
+        });
+
+        if (imagenes.length === 0) {
+            throw new ValidationError("El producto no tiene imágenes.");
+        }
+
+        // Validar que todos los IDs del arreglo pertenecen al producto
+        const idsActuales = imagenes.map(img => img.id);
+
+        for (const id of nuevoOrden) {
+            if (!idsActuales.includes(id)) {
+                throw new ValidationError(`La imagen con ID ${id} no pertenece a este producto`);
+            }
+        }
+
+        // Aplicar el nuevo orden
+        for (let i = 0; i < nuevoOrden.length; i++) {
+            const img = imagenes.find(im => im.id === nuevoOrden[i]);
+            if (img) {
+                img.orden = i + 1; // Orden empieza desde 1
+                await repo.save(img);
+            }
+        }
+
+        // Recuperar actualizadas
+        const actualizadas = await repo.find({
+            where: { servicio: { id: servicioId } },
+            order: { orden: "ASC" }
+        });
+
+        return actualizadas.map(toImagenServicioDTO);
+    }
 }

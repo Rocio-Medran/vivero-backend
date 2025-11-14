@@ -95,8 +95,8 @@ export class ImagenProductoService implements IImagenProductoService {
         }
 
         if (orden !== undefined) {
-           const updated = await this.updateOrdenImagen(id, orden);
-           return updated;
+            const updated = await this.updateOrdenImagen(id, orden);
+            return updated;
         }
 
         const updated = await imagenRepo.save(imagen);
@@ -104,7 +104,7 @@ export class ImagenProductoService implements IImagenProductoService {
     }
 
     async updateOrdenImagen(id: number, nuevoOrden: number): Promise<ImagenProductoDTO> {
-        const imagen = await this.repo.findOneBy({ id },["producto"]);
+        const imagen = await this.repo.findOneBy({ id }, ["producto"]);
         if (!imagen) throw new NotFoundError("Imagen no encontrada");
 
         const imagenRepo = AppDataSource.getRepository(ImagenProducto);
@@ -138,6 +138,44 @@ export class ImagenProductoService implements IImagenProductoService {
 
         imagen.orden = nuevoOrden;
         return await imagenRepo.save(imagen);
+    }
+
+    async reordenarImagenes(productoId: number, nuevoOrden: number[]): Promise<ImagenProductoDTO[]> {
+        const repo = AppDataSource.getRepository(ImagenProducto);
+
+        const imagenes = await repo.find({
+            where: { producto: { id: productoId } },
+        });
+
+        if (imagenes.length === 0) {
+            throw new ValidationError("El producto no tiene imágenes.");
+        }
+
+        // Validar que todos los IDs del arreglo pertenecen al producto
+        const idsActuales = imagenes.map(img => img.id);
+
+        for (const id of nuevoOrden) {
+            if (!idsActuales.includes(id)) {
+                throw new ValidationError(`La imagen con ID ${id} no pertenece a este producto`);
+            }
+        }
+
+        // Aplicar el nuevo orden
+        for (let i = 0; i < nuevoOrden.length; i++) {
+            const img = imagenes.find(im => im.id === nuevoOrden[i]);
+            if (img) {
+                img.orden = i + 1; // Orden empieza desde 1
+                await repo.save(img);
+            }
+        }
+
+        // Recuperar actualizadas
+        const actualizadas = await repo.find({
+            where: { producto: { id: productoId } },
+            order: { orden: "ASC" }
+        });
+
+        return actualizadas.map(toImagenProductoDTO);
     }
 
 }

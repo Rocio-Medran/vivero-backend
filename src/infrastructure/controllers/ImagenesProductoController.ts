@@ -68,4 +68,25 @@ export class ImagenesProductoController {
             next(err);
         }
     };
+
+    // PUT /productos/:productoId/imagenes/orden
+    updateOrden = async (req: Request, res: Response, next: Function) => {
+        try {
+            const productoId = Number(req.params.productoId);
+            if (isNaN(productoId)) return next(new ValidationError("ID de producto inválido"));
+
+            const { orden } = req.body;
+
+            if (!Array.isArray(orden) || orden.length === 0) {
+                return next(new ValidationError("Debe enviar un arreglo de IDs de imágenes"));
+            }
+
+            const updated = await this.service.reordenarImagenes(productoId, orden);
+
+            return successResponse(res, "ORDEN_ACTUALIZADO", "Imágenes reordenadas correctamente", updated);
+        } catch (error) {
+            next(error);
+        }
+    };
+
 }

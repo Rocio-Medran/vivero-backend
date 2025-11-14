@@ -66,4 +66,23 @@ export class ImagenesServicioController {
             next(err);
         }
     };
+
+    // PUT /servicios/:servicioId/imagenes/orden
+    updateOrden = async (req: Request, res: Response, next: Function) => {
+        try {
+            const servicioId = Number(req.params.servicioId);
+            if (isNaN(servicioId)) return next(new ValidationError("ID de servicio inválido"));
+            const { orden } = req.body;
+
+            if (!Array.isArray(orden) || orden.length === 0) {
+                return next(new ValidationError("Debe enviar un arreglo de IDs de imágenes"));
+            }
+
+            const updated = await this.service.reordenarImagenes(servicioId, orden);
+
+            return successResponse(res, "ORDEN_ACTUALIZADO", "Imágenes reordenadas correctamente", updated);
+        } catch (error) {
+            next(error);
+        }
+    };
 }
