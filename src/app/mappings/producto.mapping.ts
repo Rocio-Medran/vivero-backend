@@ -26,6 +26,7 @@ export const toProductoConDetallesDTO = (entity: Producto): ProductoConDetallesD
         imagenes: entity.imagenes ? entity.imagenes.map(i => ({
             url: i.url,
             es_principal: i.es_principal,
+            es_ilustrativa: i.es_ilustrativa,
             orden: i.orden
         })) : []
     });
@@ -56,6 +57,7 @@ export const toProductoCompletoDTO = (entity: Producto): ProductoCompletoDTO =>
             id: i.id,
             url: i.url,
             es_principal: i.es_principal,
+            es_ilustrativa: i.es_ilustrativa,
             orden: i.orden
         })) : []
     });

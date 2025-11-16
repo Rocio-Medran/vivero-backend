@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { es } from "zod/v4/locales";
 
 
 export const CreateProductoSchema = z.object({
@@ -37,6 +38,7 @@ export const ProductoConDetallesSchema = z.object({
     imagenes: z.array(z.object({
         url: z.string(),
         es_principal: z.boolean().default(false),
+        es_ilustrativa: z.boolean(),
         orden: z.number().min(0)
     })).optional()
 });
@@ -62,6 +64,7 @@ export const ProductoCompletoSchema = z.object({
         id: z.number().min(1),
         url: z.string(),
         es_principal: z.boolean(),
+        es_ilustrativa: z.boolean(),
         orden: z.number()
     })).optional()
 });

@@ -32,6 +32,7 @@ export const ServicioConDetallesSchema = z.object({
   imagenes: z.array(z.object({
     url: z.string(),
     es_principal: z.boolean().default(false),
+    es_ilustrativa: z.boolean(),
     orden: z.number().min(0)
   })).optional()
 });
@@ -47,6 +48,7 @@ export const ServicioCompletoSchema = z.object({
     id: z.number().min(1),
     url: z.string(),
     es_principal: z.boolean().default(false),
+    es_ilustrativa: z.boolean(),
     orden: z.number().min(0)
   })).optional()
 });

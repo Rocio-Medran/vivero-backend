@@ -8,6 +8,7 @@ export const toImagenProductoDTO = (entity: ImagenProducto): ImagenProductoDTO =
         public_id: entity.public_id ?? undefined,
         url: entity.url,
         es_principal: entity.es_principal,
+        es_ilustrativa: entity.es_ilustrativa,
         orden: entity.orden
     });
 

@@ -8,6 +8,7 @@ export const toImagenServicioDTO = (entity: ImagenServicio): ImagenServicioDTO =
         url: entity.url,
         public_id: entity.public_id ?? undefined,
         es_principal: entity.es_principal,
+        es_ilustrativa: entity.es_ilustrativa,
         orden: entity.orden
     });
 

@@ -16,6 +16,7 @@ export class ImagenesServicioController {
                 id: img.id,
                 url: img.url,
                 es_principal: img.es_principal,
+                es_ilustrativa: img.es_ilustrativa,
                 orden: img.orden
             }));
             return successResponse(res, "IMAGENES_OBTENIDAS", "Imágenes obtenidas correctamente", result);
