@@ -18,6 +18,9 @@ export class ImagenServicio {
     @Column({ default: 0 })
     orden!: number;
 
+    @Column({ type: 'boolean', default: false })
+    es_ilustrativa!: boolean;
+
     @ManyToOne(() => Servicio, s => s.imagenes, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'servicio_id' })
     servicio!: Servicio;

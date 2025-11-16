@@ -28,6 +28,7 @@ export const toServicioConDetallesDTO = (entity: Servicio): ServicioConDetallesD
             id: i.id,
             url: i.url,
             es_principal: i.es_principal,
+            es_ilustrativa: i.es_ilustrativa,
             orden: i.orden
         })) : []
     },
@@ -49,6 +50,7 @@ export const toServicioCompletoDTO = (entity: Servicio): ServicioCompletoDTO =>
       id: i.id,
       url: i.url,
       es_principal: i.es_principal,
+      es_ilustrativa: i.es_ilustrativa,
       orden: i.orden
     })) : []
   });

@@ -20,6 +20,9 @@ export class ImagenProducto {
     @Column()
     orden!: number;
 
+    @Column({ type: 'boolean', default: false })
+    es_ilustrativa!: boolean;
+
     @ManyToOne(() => Producto, p => p.imagenes, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'producto_id' })
     producto!: Producto;

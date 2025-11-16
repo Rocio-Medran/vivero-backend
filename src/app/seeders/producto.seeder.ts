@@ -3,7 +3,8 @@ import { Producto } from "../../domain/entities/Producto";
 import { Categoria } from "../../domain/entities/Categoria";
 import { Temporada } from "../../domain/entities/Temporada";
 import { ImagenProducto } from "../../domain/entities/ImagenProducto";
-import { no } from "zod/v4/locales";
+import { es, no, tr, ur } from "zod/v4/locales";
+import { url } from "inspector";
 
 
 export async function seedProductos(dataSource: DataSource) {
@@ -41,8 +42,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 1,
       id_temporada: 1, // Noviembre - Diciembre
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057663/naranjas-fondoblanco_periet.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057662/naranja-enArbol_k7iw4j.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057663/naranjas-fondoblanco_periet.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057662/naranja-enArbol_k7iw4j.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -57,8 +64,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 1,
       id_temporada: 3, // Diciembre - Enero
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057664/tunas_q4zewf.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057665/tunas-enArbol_uel7hq.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057664/tunas_q4zewf.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057665/tunas-enArbol_uel7hq.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -73,8 +86,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 1,
       id_temporada: 4, // Noviembre - Diciembre - Enero
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057663/higos-enArbol_ptvtww.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057663/higos_ovo7iz.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057663/higos-enArbol_ptvtww.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057663/higos_ovo7iz.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -89,8 +108,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 5,
       id_temporada: 5, // Todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057913/vives_ano7rh.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057912/vives2_tfrhis.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057913/vives_ano7rh.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057912/vives2_tfrhis.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -106,7 +131,10 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 5,
       id_temporada: 5, // Todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057911/mandarino-criollo_mid3fw.png",
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057911/mandarino-criollo_mid3fw.png",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -121,7 +149,10 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 5,
       id_temporada: 5, // Todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057910/mandarino-clementinas_cugpdr.jpg",
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057910/mandarino-clementinas_cugpdr.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -136,7 +167,10 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 5,
       id_temporada: 5, // Todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057909/mandarino-marisol_zaje4f.jpg",
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057909/mandarino-marisol_zaje4f.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -151,7 +185,10 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 5,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057914/higuera_q42a8w.jpg",
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057914/higuera_q42a8w.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -166,8 +203,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057813/algarrobo1_o6ppca.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057813/algarrobo_al8ssb.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057813/algarrobo1_o6ppca.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057813/algarrobo_al8ssb.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -182,8 +225,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057812/aguaribay_sn2ytj.webp",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057812/aguaribay2_al04xh.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057812/aguaribay_sn2ytj.webp",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057812/aguaribay2_al04xh.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -199,8 +248,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057810/quebracho_dwkcrh.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057811/quebracho2_aulgn3.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057810/quebracho_dwkcrh.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057811/quebracho2_aulgn3.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -215,8 +270,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057810/tala_su7vnp.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057809/tala2_hi6vqb.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057810/tala_su7vnp.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057809/tala2_hi6vqb.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -231,8 +292,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057808/mistol_yd7yfq.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057808/mistol2_dijdkc.webp"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057808/mistol_yd7yfq.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057808/mistol2_dijdkc.webp",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -247,8 +314,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057807/cha%C3%B1ar_qno3l7.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057806/cha%C3%B1ar2_hgeooa.webp"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057807/cha%C3%B1ar_qno3l7.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057806/cha%C3%B1ar2_hgeooa.webp",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -263,8 +336,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 7,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057806/aromito_t7il6l.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057805/aromito2_rjuzi4.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057806/aromito_t7il6l.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057805/aromito2_rjuzi4.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -279,8 +358,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 8,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057869/paraiso_hdsuog.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057869/paraiso2_lczvrm.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057869/paraiso_hdsuog.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057869/paraiso2_lczvrm.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -295,8 +380,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 8,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057868/lapacho_nlgwwv.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057867/lapacho2_fge67r.webp"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057868/lapacho_nlgwwv.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057867/lapacho2_fge67r.webp",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -311,8 +402,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057767/cedron_qq0hsd.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057766/cedron2_goa4x7.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057767/cedron_qq0hsd.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057766/cedron2_goa4x7.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -327,8 +424,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057766/lavanda_vx3eec.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057765/lavanda2_yjhfsr.avif"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057766/lavanda_vx3eec.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057765/lavanda2_yjhfsr.avif",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -343,8 +446,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057765/romero_ucy6nz.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057764/romero2_ras6f7.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057765/romero_ucy6nz.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057764/romero2_ras6f7.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -359,8 +468,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 4,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057764/sertal_dubnwy.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057763/sertal2_z81wle.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057764/sertal_dubnwy.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057763/sertal2_z81wle.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -375,8 +490,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 6,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057894/rosas_grftrn.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057893/rosa-capullo_r3gdwb.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057894/rosas_grftrn.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057893/rosa-capullo_r3gdwb.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -391,8 +512,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 6,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057892/santaRita_jn6pdd.png",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057891/SantaRita2_v6nrue.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057892/santaRita_jn6pdd.png",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057891/SantaRita2_v6nrue.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -407,8 +534,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 6,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057890/hibiscus_ox7fwy.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057890/hibiscus_2_o7gvjl.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057890/hibiscus_ox7fwy.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057890/hibiscus_2_o7gvjl.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
     {
@@ -423,8 +556,14 @@ export async function seedProductos(dataSource: DataSource) {
       id_categoria: 6,
       id_temporada: 5, // todo el año
       imagenes: [
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057889/durantas_ka3ocl.jpg",
-        "https://res.cloudinary.com/djssc9idq/image/upload/v1760057889/durantas2_go1ris.jpg"
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057889/durantas_ka3ocl.jpg",
+          es_ilustrativa: true
+        },
+        {
+          url: "https://res.cloudinary.com/djssc9idq/image/upload/v1760057889/durantas2_go1ris.jpg",
+          es_ilustrativa: true
+        }
       ]
     },
   ];
@@ -449,11 +588,12 @@ export async function seedProductos(dataSource: DataSource) {
       });
       producto = await productoRepo.save(producto);
 
-      const imagenes = p.imagenes.map((url, index) =>
+      const imagenes = p.imagenes.map((img, index) =>
         imagenRepo.create({
-          url: url ?? "",
+          url: typeof img === 'string' ? img : img.url,
           es_principal: index === 0, // primera imagen principal
           orden: index + 1,
+          es_ilustrativa: typeof img === 'string' ? false : (img.es_ilustrativa ?? false),
           producto: producto!,
         })
       );

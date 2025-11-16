@@ -53,6 +53,7 @@ export class ImagenProductoService implements IImagenProductoService {
                 url,
                 public_id: uploadResult.public_id,
                 es_principal: esPrincipal,
+                es_ilustrativa: false,
                 orden: count + index + 1,
                 producto: producto
             } as ImagenProducto;
