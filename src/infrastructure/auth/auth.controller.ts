@@ -18,8 +18,8 @@ export class AuthController {
             // Seteamos refresh token en cookie HttpOnly
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                sameSite: 'lax',
-                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'none',
+                secure: true,
                 maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días
             });
             return successResponse(res, "LOGIN_OK", message, { token });
@@ -58,8 +58,8 @@ export class AuthController {
             // Limpiamos cookie
             res.clearCookie('refreshToken', {
                 httpOnly: true,
-                sameSite: 'lax',
-                secure: process.env.NODE_ENV === 'production'
+                sameSite: 'none',
+                secure: true
             });
             return successResponse(res, "LOGOUT_OK", "Logout exitoso", null);
         } catch (error) {
