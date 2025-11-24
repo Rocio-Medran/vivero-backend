@@ -35,14 +35,14 @@ export class ProductoService implements IProductoService {
         const nombreNormalizado = dto.nombre.trim().toLowerCase();
         const nombreExiste = await this.repo.findByNombre(nombreNormalizado);
         if (nombreExiste) {
-            throw new ConflictError("Ya existe un producto con este nombre");
+            throw new ConflictError("Ya existe un producto con ese nombre");
         }
 
         const categoria = await this.categoriaRepo.findOneBy({ id: dto.categoria_id });
-        if (!categoria) throw new NotFoundError("Categoría no existente");
+        if (!categoria) throw new NotFoundError("La categoría especificada no existe");
 
         const temporada = await this.temporadaRepo.findOneBy({ id: dto.temporada_id });
-        if (!temporada) throw new NotFoundError("Temporada no existente");
+        if (!temporada) throw new NotFoundError("La temporada especificada no existe");
 
         const producto = new Producto();
         producto.nombre = dto.nombre;
@@ -54,7 +54,7 @@ export class ProductoService implements IProductoService {
         const saved = await this.repo.add(producto);
 
         const dtoProducto = await this.repo.getById(saved.id, ["categoria", "temporada"]);
-        if (!dtoProducto) throw new ConflictError("Error al obtener producto");
+        if (!dtoProducto) throw new ConflictError("No se pudo obtener el producto luego de crearlo");
 
         return toProductoDTO(dtoProducto);
     }
@@ -65,13 +65,13 @@ export class ProductoService implements IProductoService {
 
         const nombreNormalizado = dto.nombre.trim().toLowerCase();
         const nombreExiste = await this.repo.findByNombre(nombreNormalizado);
-        if (nombreExiste && nombreExiste.id !== id) throw new ConflictError("Ya existe un producto con este nombre");
+        if (nombreExiste && nombreExiste.id !== id) throw new ConflictError("Ya existe un producto con ese nombre");
 
         const categoria = await this.categoriaRepo.findOneBy({ id: dto.categoria_id });
-        if (!categoria) throw new NotFoundError("Categoría no existente");
+        if (!categoria) throw new NotFoundError("La categoría especificada no existe");
 
         const temporada = await this.temporadaRepo.findOneBy({ id: dto.temporada_id });
-        if (!temporada) throw new NotFoundError("Temporada no existente");
+        if (!temporada) throw new NotFoundError("La temporada especificada no existe");
 
         producto.nombre = dto.nombre;
         producto.descripcion = dto.descripcion;
@@ -96,13 +96,13 @@ export class ProductoService implements IProductoService {
 
         if (dto.categoria_id !== undefined) {
             const categoria = await this.categoriaRepo.findOneBy({ id: dto.categoria_id });
-            if (!categoria) throw new NotFoundError("Categoria no existente");
+            if (!categoria) throw new NotFoundError("La categoría especificada no existe");
             producto.categoria = categoria;
         }
 
         if (dto.temporada_id !== undefined) {
             const temporada = await this.temporadaRepo.findOneBy({ id: dto.temporada_id });
-            if (!temporada) throw new NotFoundError("Temporada no existente");
+            if (!temporada) throw new NotFoundError("La temporada especificada no existe");
             producto.temporada = temporada;
         }
 
