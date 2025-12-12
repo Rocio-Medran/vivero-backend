@@ -13,6 +13,7 @@ import { RefreshToken } from '../domain/entities/RefreshToken';
 import { SobreNosotros } from '../domain/entities/SobreNosotros';
 import { Contacto } from '../domain/entities/Contacto';
 import { Encargado } from '../domain/entities/Encargado';
+import { PasswordResetToken } from '../domain/entities/PasswordResetToken';
 
 
 export const AppDataSource = new DataSource({
@@ -26,7 +27,8 @@ export const AppDataSource = new DataSource({
     Producto, Categoria, Temporada,
     Servicio, CategoriaServicio, ImagenProducto,
     ImagenServicio, Admin, RefreshToken,
-    SobreNosotros, Contacto, Encargado
+    SobreNosotros, Contacto, Encargado,
+    PasswordResetToken
   ],
   synchronize: true,
   logging: false
