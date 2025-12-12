@@ -9,7 +9,7 @@ dotenv.config();
 export async function seedAdmin(dataSource: DataSource) {
     const adminRepo = dataSource.getRepository(Admin);
 
-    const adminEmail = 'admin@example.com';
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
     const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
 
     if (!adminPassword) {

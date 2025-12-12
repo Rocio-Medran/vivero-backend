@@ -6,12 +6,11 @@ import { Request, Response } from "express";
 import { RefreshTokenService } from "../../domain/services/RefreshTokenService";
 import { signJwt } from "./jwt";
 import { refreshSchema } from "../../app/schemas/refresh.schema";
+import { forgotPasswordSchema, resetPasswordSchema } from "../../app/schemas/forgotPasswordSchema";
 
 
 export class AuthController {
-    private readonly isProd = process.env.NODE_ENV === 'production';
-
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
     async login(req: Request, res: Response, next: Function) {
         try {
@@ -20,8 +19,8 @@ export class AuthController {
             // Seteamos refresh token en cookie HttpOnly
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
-                sameSite: this.isProd ? 'none' : 'lax',
-                secure: this.isProd,
+                sameSite: 'lax',
+                secure: process.env.NODE_ENV === 'production',
                 maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días
             });
             return successResponse(res, "LOGIN_OK", message, { token });
@@ -60,10 +59,30 @@ export class AuthController {
             // Limpiamos cookie
             res.clearCookie('refreshToken', {
                 httpOnly: true,
-                sameSite: this.isProd ? 'none' : 'lax',
-                secure: this.isProd
+                sameSite: 'lax',
+                secure: process.env.NODE_ENV === 'production'
             });
             return successResponse(res, "LOGOUT_OK", "Logout exitoso", null);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async forgotPassword(req: Request, res: Response, next: Function) {
+        try {
+            const { email } = forgotPasswordSchema.parse(req.body);
+            await this.authService.forgotPassword(email);
+            return successResponse(res, "EMAIL_ENVIADO", "Si el correo existe, se ha enviado un email para restablecer la contraseña.", null);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async resetPassword(req: Request, res: Response, next: Function) {
+        try {
+            const { token, password } = resetPasswordSchema.parse(req.body);
+            await this.authService.resetPassword(token, password);
+            return successResponse(res, "CONTRASEÑA_ACTUALIZADA", "Contraseña actualizada correctamente.", null);
         } catch (error) {
             next(error);
         }
