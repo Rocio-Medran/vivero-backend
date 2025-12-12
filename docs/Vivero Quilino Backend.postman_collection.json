@@ -164,7 +164,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzA5MzEwNywiZXhwIjoxNzYzMTAwMzA3fQ.IfbjM2FE0Tu9LqbbYbDpBSYy8HpFnzxA7SmQMqbVnjY",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTc2MzQxOTg5MCwiZXhwIjoxNzYzNDI3MDkwfQ.lAjXIbVhl_2yzKZtMCOM7ISGicA4rjmR3o1t9zPi1dc",
 											"type": "string"
 										}
 									]
@@ -173,7 +173,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"orden\": [1, 2]\r\n}\r\n",
+									"raw": "{\r\n  \"orden\": [2, 1]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1762,6 +1762,60 @@
 							"path": [
 								"auth",
 								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"rociomedran9@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/auth/forgot-password",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"216c8bf45daf0fb8aff7c8959a3a49f52b711f8c9957661f7b9cbf292b3c6941d0337dc9f7b18a84\",\r\n  \"password\": \"NuevaPass123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/auth/reset-password",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
 							]
 						}
 					},
